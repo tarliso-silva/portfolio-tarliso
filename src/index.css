@@ -1,0 +1,424 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Portfolio Design System - Dark Mode Only */
+
+@layer base {
+  :root {
+    /* Dark mode only - sleek portfolio design */
+    --background: 0 0% 4%;
+    --foreground: 0 0% 98%;
+
+    --card: 0 0% 8%;
+    --card-foreground: 0 0% 98%;
+
+    --popover: 0 0% 8%;
+    --popover-foreground: 0 0% 98%;
+
+    /* Green accent like reference */
+    --primary: 142 71% 45%;
+    --primary-foreground: 0 0% 4%;
+
+    --secondary: 0 0% 12%;
+    --secondary-foreground: 0 0% 98%;
+
+    --muted: 0 0% 15%;
+    --muted-foreground: 0 0% 60%;
+
+    --accent: 142 71% 45%;
+    --accent-foreground: 0 0% 4%;
+
+    --destructive: 0 84.2% 60.2%;
+    --destructive-foreground: 0 0% 98%;
+
+    --border: 0 0% 18%;
+    --input: 0 0% 18%;
+    --ring: 142 71% 45%;
+
+    --radius: 1.25rem;
+
+    /* Custom tokens */
+    --card-highlight: 0 0% 10%;
+    --card-dark: 0 0% 7%;
+    --border-hover: 0 0% 25%;
+    --border-muted: 0 0% 20%;
+    --text-secondary: 0 0% 80%;
+    --text-tertiary: 0 0% 70%;
+    --badge-bg: 0 0% 15%;
+  }
+
+  .light {
+    --background: 0 0% 100%;
+    --foreground: 222 47% 11%;
+
+    --card: 0 0% 100%;
+    --card-dark: 210 40% 98%;
+    --card-foreground: 222 47% 11%;
+
+    --popover: 0 0% 100%;
+    --popover-foreground: 222 47% 11%;
+
+    --primary: 142 71% 45%;
+    --primary-foreground: 0 0% 100%;
+
+    --secondary: 210 40% 96.1%;
+    --secondary-foreground: 222 47% 11.2%;
+
+    --muted: 210 40% 96.1%;
+    --muted-foreground: 215.4 16.3% 46.9%;
+
+    --accent: 210 40% 96.1%;
+    --accent-foreground: 222 47% 11.2%;
+
+    --destructive: 0 84.2% 60.2%;
+    --destructive-foreground: 210 40% 98%;
+
+    --border: 214.3 31.8% 91.4%;
+    --border-hover: 214.3 31.8% 85%;
+    --border-muted: 214.3 31.8% 95%;
+    
+    --input: 214.3 31.8% 91.4%;
+    --ring: 142 71% 45%;
+
+    --card-highlight: 0 0% 100%;
+    --text-secondary: 215.4 16.3% 40%;
+    --text-tertiary: 215.4 16.3% 50%;
+    --badge-bg: 210 40% 94%;
+  }
+
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    @apply bg-background text-foreground font-sans antialiased;
+    font-family: 'Inter', system-ui, -apple-system, sans-serif;
+  }
+}
+
+@layer components {
+  /* Profile Card */
+  .profile-card {
+    @apply bg-card rounded-3xl p-6 flex flex-col items-center gap-4;
+    background: linear-gradient(180deg, hsl(var(--card-highlight)) 0%, hsl(var(--card-dark)) 100%);
+    border: 1px solid hsl(var(--border));
+  }
+
+  /* Experience/Project Cards */
+  .content-card {
+    @apply bg-card rounded-2xl p-5 transition-all duration-300;
+    border: 1px solid hsl(var(--border));
+  }
+
+  .content-card:hover {
+    border-color: hsl(var(--border-hover));
+    background: hsl(var(--card-highlight));
+  }
+
+  /* Section Header with Icon */
+  .section-header {
+    @apply flex items-center gap-3 mb-6;
+  }
+
+  .section-icon {
+    @apply w-10 h-10 rounded-xl flex items-center justify-center;
+    background: linear-gradient(135deg, hsl(var(--border)) 0%, hsl(var(--card-highlight)) 100%);
+  }
+
+  /* Stats Grid */
+  .stats-grid {
+    @apply grid grid-cols-2 md:grid-cols-4 gap-4;
+  }
+
+  .stat-item {
+    @apply text-center;
+  }
+
+  .stat-number {
+    @apply text-3xl md:text-4xl font-bold text-foreground;
+  }
+
+  .stat-number-small {
+    @apply text-lg md:text-xl font-semibold text-foreground;
+  }
+
+  .stat-label {
+    @apply text-sm text-muted-foreground mt-1;
+  }
+
+  /* Social Icon Button */
+  .social-icon {
+    @apply w-10 h-10 rounded-full flex items-center justify-center transition-all duration-300;
+    background: hsl(var(--border));
+    border: 1px solid hsl(var(--border-muted));
+  }
+
+  .social-icon:hover {
+    background: hsl(var(--primary));
+    border-color: hsl(var(--primary));
+    transform: scale(1.1);
+  }
+
+  .social-icon:hover svg {
+    color: hsl(var(--background));
+  }
+
+  /* Badge/Tag */
+  .badge-time {
+    @apply px-3 py-1.5 rounded-lg text-xs font-medium;
+    background: hsl(var(--border));
+    color: hsl(var(--text-tertiary));
+  }
+
+  /* Skill Card */
+  .skill-card {
+    @apply flex items-center gap-4 p-4 rounded-2xl transition-all duration-300;
+    background: hsl(var(--card));
+    border: 1px solid hsl(var(--border));
+  }
+
+  .skill-card:hover {
+    border-color: hsl(var(--border-hover));
+    background: hsl(var(--card-highlight));
+  }
+
+  .skill-icon {
+    @apply w-12 h-12 rounded-xl flex items-center justify-center;
+    background: linear-gradient(135deg, hsl(var(--border)) 0%, hsl(var(--card-highlight)) 100%);
+  }
+
+  /* Project Card */
+  .project-card {
+    @apply relative rounded-2xl overflow-hidden transition-all duration-500 cursor-pointer;
+    border: 1px solid hsl(var(--border));
+  }
+
+  .project-card:hover {
+    border-color: hsl(var(--primary) / 0.5);
+    transform: translateY(-4px);
+  }
+
+  .project-overlay {
+    @apply absolute inset-0 bg-gradient-to-t from-black/90 via-black/50 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 flex flex-col justify-end p-6;
+  }
+
+  /* Animated underline for links */
+  .link-underline {
+    @apply relative;
+  }
+
+  .link-underline::after {
+    content: '';
+    @apply absolute bottom-0 left-0 w-0 h-0.5 bg-primary transition-all duration-300;
+  }
+
+  .link-underline:hover::after {
+    @apply w-full;
+  }
+
+  /* Fade in animation */
+  .animate-fade-up {
+    animation: fadeUp 0.6s ease-out forwards;
+    opacity: 0;
+  }
+
+  @keyframes fadeUp {
+    from {
+      opacity: 0;
+      transform: translateY(20px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  /* Stagger animation delays */
+  .delay-100 { animation-delay: 100ms; }
+  .delay-200 { animation-delay: 200ms; }
+  .delay-300 { animation-delay: 300ms; }
+  .delay-400 { animation-delay: 400ms; }
+  .delay-500 { animation-delay: 500ms; }
+
+  /* Category Tabs */
+  .category-tab {
+    @apply px-4 py-2 rounded-xl text-sm font-medium transition-all duration-300 flex items-center gap-2;
+    background: hsl(var(--secondary));
+    color: hsl(var(--muted-foreground));
+    border: 1px solid hsl(var(--border));
+  }
+
+  .category-tab:hover {
+    background: hsl(var(--border));
+    color: hsl(var(--text-secondary));
+  }
+
+  .category-tab.active {
+    background: hsl(var(--primary));
+    color: hsl(var(--primary-foreground));
+    border-color: hsl(var(--primary));
+  }
+
+  /* Project Gallery Card */
+  .project-gallery-card {
+    @apply relative rounded-2xl overflow-hidden transition-all duration-500;
+    background: hsl(var(--card));
+    border: 1px solid hsl(var(--border));
+    animation: fadeUp 0.6s ease-out forwards;
+    opacity: 0;
+  }
+
+  .project-gallery-card:hover {
+    border-color: hsl(var(--primary) / 0.5);
+    transform: translateY(-4px);
+  }
+
+  /* Tag Mini */
+  .tag-mini {
+    @apply px-2 py-0.5 rounded text-xs;
+    background: hsl(var(--secondary));
+    color: hsl(var(--text-tertiary));
+  }
+
+  /* Stat Card */
+  .stat-card {
+    @apply text-center p-4 rounded-2xl;
+    background: hsl(var(--card));
+    border: 1px solid hsl(var(--border));
+  }
+
+  .stat-card .stat-value {
+    @apply text-2xl font-bold text-foreground;
+  }
+
+  .stat-card .stat-label {
+    @apply text-sm text-muted-foreground mt-1;
+  }
+
+  /* Tech Tag */
+  .tech-tag {
+    @apply px-3 py-1.5 rounded-lg text-sm font-medium;
+    background: hsl(var(--secondary));
+    color: hsl(var(--primary));
+    border: 1px solid hsl(var(--primary) / 0.3);
+  }
+
+  /* Line clamp */
+  .line-clamp-2 {
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+
+  /* Available to work badge */
+  .available-badge {
+    @apply inline-flex items-center gap-2 px-3 py-1.5 rounded-full text-sm font-medium;
+    background: hsl(142 71% 45% / 0.15);
+    color: hsl(142 71% 55%);
+    border: 1px solid hsl(142 71% 45% / 0.3);
+  }
+
+  /* Primary Button */
+  .btn-primary {
+    @apply inline-flex items-center gap-2 px-5 py-2.5 rounded-xl font-medium transition-all duration-300;
+    background: hsl(var(--primary));
+    color: hsl(var(--primary-foreground));
+  }
+
+  .btn-primary:hover {
+    background: hsl(142 60% 40%);
+    transform: translateY(-2px);
+  }
+
+  /* Secondary Button */
+  .btn-secondary {
+    @apply inline-flex items-center gap-2 px-5 py-2.5 rounded-xl font-medium transition-all duration-300;
+    background: hsl(var(--secondary));
+    color: hsl(var(--text-secondary));
+    border: 1px solid hsl(var(--border));
+  }
+
+  .btn-secondary:hover {
+    background: hsl(var(--border));
+    border-color: hsl(var(--border-hover));
+    color: hsl(var(--foreground));
+  }
+
+  /* Contact Card */
+  .contact-card {
+    @apply flex items-center gap-4 p-4 rounded-2xl transition-all duration-300;
+    background: hsl(var(--card));
+    border: 1px solid hsl(var(--border));
+  }
+
+  .contact-card:hover {
+    border-color: hsl(var(--primary) / 0.5);
+    background: hsl(var(--card-highlight));
+  }
+
+  .contact-icon {
+    @apply w-12 h-12 rounded-xl flex items-center justify-center shrink-0;
+    background: linear-gradient(135deg, hsl(var(--border)) 0%, hsl(var(--card-highlight)) 100%);
+  }
+
+  /* Social Link */
+  .social-link {
+    @apply px-4 py-2 rounded-lg text-sm font-medium transition-all duration-300;
+    background: hsl(var(--secondary));
+    color: hsl(var(--muted-foreground));
+    border: 1px solid hsl(var(--border));
+  }
+
+  .social-link:hover {
+    background: hsl(var(--primary));
+    color: hsl(var(--primary-foreground));
+    border-color: hsl(var(--primary));
+  }
+
+  /* Contact Info Item */
+  .contact-info-item {
+    @apply flex flex-col;
+  }
+
+  .contact-label {
+    @apply text-sm text-muted-foreground mb-1;
+  }
+
+  .contact-value {
+    @apply text-lg font-medium text-foreground;
+  }
+
+  /* Education Item */
+  .education-item {
+    @apply bg-card rounded-2xl p-5 transition-all duration-300;
+    border: 1px solid hsl(var(--border));
+  }
+
+  .education-item:hover {
+    border-color: hsl(var(--border-hover));
+    background: hsl(var(--card-highlight));
+  }
+}
+
+/* Global keyframes for page animations */
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(24px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}

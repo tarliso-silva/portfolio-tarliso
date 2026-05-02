@@ -16,7 +16,7 @@ if (!supabaseUrl || !supabaseKey) {
 
 const supabase = createClient(supabaseUrl, supabaseKey);
 
-const BASE_URL = 'https://www.waldoeller.com';
+const BASE_URL = 'https://tarlisodoria.com';
 
 async function generateSitemap() {
   try {

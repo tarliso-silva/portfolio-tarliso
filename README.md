@@ -38,8 +38,8 @@ Siga este passo a passo detalhado para clonar e rodar o seu próprio portfólio.
 Primeiro, obtenha o código fonte do repositório:
 
 ```bash
-git clone https://github.com/waldosouzaup/template-profissional-dados.git
-cd dark-mode-mirror
+git clone https://github.com/tarliso-silva/portfolio-tarliso.git
+cd portfolio-tarliso
 npm install
 ```
 
@@ -306,10 +306,10 @@ A seção de Tecnologias da página inicial possui um renderizador dinâmico ext
 
 Este projeto está sob a licença MIT. Sinta-se à vontade para clonar, modificar as estéticas e usar livremente para a sua própria apresentação técnica! No painel de administração, as ferramentas se tornam dinâmicas e de fácil uso.
 
-Desenvolvido por Waldo Eller para ajudar profissionais de tecnologia a apresentarem o que fazem de melhor aos recrutadores e clientes.
+Portfólio profissional de Tarliso Dória — Especialista em Dados, Business Intelligence e Governança de Dados.
 
-## 👨‍💻 Criador
+## 👨‍💻 Autor
 
-Este projeto foi desenvolvido e é mantido por **Waldo Eller**. Se você gostou deste template visite meu site oficial:
+Este portfólio foi desenvolvido por **Tarliso Dória**.
 
-👉 [**www.waldoeller.com**](https://www.waldoeller.com)
+👉 [**tarlisodoria.com**](https://tarlisodoria.com)

@@ -78,8 +78,8 @@ const SkillsSection = () => {
 
       {/* Skills Grid */}
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
-        {skills.map((skill, index) => (
-          <div key={index} className="skill-card">
+        {skills.map((skill) => (
+          <div key={skill.name} className="skill-card">
             <div className="skill-icon">
               <skill.icon className={`w-6 h-6 ${skill.color}`} />
             </div>

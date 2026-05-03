@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom";
 import { useProjects } from "@/hooks/useProjects";
-import { Plus, Pencil, Trash2, ExternalLink } from "lucide-react";
+import { Plus, Pencil, Trash2, ExternalLink, Zap } from "lucide-react";
 import { Button } from "@/components/ui/button";
 
 export default function AdminDashboard() {
@@ -98,8 +98,13 @@ export default function AdminDashboard() {
                           </Button>
                         </a>
                         <Link to={`/admin/projects/${project.id}`}>
-                          <Button variant="ghost" size="icon">
+                          <Button variant="ghost" size="icon" title="Editar projeto">
                             <Pencil className="w-4 h-4 text-muted-foreground" />
+                          </Button>
+                        </Link>
+                        <Link to={`/admin/projects/${project.id}/skills`}>
+                          <Button variant="ghost" size="icon" title="Vincular habilidades">
+                            <Zap className="w-4 h-4 text-muted-foreground" />
                           </Button>
                         </Link>
                         <Button 

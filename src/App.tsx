@@ -35,6 +35,11 @@ import AdminSettings from "./pages/admin/Settings";
 import CustomPagesDashboard from "./pages/admin/CustomPagesDashboard";
 import CustomPageForm from "./pages/admin/CustomPageForm";
 import CustomPageView from "./pages/CustomPageView";
+import SkillsDashboard from "./pages/admin/SkillsDashboard";
+import SkillForm from "./pages/admin/SkillForm";
+import ProjectSkillsForm from "./pages/admin/ProjectSkillsForm";
+import CertificationsDashboard from "./pages/admin/CertificationsDashboard";
+import CertificationForm from "./pages/admin/CertificationForm";
 import useDynamicFavicon from "./hooks/useDynamicFavicon";
 
 const queryClient = new QueryClient();
@@ -112,6 +117,17 @@ const App = () => (
             <Route path="technologies" element={<TechnologiesDashboard />} />
             <Route path="technologies/new" element={<TechnologyForm />} />
             <Route path="technologies/:id" element={<TechnologyForm />} />
+
+            {/* Skills */}
+            <Route path="skills" element={<SkillsDashboard />} />
+            <Route path="skills/new" element={<SkillForm />} />
+            <Route path="skills/:id" element={<SkillForm />} />
+            <Route path="projects/:id/skills" element={<ProjectSkillsForm />} />
+
+            {/* Certifications */}
+            <Route path="certifications" element={<CertificationsDashboard />} />
+            <Route path="certifications/new" element={<CertificationForm />} />
+            <Route path="certifications/:id" element={<CertificationForm />} />
             
             {/* Settings */}
             <Route path="settings" element={<AdminSettings />} />

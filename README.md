@@ -1,35 +1,33 @@
-# 🚀 Template para Profissionais de Dados & IA & TI
+# Portfólio — Tarliso Dória
+
+Portfólio profissional de Tarliso Dória — Especialista em Dados, Business Intelligence e Governança de Dados.
 
 ---
 
-Este projeto é um **template profissional de Portfólio e Blog**, construído com tecnologias modernas para oferecer uma experiência de "Dark Mode" elegante, gestão administrativa integrada e alta performance. Ideal para engenheiros de dados, desenvolvedores e entusiastas de IA que desejam uma presença online de impacto.
+### Funcionalidades
 
-![Template](https://ltgqjjxhkqunuiqxmfvl.supabase.co/storage/v1/object/public/portfolio/00-template.png)
+- **Dark/Light Mode**: Suporte a temas claros e escuros, configurável via painel administrativo.
+- **Personalização de Cores**: Escolha entre 6 paletas de cores de destaque (Verde, Azul, Roxo, Laranja, Rosa, Amarelo).
+- **Páginas Customizadas (CMS)**: Crie novas páginas dinâmicas com suporte a Markdown via admin (ex: `/p/seu-link`).
+- **Blog com Categorias**: Sistema de blog completo com Markdown, categorias filtráveis, tempo de leitura e índice interativo.
+- **Arquivos do Post**: Campo para vincular pastas do Google Drive com arquivos de apoio nos posts do blog.
+- **Branding Dinâmico**: Altere o ícone da Navbar diretamente no perfil usando qualquer ícone da biblioteca Lucide.
+- **Estatísticas Personalizáveis**: Configure números de projetos, anos de experiência e frases de impacto via painel admin.
+- **Formulário de Contato**: Envio de e-mails via Web3Forms (configurável via Admin).
+- **Biblioteca & Certificações**: Seções dinâmicas para exibir livros recomendados e cursos/certificações.
+- **Painel Administrativo**: Gestão completa com autenticação Supabase (Portfólio, Experiências, Educação, Livros, Cursos, Páginas, Perfil).
+- **SEO Otimizado**: Meta tags dinâmicas, JSON-LD e geração de sitemap.
+- **Performance**: Construído com Vite + React.
 
-### ✨ Funcionalidades
+### Tecnologias
 
-- 🌑 **Dark/Light Mode Premium**: Suporte total a temas claros e escuros, configurável via painel administrativo.
-- 🎨 **Personalização de Cores**: Escolha entre 6 paletas de cores de destaque premium (Verde, Azul, Roxo, Laranja, Rosa, Amarelo) que alteram instantaneamente a estética de todo o site.
-- 🏷️ **Páginas Customizadas (CMS)**: Crie novas páginas dinâmicas com suporte a Markdown diretamente pelo admin (ex: `/p/seu-link`).
-- 📝 **Blog Integrado com Categorias**: Sistema de blog completo com suporte a Markdown, categorias filtráveis, tempo de leitura estimado e índice interativo.
-- 📂 **Arquivos do Post**: Campo dedicado para vincular pastas do Google Drive com arquivos de apoio diretamente nos posts do blog.
-- 🏠 **Branding Dinâmico**: Altere o ícone de logo da Navbar diretamente no perfil usando qualquer ícone da biblioteca Lucide.
-- 📊 **Estatísticas Personalizáveis**: Configure números de projetos, anos de experiência e frases de impacto diretamente pelo painel administrativo na seção Hero.
-- ✉️ **Formulário de Contato Direto**: Envio de e-mails diretamente pelo site usando a integração com Web3Forms (configurável via Admin).
-- 📚 **Biblioteca & Certificações**: Seções dinâmicas para exibir livros que você recomenda e cursos/certificações extras.
-- 🛠️ **Painel Administrativo**: Gestão completa com autenticação Supabase para gerenciar Portfólio, Experiências, Educação, Livros, Cursos, Páginas Customizadas e Configurações de Perfil (incluindo Favicon).
-- 🔍 **SEO Otimizado**: Meta tags dinâmicas, Microdados Estruturados (JSON-LD) e geração pronta para sitemap para garantir visibilidade máxima nos motores de busca.
-- ⚡ **Performance Ultra**: Construído com Vite + React para carregamento instantâneo.
-
-### 🛠️ Tecnologias
-
-- **Frontend**: React 18, TypeScript, Tailwind CSS, Shadcn UI, Lucide React, Framer Motion (animações).
+- **Frontend**: React 18, TypeScript, Tailwind CSS, Shadcn UI, Lucide React.
 - **Backend/Database**: Supabase (PostgreSQL, Auth, Storage).
-- **Gerenciamento de Estado**: TanStack Query (React Query) e Zustand.
+- **Gerenciamento de Estado**: TanStack Query (React Query).
 
 ---
 
-## 🚀 Guia Completo de Setup & Instalação
+## Guia de Setup & Instalação
 
 Siga este passo a passo detalhado para clonar e rodar o seu próprio portfólio.
 
@@ -209,7 +207,7 @@ create policy "Allow authenticated CRUD" on courses for all to authenticated usi
 Ainda no Supabase Dashboard, navegue até a guia **Authentication > Users** e clique em **Add user** (Adicionar Usuário). 
 Crie a sua conta de Email e Senha. Este será o login que você usará para acessar o `/admin` do portfólio.
 
-#### 📂 Configurando o Storage (Imagens)
+#### Configurando o Storage (Imagens)
 
 Para que o upload de fotos de perfil e capas de projetos funcione:
 1. No painel do Supabase, vá em **Storage**.
@@ -249,7 +247,7 @@ Fazer o deploy para a nuvem é rápido e gratuito com plataformas como a Netlify
 
 Seu portfólio está configurado e responsivo, pronto para brilhar online.
 
-## ✉️ Configuração do Formulário de Contato (Web3Forms)
+## Configuração do Formulário de Contato (Web3Forms)
 
 O formulário de contato do portfólio está integrado ao **Web3Forms**, permitindo que você receba mensagens diretamente no seu e-mail sem a necessidade de um backend próprio. 
 
@@ -268,7 +266,7 @@ A partir de agora, todas as mensagens enviadas através da seção "Vamos Conver
 
 ---
 
-## 🎨 Gestão de Ícones (Experiências e Skills)
+## Gestão de Ícones (Experiências e Skills)
 
 Este template foi projetado para oferecer flexibilidade total na renderização de ícones para as suas tecnologias e experiências. Abaixo, explicamos como gerenciar e utilizar os ícones através do Painel Administrativo.
 
@@ -302,14 +300,14 @@ A seção de Tecnologias da página inicial possui um renderizador dinâmico ext
 
 ---
 
-## 📄 Licença (License)
+## Licença (MIT)
 
 Este projeto está sob a licença MIT. Sinta-se à vontade para clonar, modificar as estéticas e usar livremente para a sua própria apresentação técnica! No painel de administração, as ferramentas se tornam dinâmicas e de fácil uso.
 
 Portfólio profissional de Tarliso Dória — Especialista em Dados, Business Intelligence e Governança de Dados.
 
-## 👨‍💻 Autor
+## Autor
 
 Este portfólio foi desenvolvido por **Tarliso Dória**.
 
-👉 [**tarlisodoria.com**](https://tarlisodoria.com)
+[tarlisodoria.com](https://tarlisodoria.com)

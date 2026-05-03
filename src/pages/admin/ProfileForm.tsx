@@ -76,20 +76,14 @@ export default function ProfileForm() {
     
     try {
       if (profile) {
-        // Only include social fields if the columns already exist in the DB
-        // (detected by whether profile has the key, even if null).
-        const hasSocialCols = "linkedin_url" in profile;
-        const socialPayload = hasSocialCols
-          ? {
-              linkedin_url: formData.linkedin_url || null,
-              github_url: formData.github_url || null,
-              instagram_url: formData.instagram_url || null,
-              whatsapp_number: formData.whatsapp_number || null,
-            }
-          : {};
-
-        const { linkedin_url, github_url, instagram_url, whatsapp_number, ...baseFormData } = formData;
-        await updateProfile({ ...profile, ...baseFormData, ...socialPayload });
+        await updateProfile({
+          ...profile,
+          ...formData,
+          linkedin_url:    formData.linkedin_url    || null,
+          github_url:      formData.github_url      || null,
+          instagram_url:   formData.instagram_url   || null,
+          whatsapp_number: formData.whatsapp_number || null,
+        });
       }
     } catch (error) {
       console.error("Erro ao salvar perfil:", error);

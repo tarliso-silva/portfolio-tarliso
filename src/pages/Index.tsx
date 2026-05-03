@@ -1,6 +1,7 @@
 import ProfileCard from "@/components/portfolio/ProfileCard";
 import HeroSection from "@/components/portfolio/HeroSection";
 
+import { useState } from "react";
 import ProjectsSection from "@/components/portfolio/ProjectsSection";
 import SkillsSection from "@/components/portfolio/SkillsSection";
 import CertificationsSection from "@/components/portfolio/CertificationsSection";
@@ -11,6 +12,7 @@ import SEOHead from "@/components/SEOHead";
 import { useProfiles } from "@/hooks/useProfile";
 
 const Index = () => {
+  const [selectedSkill, setSelectedSkill] = useState<string | null>(null);
   const { data: profiles = [] } = useProfiles();
   const profile = profiles[0];
   
@@ -45,8 +47,8 @@ const Index = () => {
           <main className="lg:col-span-8 xl:col-span-9">
             <HeroSection />
 
-            <ProjectsSection />
-            <SkillsSection />
+            <SkillsSection selectedSkill={selectedSkill} onSkillSelect={setSelectedSkill} />
+            <ProjectsSection selectedSkillId={selectedSkill} onSkillChange={setSelectedSkill} />
             <CertificationsSection />
             <ContactSection />
             <FooterSection />

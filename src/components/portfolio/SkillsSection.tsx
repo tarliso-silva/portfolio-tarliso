@@ -1,4 +1,4 @@
-import { Zap, Code, Database, Cpu, Brain, Laptop, Server, Globe, Smartphone, Shield, Search, Terminal, Database as DbIcon, Code2, LucideIcon, Loader2, Table2, BarChart3, Cloud } from "lucide-react";
+import { Zap, Code, Database, Cpu, Brain, Laptop, Server, Globe, Smartphone, Shield, Search, Terminal, Database as DbIcon, Code2, Loader2, Table2, BarChart3, Cloud, X } from "lucide-react";
 import {
   SiPython, SiDocker, SiJavascript, SiTypescript, SiReact, SiHtml5, SiCss, SiTailwindcss,
   SiGit, SiGithub, SiFigma,
@@ -6,7 +6,7 @@ import {
   SiApacheairflow, SiApachespark, SiDatabricks, SiPandas,
   SiGooglecloud, SiN8N,
 } from "react-icons/si";
-import { useTechnologies } from "@/hooks/useTechnologies";
+import { useSkills } from "@/hooks/useSkills";
 
 const iconMap: Record<string, React.ElementType> = {
   // Ícones Lucide
@@ -44,17 +44,26 @@ const iconMap: Record<string, React.ElementType> = {
   "AWS": Cloud, "aws": Cloud, "SiAmazonwebservices": Cloud,
 };
 
-const SkillsSection = () => {
-  const { data: technologies = [], isLoading } = useTechnologies();
+interface SkillsSectionProps {
+  selectedSkill?: string | null;
+  onSkillSelect?: (id: string | null) => void;
+}
 
-  // Filtra tecnologias com descrição para exibição como habilidades
-  const skills = (technologies || [])
-    .map(tech => ({
-      icon: iconMap[tech.icon || "Zap"] || Zap,
-      name: tech.title,
-      description: tech.description,
-      color: tech.color || "text-primary",
-    }));
+const SkillsSection = ({ selectedSkill, onSkillSelect }: SkillsSectionProps) => {
+  const { data: skills = [], isLoading } = useSkills();
+
+  const mappedSkills = skills.map((skill) => ({
+    id: skill.id,
+    icon: iconMap[skill.icon || "Zap"] ?? Zap,
+    name: skill.name,
+    description: skill.description,
+    color: skill.color || "text-primary",
+  }));
+
+  const handleClick = (id: string) => {
+    if (!onSkillSelect) return;
+    onSkillSelect(selectedSkill === id ? null : id);
+  };
 
   if (isLoading) {
     return (
@@ -64,7 +73,7 @@ const SkillsSection = () => {
     );
   }
 
-  if (skills.length === 0) return null;
+  if (mappedSkills.length === 0) return null;
 
   return (
     <section className="animate-fade-up delay-400 mt-16">
@@ -74,21 +83,48 @@ const SkillsSection = () => {
           <Zap className="w-5 h-5 text-primary" />
         </div>
         <h3 className="text-xl font-semibold text-foreground">Habilidades e Tecnologias</h3>
+        {selectedSkill && onSkillSelect && (
+          <button
+            onClick={() => onSkillSelect(null)}
+            className="ml-auto flex items-center gap-1 text-xs text-muted-foreground hover:text-foreground transition-colors"
+          >
+            <X className="w-3 h-3" />
+            Limpar filtro
+          </button>
+        )}
       </div>
 
-      {/* Grade de habilidades */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
-        {skills.map((skill) => (
-          <div key={skill.name} className="skill-card">
-            <div className="skill-icon">
-              <skill.icon className={`w-6 h-6 ${skill.color}`} />
-            </div>
-            <div>
-              <h4 className="font-semibold text-foreground">{skill.name}</h4>
-              <p className="text-sm text-muted-foreground">{skill.description}</p>
-            </div>
-          </div>
-        ))}
+      {/* Grade de habilidades — máx 4 colunas */}
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
+        {mappedSkills.map((skill) => {
+          const isActive = selectedSkill === skill.id;
+          return (
+            <button
+              key={skill.id}
+              onClick={() => handleClick(skill.id)}
+              disabled={!onSkillSelect}
+              className={`skill-card text-left transition-all duration-200 ${
+                onSkillSelect ? "cursor-pointer" : "cursor-default"
+              } ${
+                isActive
+                  ? "border-primary/60 bg-primary/5 shadow-[0_0_12px_hsl(var(--primary)/0.15)]"
+                  : onSkillSelect
+                  ? "hover:border-primary/30 hover:bg-secondary/60"
+                  : ""
+              }`}
+            >
+              <div className="skill-icon">
+                <skill.icon className={`w-6 h-6 ${skill.color}`} />
+              </div>
+              <div>
+                <h4 className={`font-semibold ${isActive ? "text-primary" : "text-foreground"}`}>
+                  {skill.name}
+                </h4>
+                <p className="text-sm text-muted-foreground">{skill.description}</p>
+              </div>
+            </button>
+          );
+        })}
       </div>
     </section>
   );

@@ -4,8 +4,18 @@ import { Link } from "react-router-dom";
 import { useProjects, useProjectsBySkill } from "@/hooks/useProjects";
 import { useSkills } from "@/hooks/useSkills";
 
-const ProjectsSection = () => {
-  const [activeSkill, setActiveSkill] = useState<string | null>(null);
+interface ProjectsSectionProps {
+  /** ID de habilidade controlado externamente (ex: clique em SkillsSection). */
+  selectedSkillId?: string | null;
+  /** Callback para o pai atualizar o estado quando o filtro interno muda. */
+  onSkillChange?: (id: string | null) => void;
+}
+
+const ProjectsSection = ({ selectedSkillId, onSkillChange }: ProjectsSectionProps) => {
+  const [internalSkill, setInternalSkill] = useState<string | null>(null);
+
+  // Prop externa tem prioridade; caso ausente, usa estado interno
+  const activeSkill = selectedSkillId !== undefined ? selectedSkillId : internalSkill;
 
   const { data: allProjectsData, isLoading: loadingAll } = useProjects();
   const { data: skillProjects, isLoading: loadingSkill } = useProjectsBySkill(activeSkill);
@@ -16,7 +26,20 @@ const ProjectsSection = () => {
   const isLoading = activeSkill ? loadingSkill : loadingAll;
 
   const handleSkillClick = (skillId: string) => {
-    setActiveSkill((prev) => (prev === skillId ? null : skillId));
+    const next = activeSkill === skillId ? null : skillId;
+    if (selectedSkillId !== undefined) {
+      onSkillChange?.(next);
+    } else {
+      setInternalSkill(next);
+    }
+  };
+
+  const clearFilter = () => {
+    if (selectedSkillId !== undefined) {
+      onSkillChange?.(null);
+    } else {
+      setInternalSkill(null);
+    }
   };
 
   return (
@@ -49,7 +72,7 @@ const ProjectsSection = () => {
           ))}
           {activeSkill && (
             <button
-              onClick={() => setActiveSkill(null)}
+              onClick={clearFilter}
               className="px-3 py-1.5 rounded-full text-xs font-medium border border-border text-muted-foreground hover:text-foreground transition-colors"
             >
               Limpar filtro ×

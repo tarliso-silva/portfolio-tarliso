@@ -137,7 +137,7 @@ function ThemeSettings() {
               <RadioGroupItem value="dark" id="dark" className="sr-only" />
               <div className="flex flex-col items-center gap-2">
                 <Moon className={`w-6 h-6 ${theme === 'dark' ? 'text-primary' : 'text-muted-foreground'}`} />
-                <span className={`font-medium ${theme === 'dark' ? 'text-foreground' : 'text-muted-foreground'}`}>Dark Mode</span>
+                <span className={`font-medium ${theme === 'dark' ? 'text-foreground' : 'text-muted-foreground'}`}>Modo escuro</span>
               </div>
             </div>
             
@@ -145,7 +145,7 @@ function ThemeSettings() {
               <RadioGroupItem value="light" id="light" className="sr-only" />
               <div className="flex flex-col items-center gap-2">
                 <Sun className={`w-6 h-6 ${theme === 'light' ? 'text-primary' : 'text-muted-foreground'}`} />
-                <span className={`font-medium ${theme === 'light' ? 'text-foreground' : 'text-muted-foreground'}`}>Light Mode</span>
+                <span className={`font-medium ${theme === 'light' ? 'text-foreground' : 'text-muted-foreground'}`}>Modo claro</span>
               </div>
             </div>
           </RadioGroup>

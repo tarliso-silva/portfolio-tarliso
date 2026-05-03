@@ -13,7 +13,7 @@ export const useEducationList = () => {
       .order("display_order", { ascending: true });
 
     if (error) {
-      console.error("Error fetching education:", error);
+      console.error("Erro ao buscar formações:", error);
       throw new Error(error.message);
     }
 

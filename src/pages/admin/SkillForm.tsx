@@ -45,7 +45,7 @@ export default function SkillForm() {
       }
       navigate("/admin/skills");
     } catch (error) {
-      console.error("Error saving skill:", error);
+      console.error("Erro ao salvar habilidade:", error);
     }
   };
 

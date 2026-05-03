@@ -13,7 +13,7 @@ export const useTechnologies = () => {
       .order("created_at", { ascending: false });
     
     if (error) {
-      console.error("Error fetching technologies:", error);
+      console.error("Erro ao buscar tecnologias:", error);
       throw new Error(error.message);
     }
     

@@ -36,12 +36,12 @@ const Index = () => {
       />
       <div className="container mx-auto px-4 py-8 md:py-16">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12">
-          {/* Left Column - Profile Card */}
+          {/* Coluna esquerda: cartão de perfil */}
           <aside className="lg:col-span-4 xl:col-span-3">
             <ProfileCard />
           </aside>
 
-          {/* Right Column - Main Content */}
+          {/* Coluna direita: conteúdo principal */}
           <main className="lg:col-span-8 xl:col-span-9">
             <HeroSection />
 

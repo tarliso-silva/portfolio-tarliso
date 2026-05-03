@@ -13,7 +13,7 @@ export const useJourneyList = () => {
       .order("order_index", { ascending: true });
 
     if (error) {
-      console.error("Error fetching journey items:", error);
+      console.error("Erro ao buscar itens da jornada:", error);
       throw new Error(error.message);
     }
 

@@ -10,8 +10,9 @@ import { Input } from "@/components/ui/input";
 import { ImageUpload } from "@/components/admin/ImageUpload";
 import { ArrowLeft, Loader2, Plus, Trash2, Layout, Image as ImageIcon, Link as LinkIcon, FileText, BarChart, Settings } from "lucide-react";
 
-// Form schema adapting arrays to comma-separated strings for simpler UI
+// Schema do formulário adapta arrays para strings separadas por vírgula
 const FormSchema = ProjectSchema.extend({
+  id: z.string().optional().default(""),
   tags: z.string(),
   stack: z.string(),
   tools: z.string(),
@@ -80,10 +81,10 @@ export default function AdminProjectForm() {
     name: "stats",
   });
 
-  // Load data if editing
+  // Carrega dados em modo de edição
   useEffect(() => {
     if (isEditing && projectData) {
-      form.reset({
+      const formValues: FormValues = {
         ...projectData,
         tags: (projectData.tags || []).join(", "),
         stack: (projectData.stack || []).join(", "),
@@ -94,16 +95,19 @@ export default function AdminProjectForm() {
         results: (projectData.results || []).join(", "),
         nextSteps: (projectData.nextSteps || []).join(", "),
         tools: (projectData.tools || []).join(", "),
-      } as any);
+      };
+
+      form.reset(formValues);
     }
   }, [isEditing, projectData, form]);
 
   const onSubmit = async (values: FormValues) => {
     const splitComma = (str: string) => str.split(",").map((s) => s.trim()).filter(Boolean);
     
-    // Transform back to actual Project payload
+    // Converte de volta para o payload real de projeto
     const payload: Project = {
       ...values,
+      id: values.id || crypto.randomUUID(),
       tags: splitComma(values.tags),
       stack: splitComma(values.stack),
       tools: splitComma(values.tools),
@@ -169,8 +173,8 @@ export default function AdminProjectForm() {
           </div>
           <div className="glass-panel p-6 rounded-2xl grid grid-cols-1 md:grid-cols-3 gap-6">
             <div className="md:col-span-1">
-              <label className="block text-sm font-medium mb-1">ID (Slug único)*</label>
-              <Input {...form.register("id")} placeholder="ex: nocode-match" disabled={isEditing} />
+              <label className="block text-sm font-medium mb-1">ID</label>
+              <Input {...form.register("id")} placeholder="Gerado automaticamente" disabled />
               {form.formState.errors.id && <p className="text-red-500 text-xs mt-1">{form.formState.errors.id.message}</p>}
             </div>
             <div className="md:col-span-1">
@@ -305,7 +309,7 @@ export default function AdminProjectForm() {
             </div>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
               <div>
-                <label className="block text-sm font-medium mb-1">Technologies (Tags)</label>
+                <label className="block text-sm font-medium mb-1">Tecnologias (tags)</label>
                 <Input {...form.register("tags")} />
               </div>
               <div>
@@ -360,7 +364,7 @@ export default function AdminProjectForm() {
                   name="businessProblemImage"
                   render={({ field }) => (
                     <ImageUpload 
-                      label="Img: Business Problem"
+                      label="Imagem: Problema de Negócio"
                       value={field.value}
                       onChange={field.onChange}
                       path="projects/sections"
@@ -374,7 +378,7 @@ export default function AdminProjectForm() {
                   name="contextImage"
                   render={({ field }) => (
                     <ImageUpload 
-                      label="Img: Context"
+                      label="Imagem: Contexto"
                       value={field.value}
                       onChange={field.onChange}
                       path="projects/sections"
@@ -388,7 +392,7 @@ export default function AdminProjectForm() {
                   name="premisesImage"
                   render={({ field }) => (
                     <ImageUpload 
-                      label="Img: Premises"
+                      label="Imagem: Premissas"
                       value={field.value}
                       onChange={field.onChange}
                       path="projects/sections"
@@ -402,7 +406,7 @@ export default function AdminProjectForm() {
                   name="strategyImage"
                   render={({ field }) => (
                     <ImageUpload 
-                      label="Img: Strategy"
+                      label="Imagem: Estratégia"
                       value={field.value}
                       onChange={field.onChange}
                       path="projects/sections"
@@ -416,7 +420,7 @@ export default function AdminProjectForm() {
                   name="resultsImage"
                   render={({ field }) => (
                     <ImageUpload 
-                      label="Img: Results"
+                      label="Imagem: Resultados"
                       value={field.value}
                       onChange={field.onChange}
                       path="projects/sections"
@@ -430,7 +434,7 @@ export default function AdminProjectForm() {
                   name="nextStepsImage"
                   render={({ field }) => (
                     <ImageUpload 
-                      label="Img: Next Steps"
+                      label="Imagem: Próximos Passos"
                       value={field.value}
                       onChange={field.onChange}
                       path="projects/sections"

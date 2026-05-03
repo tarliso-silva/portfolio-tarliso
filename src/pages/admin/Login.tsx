@@ -43,7 +43,7 @@ export default function AdminLogin() {
           <div className="w-12 h-12 bg-primary/20 rounded-full flex items-center justify-center mb-4">
             <FolderOpen className="w-6 h-6 text-primary" />
           </div>
-          <h1 className="text-2xl font-bold text-foreground">Admin Login</h1>
+          <h1 className="text-2xl font-bold text-foreground">Login Administrativo</h1>
           <p className="text-muted-foreground text-sm mt-2">
             Área restrita de gestão de projetos.
           </p>

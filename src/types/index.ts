@@ -1,13 +1,13 @@
 /**
- * Barrel export for all application types and schemas.
+ * Exportação centralizada dos tipos e schemas da aplicação.
  *
- * Allows clean imports in new code:
+ * Permite imports centralizados em código novo:
  *   import { Profile, Project, Content } from "@/types";
  *
- * Existing imports using the full path still work unchanged.
+ * Imports existentes pelo caminho completo continuam funcionando.
  */
 
-// Database models (Zod schemas + inferred types)
+// Modelos de banco (schemas Zod + tipos inferidos)
 export type {
   Book,
   JourneyItem,
@@ -40,6 +40,6 @@ export {
   CertificationSchema,
 } from "./database";
 
-// Project view-model (camelCase shape used in UI)
+// View-model de projeto (camelCase usado na interface)
 export type { Project, ProjectCategory } from "./project";
 export { ProjectSchema, ProjectCategoryEnum } from "./project";

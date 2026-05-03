@@ -28,7 +28,7 @@ const FooterSection = () => {
   return (
     <footer className="animate-fade-up delay-500 mt-20 pt-10 border-t border-border">
       <div className="flex flex-col sm:flex-row items-center justify-between gap-6">
-        {/* Social Links */}
+        {/* Links sociais */}
         <div className="flex items-center gap-4">
           {socialLinks.map((social) => (
             <a
@@ -44,7 +44,7 @@ const FooterSection = () => {
           ))}
         </div>
 
-        {/* Copyright & Admin Link */}
+        {/* Copyright e link administrativo */}
         <div className="flex flex-col items-center sm:items-end gap-2 text-right">
           <p className="text-sm text-muted-foreground">
             © 2026 {profileName} | {currentFocus}

@@ -44,7 +44,7 @@ export default function BookForm() {
       }
       navigate("/admin/books");
     } catch (error) {
-      console.error("Error saving book:", error);
+      console.error("Erro ao salvar livro:", error);
     }
   };
 

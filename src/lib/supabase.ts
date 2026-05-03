@@ -1,7 +1,7 @@
 /**
- * Compatibility re-export.
- * The Supabase client now lives in "@/services/supabase".
- * This file is kept so existing imports ( "@/lib/supabase" ) continue to work.
+ * Reexportação de compatibilidade.
+ * O cliente Supabase fica em "@/services/supabase".
+ * Este arquivo mantém imports existentes por "@/lib/supabase" funcionando.
  */
 export { supabase } from "@/services/supabase";
 

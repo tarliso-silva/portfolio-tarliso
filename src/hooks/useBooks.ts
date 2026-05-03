@@ -13,7 +13,7 @@ export const useBooks = () => {
       .order("created_at", { ascending: false });
     
     if (error) {
-      console.error("Error fetching books:", error);
+      console.error("Erro ao buscar livros:", error);
       throw new Error(error.message);
     }
     

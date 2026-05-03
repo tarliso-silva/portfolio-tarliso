@@ -1,57 +1,51 @@
--- Remover constraint de foreign key se existir e criar tabela profiles
--- Primeiro, verifica se existe a constraint e remove
-DO $$
-BEGIN
-  -- Se a constraint existir, removê-la
-  IF EXISTS (SELECT 1 FROM information_schema.table_constraints WHERE constraint_name = 'profiles_id_fkey' AND table_name = 'profiles') THEN
-    ALTER TABLE profiles DROP CONSTRAINT profiles_id_fkey;
-  END IF;
-END $$;
+-- Cria a tabela profiles usada pelo portfólio de Tarliso Dória.
+-- Este script é mantido para ambientes que aplicam migrações incrementais.
 
--- Agora criar/atualizar a tabela
-DO $$ 
-BEGIN
-  IF NOT EXISTS (SELECT FROM information_schema.tables WHERE table_name = 'profiles') THEN
-    CREATE TABLE profiles (
-      id UUID PRIMARY KEY,
-      updated_at TIMESTAMPTZ DEFAULT NOW(),
-      full_name TEXT,
-      bio_summary TEXT,
-      bio_detailed TEXT,
-      phone TEXT DEFAULT '(61) 9 9116-1854',
-      email TEXT,
-      avatar_url TEXT,
-      location TEXT DEFAULT 'Brasília, DF',
-      current_focus TEXT DEFAULT 'Engenharia de Dados'
-    );
-    
-    -- Inserir registro inicial com ID válido (UUID vazio ou criar novo)
-    INSERT INTO profiles (id, full_name, bio_summary, bio_detailed, phone, email, avatar_url, location, current_focus)
-    VALUES (
-      '00000000-0000-0000-0000-000000000000',
-      'Paulo Martins',
-      'Engenheiro de Dados | Desenvolvedor Full Stack',
-      'Profissional com experiência em engenharia de dados, desenvolvimento web e soluções de IA.',
-      '(61) 9 9116-1854',
-      'contato@pmartinsimob.com.br',
-      '',
-      'Brasília, DF',
-      'Engenharia de Dados'
-    );
-  ELSE
-    IF NOT EXISTS (SELECT 1 FROM profiles LIMIT 1) THEN
-      INSERT INTO profiles (id, full_name, bio_summary, bio_detailed, phone, email, avatar_url, location, current_focus)
-      VALUES (
-        '00000000-0000-0000-0000-000000000000',
-        'Paulo Martins',
-        'Engenheiro de Dados | Desenvolvedor Full Stack',
-        'Profissional com experiência em engenharia de dados, desenvolvimento web e soluções de IA.',
-        '(61) 9 9116-1854',
-        'contato@pmartinsimob.com.br',
-        '',
-        'Brasília, DF',
-        'Engenharia de Dados'
-      );
-    END IF;
-  END IF;
-END $$;
+create table if not exists public.profiles (
+  id uuid primary key default gen_random_uuid(),
+  updated_at timestamptz default now(),
+  full_name text default 'Tarliso Dória',
+  bio_summary text,
+  bio_detailed text,
+  phone text,
+  email text,
+  avatar_url text,
+  location text,
+  current_focus text default 'Engenharia de Dados',
+  about_title text,
+  cv_url text,
+  favicon_url text,
+  hero_title text,
+  navbar_icon text default 'Database',
+  theme text default 'dark',
+  primary_color text default '142 71% 45%',
+  stat_1_number text default '+15',
+  stat_1_label text default 'Projetos Ativos',
+  stat_2_number text default '5+',
+  stat_2_label text default 'Anos de Experiência',
+  hero_phrase_start text default 'Dados são o',
+  hero_phrase_strike text default 'futuro',
+  hero_phrase_end text default 'presente.',
+  contact_form_key text
+);
+
+alter table public.profiles enable row level security;
+
+drop policy if exists "public_read_profiles" on public.profiles;
+drop policy if exists "authenticated_crud_profiles" on public.profiles;
+
+create policy "public_read_profiles"
+  on public.profiles for select
+  using (true);
+
+create policy "authenticated_crud_profiles"
+  on public.profiles for all to authenticated
+  using (true)
+  with check (true);
+
+insert into public.profiles (full_name, bio_summary, current_focus)
+select
+  'Tarliso Dória',
+  'Especialista em Dados, Business Intelligence e Governança de Dados.',
+  'Engenharia de Dados'
+where not exists (select 1 from public.profiles);

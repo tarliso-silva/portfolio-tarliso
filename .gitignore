@@ -9,8 +9,22 @@ lerna-debug.log*
 
 node_modules
 dist
+build
 dist-ssr
 *.local
+.env
+.env.*
+!.env.example
+
+# Arquivos de credenciais
+*.pem
+*.key
+*.crt
+*.p12
+*.pfx
+credentials.*
+secrets.*
+service-account*.json
 
 # Editor directories and files
 .vscode/*

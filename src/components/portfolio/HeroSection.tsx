@@ -30,14 +30,14 @@ const HeroSection = () => {
   const stat1Label = profile?.stat_1_label || "Projetos Ativos";
   const stat2Number = profile?.stat_2_number || "5+";
   const stat2Label = profile?.stat_2_label || "Anos de Experiência";
-  const phraseStart = profile?.hero_phrase_start || "Data is the";
-  const phraseStrike = profile?.hero_phrase_strike || "Future";
-  const phraseEnd = profile?.hero_phrase_end || "Present.";
+  const phraseStart = profile?.hero_phrase_start || "Dados são o";
+  const phraseStrike = profile?.hero_phrase_strike || "futuro";
+  const phraseEnd = profile?.hero_phrase_end || "presente.";
 
   return (
     <section className="animate-fade-up delay-100">
-      {/* Removed Available Badge */}
-      {/* Main Headline */}
+      {/* Badge de disponibilidade removido */}
+      {/* Título principal */}
       <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold leading-tight mb-2">
         {heroTitle}
       </h1>
@@ -45,12 +45,12 @@ const HeroSection = () => {
         {currentFocus}
       </h2>
       
-      {/* Pitch */}
+      {/* Resumo */}
       <p className="text-lg text-muted-foreground mt-6 max-w-2xl leading-relaxed">
         {bioSummary}
       </p>
 
-      {/* Action Buttons */}
+      {/* Botões de ação */}
       <div className="flex flex-wrap gap-4 mt-8">
         {cvUrl ? (
           <a href={cvUrl} target="_blank" rel="noopener noreferrer" className="btn-primary">
@@ -77,7 +77,7 @@ const HeroSection = () => {
         </Link>
       </div>
       
-      {/* Stats */}
+      {/* Estatísticas */}
       <div className="stats-grid mt-12">
         <div className="stat-item">
           <p className="stat-number">{stat1Number}</p>

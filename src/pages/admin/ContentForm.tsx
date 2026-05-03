@@ -69,7 +69,7 @@ export default function ContentForm() {
       }
       navigate("/admin/contents");
     } catch (error) {
-      console.error("Error saving content:", error);
+      console.error("Erro ao salvar conteúdo:", error);
     }
   };
 

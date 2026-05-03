@@ -13,7 +13,7 @@ export const useContents = () => {
       .order("created_at", { ascending: false });
     
     if (error) {
-      console.error("Error fetching contents:", error);
+      console.error("Erro ao buscar conteúdos:", error);
       throw new Error(error.message);
     }
     
@@ -96,7 +96,7 @@ export const useContent = (idOrSlug: string | undefined) => {
   const fetchContent = async (): Promise<Content | null> => {
     if (!idOrSlug) return null;
     
-    // Check if it's a UUID
+    // Verifica se o identificador é um UUID
     const isUuid = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i.test(idOrSlug);
     
     let query = supabase.from("contents").select("*");
@@ -137,7 +137,7 @@ export const useRelatedContents = (category: string | undefined | null, currentP
       .limit(3);
       
     if (error) {
-      console.error("Error fetching related contents:", error);
+      console.error("Erro ao buscar conteúdos relacionados:", error);
       throw new Error(error.message);
     }
     

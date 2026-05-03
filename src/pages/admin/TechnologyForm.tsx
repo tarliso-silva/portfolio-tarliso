@@ -59,7 +59,7 @@ export default function TechnologyForm() {
       }
       navigate("/admin/technologies");
     } catch (error) {
-      console.error("Error saving technology:", error);
+      console.error("Erro ao salvar tecnologia:", error);
     }
   };
 

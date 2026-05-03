@@ -13,7 +13,7 @@ export const useCourses = () => {
       .order("created_at", { ascending: false });
     
     if (error) {
-      console.error("Error fetching courses:", error);
+      console.error("Erro ao buscar cursos:", error);
       throw new Error(error.message);
     }
     

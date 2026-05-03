@@ -1,13 +1,13 @@
 /**
- * Barrel export for all application hooks.
+ * Exportação centralizada dos hooks da aplicação.
  *
- * Allows clean imports in new code:
+ * Permite imports centralizados em código novo:
  *   import { useProjects, useProfile } from "@/hooks";
  *
- * Existing imports using the full path still work unchanged.
+ * Imports existentes pelo caminho completo continuam funcionando.
  */
 
-// — Data hooks (Supabase / React Query) —
+// Hooks de dados (Supabase / React Query)
 export { useProfiles, useProfile } from "./useProfile";
 export { useProjects, useProject } from "./useProjects";
 export { useContents, useContent, useRelatedContents } from "./useContents";
@@ -20,6 +20,6 @@ export { useJourneyList } from "./useJourney";
 export { useTechnologies } from "./useTechnologies";
 export { useStorage } from "./useStorage";
 
-// — UI hooks —
+// Hooks de interface
 export { useIsMobile } from "./use-mobile";
 export { default as useDynamicFavicon } from "./useDynamicFavicon";

@@ -113,7 +113,7 @@ const App = () => (
             {/* Profile */}
             <Route path="profiles" element={<ProfileForm />} />
             
-            {/* Technologies */}
+            {/* Tecnologias */}
             <Route path="technologies" element={<TechnologiesDashboard />} />
             <Route path="technologies/new" element={<TechnologyForm />} />
             <Route path="technologies/:id" element={<TechnologyForm />} />

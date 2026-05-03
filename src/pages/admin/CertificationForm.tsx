@@ -47,7 +47,7 @@ export default function CertificationForm() {
       }
       navigate("/admin/certifications");
     } catch (error) {
-      console.error("Error saving certification:", error);
+      console.error("Erro ao salvar certificação:", error);
     }
   };
 
@@ -98,8 +98,7 @@ export default function CertificationForm() {
               <ImageUpload
                 value={formData.image_url}
                 onChange={(url) => setFormData({ ...formData, image_url: url })}
-                bucket="portfolio"
-                folder="certifications"
+                path="certifications"
               />
             </div>
 

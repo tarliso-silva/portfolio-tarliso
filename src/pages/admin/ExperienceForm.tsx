@@ -60,7 +60,7 @@ export default function ExperienceForm() {
       }
       navigate("/admin/experiences");
     } catch (error) {
-      console.error("Error saving experience:", error);
+      console.error("Erro ao salvar experiência:", error);
     }
   };
 

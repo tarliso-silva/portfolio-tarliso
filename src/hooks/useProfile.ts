@@ -13,7 +13,7 @@ export const useProfiles = () => {
       .limit(1);
     
     if (error) {
-      console.error("Error fetching profiles:", error);
+      console.error("Erro ao buscar perfis:", error);
       throw new Error(error.message);
     }
     

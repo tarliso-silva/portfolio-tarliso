@@ -53,7 +53,7 @@ export default function EducationForm() {
       }
       navigate("/admin/education");
     } catch (error) {
-      console.error("Error saving education:", error);
+      console.error("Erro ao salvar formação:", error);
     }
   };
 

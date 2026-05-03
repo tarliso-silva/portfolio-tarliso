@@ -78,9 +78,9 @@ export const ExperienceSchema = z.object({
   type: ExperienceTypeEnum,
   icon_type: IconTypeEnum.default("rocket"),
   title: z.string().min(1, "Title is required"),
-  institution: z.string().min(1, "Institution is required"), // Keeping as institution in DB for compatibility, but labeled as Company in UI
+  institution: z.string().min(1, "Institution is required"), // Mantido como institution para compatibilidade com o banco.
   description: z.string().optional(),
-  period: z.string().optional(), // New field for ranges like "2022 - Presente"
+  period: z.string().optional(), // Campo para intervalos como "2022 - Presente".
   display_order: z.number().default(0),
   created_at: z.string().datetime().optional(),
 });
@@ -95,10 +95,10 @@ export const ProfileSchema = z.object({
   full_name: z.string().optional(),
   bio_summary: z.string().optional(),
   bio_detailed: z.string().optional(),
-  phone: z.string().default("(61) 9 9116-1854"),
+  phone: z.string().optional(),
   email: z.string().optional(),
   avatar_url: z.string().optional(),
-  location: z.string().default("Brasília, DF"),
+  location: z.string().optional(),
   current_focus: z.string().default("Engenharia de Dados"),
   about_title: z.string().optional(),
   cv_url: z.string().optional(),
@@ -111,9 +111,9 @@ export const ProfileSchema = z.object({
   stat_1_label: z.string().default("Projetos Ativos"),
   stat_2_number: z.string().default("5+"),
   stat_2_label: z.string().default("Anos de Experiência"),
-  hero_phrase_start: z.string().default("Data is the"),
-  hero_phrase_strike: z.string().default("Future"),
-  hero_phrase_end: z.string().default("Present."),
+  hero_phrase_start: z.string().default("Dados são o"),
+  hero_phrase_strike: z.string().default("futuro"),
+  hero_phrase_end: z.string().default("presente."),
   contact_form_key: z.string().optional(),
 });
 

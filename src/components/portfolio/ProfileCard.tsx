@@ -26,7 +26,7 @@ const ProfileCard = () => {
 
   return (
     <div className="profile-card animate-fade-up lg:sticky lg:top-8">
-      {/* Profile Image */}
+      {/* Imagem de perfil */}
       <div className="w-full aspect-square rounded-2xl overflow-hidden bg-secondary mb-2">
         <img
           src={avatarUrl}
@@ -35,10 +35,10 @@ const ProfileCard = () => {
         />
       </div>
 
-      {/* Name */}
+      {/* Nome */}
       <h2 className="text-2xl font-bold text-foreground mt-2">{profileName}</h2>
 
-      {/* Social Links */}
+      {/* Links sociais */}
       <div className="flex items-center gap-3 mt-2">
         {socialLinks.map((social) => (
           <a

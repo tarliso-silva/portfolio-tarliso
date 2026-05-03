@@ -4,7 +4,7 @@ import { Project, ProjectSchema } from "@/types/project";
 import { toast } from "sonner";
 import { mapDbToProject, mapProjectToDb } from "@/lib/mappers/project";
 
-/** Fetches all published projects that have at least one linked skill */
+/** Busca projetos publicados com pelo menos uma habilidade vinculada */
 export const useProjectsBySkill = (skillId: string | null) => {
   return useQuery({
     queryKey: ["projects", "by-skill", skillId],
@@ -40,7 +40,7 @@ export const useProjects = () => {
       .order("display_order", { ascending: false });
     
     if (error) {
-      console.error("Error fetching projects:", error);
+      console.error("Erro ao buscar projetos:", error);
       throw new Error(error.message);
     }
     

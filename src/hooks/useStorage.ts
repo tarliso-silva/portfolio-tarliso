@@ -3,9 +3,9 @@ import { toast } from "sonner";
 import { uploadImage as uploadImageService } from "@/services/storage";
 
 /**
- * React hook wrapping the storage service.
- * Manages loading state and surfaces toast feedback.
- * For pure upload logic without React, use "@/services/storage" directly.
+ * Hook React que encapsula o serviço de storage.
+ * Gerencia estado de carregamento e mensagens por toast.
+ * Para upload sem React, use "@/services/storage" diretamente.
  */
 export const useStorage = () => {
   const [isUploading, setIsUploading] = useState(false);
@@ -23,7 +23,7 @@ export const useStorage = () => {
       return url;
     } catch (error: unknown) {
       const message = error instanceof Error ? error.message : "Erro desconhecido";
-      console.error("Storage Error:", error);
+      console.error("Erro no storage:", error);
       toast.error(`Erro no upload: ${message}`);
       return null;
     } finally {

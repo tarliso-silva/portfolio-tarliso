@@ -6,12 +6,12 @@ interface SEOHeadProps {
   canonical?: string;
   ogImage?: string;
   ogType?: "website" | "article" | "profile";
-  jsonLd?: Record<string, any>;
+  jsonLd?: Record<string, unknown>;
 }
 
 /**
- * Updates document <head> meta tags dynamically for SPA SEO.
- * Works with react-helmet-less SPAs by directly manipulating DOM.
+ * Atualiza dinamicamente as meta tags do <head> para SEO em SPA.
+ * Funciona sem react-helmet ao manipular o DOM diretamente.
  */
 const SEOHead = ({
   title,
@@ -22,13 +22,13 @@ const SEOHead = ({
   jsonLd,
 }: SEOHeadProps) => {
   useEffect(() => {
-    // Title
+    // Título
     const fullTitle = title.includes("Tarliso Dória")
       ? title
       : `${title} | Tarliso Dória`;
     document.title = fullTitle;
 
-    // Helper to set meta tags
+    // Utilitário para definir meta tags
     const setMeta = (attr: string, key: string, content: string) => {
       let el = document.querySelector(`meta[${attr}="${key}"]`) as HTMLMetaElement;
       if (!el) {
@@ -39,7 +39,7 @@ const SEOHead = ({
       el.setAttribute("content", content);
     };
 
-    // Standard meta
+    // Metadados padrão
     if (description) {
       setMeta("name", "description", description);
     }
@@ -58,7 +58,7 @@ const SEOHead = ({
     if (description) setMeta("property", "twitter:description", description);
     if (ogImage) setMeta("property", "twitter:image", ogImage);
 
-    // Canonical link
+    // Link canônico
     if (canonical) {
       let link = document.querySelector('link[rel="canonical"]') as HTMLLinkElement;
       if (!link) {
@@ -69,7 +69,7 @@ const SEOHead = ({
       link.setAttribute("href", canonical);
     }
 
-    // JSON-LD structured data
+    // Dados estruturados JSON-LD
     if (jsonLd) {
       const existingScript = document.getElementById("seo-jsonld");
       if (existingScript) existingScript.remove();
@@ -81,7 +81,7 @@ const SEOHead = ({
       document.head.appendChild(script);
     }
 
-    // Cleanup
+    // Limpeza
     return () => {
       const existingScript = document.getElementById("seo-jsonld");
       if (existingScript) existingScript.remove();

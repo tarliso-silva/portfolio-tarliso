@@ -21,7 +21,7 @@ const ProjectsSection = () => {
 
   return (
     <section className="animate-fade-up delay-300 mt-16">
-      {/* Section Header */}
+      {/* Cabeçalho da seção */}
       <div className="section-header">
         <div className="section-icon">
           <FolderOpen className="w-5 h-5 text-primary" />
@@ -31,7 +31,7 @@ const ProjectsSection = () => {
         </h3>
       </div>
 
-      {/* Skill Filter */}
+      {/* Filtro de habilidades */}
       {skills.length > 0 && (
         <div className="flex flex-wrap gap-2 mt-4 mb-6">
           {skills.map((skill) => (
@@ -68,7 +68,7 @@ const ProjectsSection = () => {
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
           {projects.map((project) => (
             <Link key={project.id} to={`/projects/${project.id}`} className="project-card group">
-              {/* Project Image */}
+              {/* Imagem do projeto */}
               <div className="aspect-[4/3] overflow-hidden">
                 <img
                   src={project.coverImage}
@@ -77,7 +77,7 @@ const ProjectsSection = () => {
                 />
               </div>
 
-              {/* Overlay */}
+              {/* Sobreposição */}
               <div className="project-overlay">
                 <div className="flex items-start justify-between gap-4">
                   <div>
@@ -97,7 +97,7 @@ const ProjectsSection = () => {
                 </div>
               </div>
 
-              {/* Always visible info on mobile */}
+              {/* Informações sempre visíveis no mobile */}
               <div className="p-4 md:hidden">
                 <h4 className="text-lg font-semibold text-foreground">{project.title}</h4>
                 <p className="text-sm text-muted-foreground mt-1">{project.shortDescription}</p>
@@ -114,7 +114,7 @@ const ProjectsSection = () => {
         </div>
       )}
 
-      {/* View All Link */}
+      {/* Link para ver todos */}
       <div className="mt-8 text-center">
         <Link
           to="/projects"

@@ -59,7 +59,7 @@ export default function CourseForm() {
       }
       navigate("/admin/courses");
     } catch (error) {
-      console.error("Error saving course:", error);
+      console.error("Erro ao salvar curso:", error);
     }
   };
 

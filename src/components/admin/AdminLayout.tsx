@@ -63,13 +63,13 @@ export default function AdminLayout() {
 
   return (
     <div className="min-h-screen bg-background flex flex-col md:flex-row">
-      {/* Sidebar */}
+      {/* Barra lateral */}
       <aside className="w-full md:w-64 bg-secondary/50 border-r border-border p-6 flex flex-col shrink-0">
         <div className="flex items-center gap-3 mb-10">
           <div className="w-8 h-8 bg-primary rounded flex items-center justify-center">
             <LayoutDashboard className="w-4 h-4 text-primary-foreground" />
           </div>
-          <span className="font-bold text-foreground">Admin Pro</span>
+          <span className="font-bold text-foreground">Painel Admin</span>
         </div>
 
         <nav className="flex-1 space-y-2">
@@ -97,7 +97,7 @@ export default function AdminLayout() {
         </div>
       </aside>
 
-      {/* Main Content */}
+      {/* Conteúdo principal */}
       <main className="flex-1 p-6 md:p-10 overflow-auto">
         <Outlet />
       </main>

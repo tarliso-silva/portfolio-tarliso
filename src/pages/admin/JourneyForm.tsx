@@ -50,7 +50,7 @@ export default function JourneyForm() {
       }
       navigate("/admin/journey");
     } catch (error) {
-      console.error("Error saving journey item:", error);
+      console.error("Erro ao salvar item da jornada:", error);
     }
   };
 

@@ -6,7 +6,7 @@ import { format } from "date-fns";
 import { ptBR } from "date-fns/locale";
 import SEOHead from "@/components/SEOHead";
 
-/** Estimate reading time from markdown text */
+/** Estima o tempo de leitura a partir do texto Markdown */
 const estimateReadingTime = (text?: string): number => {
   if (!text) return 1;
   const words = text.trim().split(/\s+/).length;
@@ -73,7 +73,7 @@ const Blog = () => {
         }}
       />
 
-      {/* HERO */}
+      {/* Destaque principal */}
       <section className="pt-32 pb-16 px-8 sm:px-12 lg:px-20 max-w-[1400px] mx-auto animate-[fadeInUp_0.6s_ease-out_both]">
         <div className="flex items-center gap-4 mb-6">
           <div className="w-12 h-12 rounded-full bg-primary/10 flex items-center justify-center">
@@ -88,7 +88,7 @@ const Blog = () => {
         </h1>
       </section>
 
-      {/* CATEGORIES NAVIGATION */}
+      {/* Navegação de categorias */}
       <section className="px-8 sm:px-12 lg:px-20 max-w-[1400px] mx-auto mb-12 animate-[fadeInUp_0.7s_ease-out_0.2s_both]">
         <div className="flex flex-wrap items-center gap-3">
           <button
@@ -127,7 +127,7 @@ const Blog = () => {
         </div>
       </section>
 
-      {/* BLOG GRID */}
+      {/* Grade do blog */}
       <div className="max-w-[1400px] mx-auto px-8 sm:px-12 lg:px-20 pb-40">
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
           {filteredContents.map((post, index) => {
@@ -139,7 +139,7 @@ const Blog = () => {
                 className="group relative bg-foreground/[0.015] border border-foreground/[0.04] rounded-2xl overflow-hidden hover:border-foreground/10 hover:bg-foreground/[0.025] transition-all duration-500 flex flex-col"
                 style={{ animation: `fadeInUp 0.5s ease-out ${index * 100}ms both` }}
               >
-                {/* Image Container */}
+                {/* Container da imagem */}
                 <div className="aspect-[16/9] w-full overflow-hidden bg-foreground/[0.02]">
                   {post.image_url ? (
                     <img 
@@ -155,7 +155,7 @@ const Blog = () => {
                   )}
                 </div>
 
-                {/* Content */}
+                {/* Conteúdo */}
                 <div className="p-8 flex-1 flex flex-col">
                   <div className="flex items-center gap-3 mb-4 flex-wrap">
                     <span className="text-[9px] font-bold tracking-[0.2em] uppercase text-primary border border-primary/20 bg-primary/5 px-2 py-1 rounded-sm">

@@ -70,7 +70,7 @@ const ContactSection = () => {
         setIsSending(false);
       }
     } else {
-      // Fallback to mailto if no key is configured
+      // Usa mailto quando nenhuma chave está configurada
       const subject = encodeURIComponent(`Contato via Portfólio - ${formData.name}`);
       const body = encodeURIComponent(
         `Nome: ${formData.name}\nEmail: ${formData.email}\n\nMensagem:\n${formData.message}`
@@ -88,7 +88,7 @@ const ContactSection = () => {
 
   return (
     <section id="contact" className="animate-fade-up delay-500 mt-20">
-      {/* Section Header */}
+      {/* Cabeçalho da seção */}
       <div className="section-header">
         <div className="section-icon">
           <Mail className="w-5 h-5 text-primary" />
@@ -96,7 +96,7 @@ const ContactSection = () => {
         <h3 className="text-xl font-semibold text-foreground">Vamos Conversar</h3>
       </div>
 
-      {/* Contact Info */}
+      {/* Informações de contato */}
       <div className="mb-6">
         <div className="contact-info-item">
           <span className="contact-label">Email</span>
@@ -106,10 +106,10 @@ const ContactSection = () => {
         </div>
       </div>
 
-      {/* Contact Form */}
+      {/* Formulário de contato */}
       <form onSubmit={handleSubmit} className="space-y-4">
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-          {/* Name */}
+          {/* Nome */}
           <div className="relative">
             <div className="absolute left-4 top-1/2 -translate-y-1/2 text-muted-foreground">
               <User className="w-4 h-4" />
@@ -148,7 +148,7 @@ const ContactSection = () => {
           </div>
         </div>
 
-        {/* Message */}
+        {/* Mensagem */}
         <div className="relative">
           <div className="absolute left-4 top-4 text-muted-foreground">
             <MessageSquare className="w-4 h-4" />
@@ -167,7 +167,7 @@ const ContactSection = () => {
           />
         </div>
 
-        {/* Submit Button */}
+        {/* Botão de envio */}
         <button
           type="submit"
           disabled={isSending}

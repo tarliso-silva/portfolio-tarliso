@@ -21,7 +21,7 @@ const EducationSection = () => {
 
   return (
     <section className="animate-fade-up delay-400 mt-16">
-      {/* Section Header */}
+      {/* Cabeçalho da seção */}
       <div className="section-header">
         <div className="section-icon">
           <GraduationCap className="w-5 h-5 text-primary" />
@@ -29,7 +29,7 @@ const EducationSection = () => {
         <h3 className="text-xl font-semibold text-foreground">Formação</h3>
       </div>
 
-      {/* Education Items */}
+      {/* Itens de formação */}
       <div className="space-y-4">
         {educationItems.map((edu, index) => (
           <div

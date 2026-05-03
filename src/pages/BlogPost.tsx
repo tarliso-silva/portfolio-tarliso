@@ -1,6 +1,6 @@
-import { useEffect, useRef, useState, useMemo } from "react";
+import { isValidElement, useEffect, useMemo, useRef, useState, type ReactNode } from "react";
 import { useParams, Link } from "react-router-dom";
-import ReactMarkdown from "react-markdown";
+import ReactMarkdown, { type Components } from "react-markdown";
 import { 
   ArrowLeft, 
   Calendar, 
@@ -19,7 +19,7 @@ import remarkGfm from "remark-gfm";
 import SEOHead from "@/components/SEOHead";
 
 /* ─────────────────────────────────────────────
-   SCROLL PROGRESS BAR
+   BARRA DE PROGRESSO DA ROLAGEM
  ───────────────────────────────────────────── */
 const ScrollProgress = () => {
   const [pct, setPct] = useState(0);
@@ -42,13 +42,13 @@ const ScrollProgress = () => {
 };
 
 /* ─────────────────────────────────────────────
-   COPY-CODE BLOCK
+   BLOCO DE CÓDIGO COM CÓPIA
  ───────────────────────────────────────────── */
 const CodeBlock = ({
   children,
   className,
 }: {
-  children?: React.ReactNode;
+  children?: ReactNode;
   className?: string;
 }) => {
   const [copied, setCopied] = useState(false);
@@ -89,8 +89,116 @@ const CodeBlock = ({
 };
 
 /* ─────────────────────────────────────────────
-   TABLE OF CONTENTS
+   SUMÁRIO
  ───────────────────────────────────────────── */
+type CodeElementProps = {
+  className?: string;
+  children?: ReactNode;
+};
+
+const sectionKeywords = [
+  "Problema",
+  "Contexto",
+  "Estratégia",
+  "Resultados",
+  "Solução",
+  "Objetivo",
+  "Tecnologias",
+  "Arquitetura",
+  "Conclusão",
+  "Próximos Passos",
+  "Impacto",
+  "Insights",
+];
+
+const getCodeElementProps = (children: ReactNode): CodeElementProps => {
+  if (isValidElement<CodeElementProps>(children)) {
+    return {
+      className: children.props.className,
+      children: children.props.children,
+    };
+  }
+
+  return { children };
+};
+
+const getTextFromNode = (children: ReactNode): string => {
+  if (typeof children === "string" || typeof children === "number") {
+    return String(children);
+  }
+
+  if (Array.isArray(children)) {
+    return children.map(getTextFromNode).join("");
+  }
+
+  if (isValidElement<{ children?: ReactNode }>(children)) {
+    return getTextFromNode(children.props.children);
+  }
+
+  return "";
+};
+
+const toHeadingId = (text: string) =>
+  text.toLowerCase().replace(/[^\w\s-]/g, "").replace(/\s+/g, "-");
+
+const markdownComponents: Components = {
+  h2: ({ children, ...props }) => {
+    const text = getTextFromNode(children);
+    const id = toHeadingId(text);
+
+    return (
+      <h2
+        id={id}
+        className="text-3xl font-light text-foreground/90 mt-20 mb-6 pb-5 border-b border-foreground/[0.06] scroll-mt-24"
+        {...props}
+      >
+        {children}
+      </h2>
+    );
+  },
+  h3: ({ children, ...props }) => {
+    const text = getTextFromNode(children);
+    const id = toHeadingId(text);
+
+    if (sectionKeywords.includes(text.trim())) {
+      return (
+        <h3
+          id={id}
+          className="!text-[10px] !font-bold !tracking-[0.25em] !uppercase !text-foreground/25 !mt-16 !mb-4 !leading-none uppercase scroll-mt-24"
+          {...props}
+        >
+          {children}
+        </h3>
+      );
+    }
+
+    return (
+      <h3 id={id} className="text-xl font-light text-foreground/75 mt-14 mb-4 scroll-mt-24" {...props}>
+        {children}
+      </h3>
+    );
+  },
+  pre: ({ children }) => {
+    const codeProps = getCodeElementProps(children);
+    return <CodeBlock className={codeProps.className}>{codeProps.children}</CodeBlock>;
+  },
+  code: ({ className, children }) => <code className={className}>{children}</code>,
+  p: ({ children, ...props }) => {
+    const text = getTextFromNode(children);
+
+    if (sectionKeywords.includes(text.trim()) && text.trim().length < 30) {
+      return (
+        <p className="!text-[10px] !font-bold !tracking-[0.25em] !uppercase !text-foreground/25 !mt-16 !mb-4 !leading-none">
+          {children}
+        </p>
+      );
+    }
+
+    return <p {...props}>{children}</p>;
+  },
+  img: ({ src, alt }) => <img src={src} alt={alt || ""} loading="lazy" />,
+};
+
 const TableOfContents = ({ markdown }: { markdown: string }) => {
   const headings = useMemo(() => {
     const lines = markdown.split("\n");
@@ -99,7 +207,7 @@ const TableOfContents = ({ markdown }: { markdown: string }) => {
       const match = line.match(/^(#{2,3})\s+(.+)/);
       if (match) {
         const text = match[2].trim();
-        const id = text.toLowerCase().replace(/[^\w\s-]/g, "").replace(/\s+/g, "-");
+        const id = toHeadingId(text);
         result.push({ level: match[1].length, text, id });
       }
     }
@@ -128,7 +236,7 @@ const TableOfContents = ({ markdown }: { markdown: string }) => {
   );
 };
 
-/** Estimate reading time from markdown text */
+/** Estima o tempo de leitura a partir do texto Markdown */
 const estimateReadingTime = (text?: string): number => {
   if (!text) return 1;
   const words = text.trim().split(/\s+/).length;
@@ -136,7 +244,7 @@ const estimateReadingTime = (text?: string): number => {
 };
 
 /* ─────────────────────────────────────────────
-   RELATED ARTICLES
+   ARTIGOS RELACIONADOS
  ───────────────────────────────────────────── */
 const RelatedArticles = ({ category, currentPostId }: { category: string; currentPostId: string }) => {
   const { data: relatedPosts, isLoading } = useRelatedContents(category, currentPostId);
@@ -251,7 +359,7 @@ const BlogPost = () => {
       />
       <ScrollProgress />
 
-      {/* HERO */}
+      {/* Destaque principal */}
       <section className="pt-24 pb-10 px-8 sm:px-12 lg:px-20 max-w-[1400px] mx-auto animate-[fadeInUp_0.6s_ease-out_both]">
         {post.image_url && (
           <div className="relative w-full rounded-2xl overflow-hidden mb-16 border border-border shadow-2xl bg-card">
@@ -308,7 +416,7 @@ const BlogPost = () => {
         </div>
       </section>
 
-      {/* CONTENT */}
+      {/* Conteúdo */}
       <div className="max-w-[1400px] mx-auto px-8 sm:px-12 lg:px-20 pb-40">
         <div className="lg:grid lg:grid-cols-[1fr_300px] gap-20">
           <main className="min-w-0">
@@ -363,45 +471,7 @@ const BlogPost = () => {
               ">
                 <ReactMarkdown
                   remarkPlugins={[remarkGfm]}
-                  components={{
-                    h2: ({ children, ...props }: any) => {
-                      const text = typeof children === "string" ? children : Array.isArray(children) ? children.map((c: any) => (typeof c === "string" ? c : "")).join("") : "";
-                      const id = text.toLowerCase().replace(/[^\w\s-]/g, "").replace(/\s+/g, "-");
-                      return <h2 id={id} className="text-3xl font-light text-foreground/90 mt-20 mb-6 pb-5 border-b border-foreground/[0.06] scroll-mt-24" {...props}>{children}</h2>;
-                    },
-                    h3: ({ children, ...props }: any) => {
-                      const text = typeof children === "string" ? children : Array.isArray(children) ? children.map((c: any) => (typeof c === "string" ? c : "")).join("") : "";
-                      const sectionKeywords = ["Problema", "Contexto", "Estratégia", "Resultados", "Solução", "Objetivo", "Tecnologias", "Arquitetura", "Conclusão", "Próximos Passos", "Impacto", "Insights"];
-                      const isSectionLabel = sectionKeywords.includes(text.trim());
-                      const id = text.toLowerCase().replace(/[^\w\s-]/g, "").replace(/\s+/g, "-");
-                      
-                      if (isSectionLabel) {
-                        return <h3 id={id} className="!text-[10px] !font-bold !tracking-[0.25em] !uppercase !text-foreground/25 !mt-16 !mb-4 !leading-none uppercase scroll-mt-24" {...props}>{children}</h3>;
-                      }
-                      return <h3 id={id} className="text-xl font-light text-foreground/75 mt-14 mb-4 scroll-mt-24" {...props}>{children}</h3>;
-                    },
-                    pre: ({ children }: any) => (
-                      <CodeBlock>{(children as any)?.props?.children}</CodeBlock>
-                    ),
-                    code: ({ inline, className, children }: any) =>
-                      inline ? (
-                        <code className={className}>{children}</code>
-                      ) : (
-                        <CodeBlock className={className}>{children}</CodeBlock>
-                      ),
-                    p: ({ children, ...props }: any) => {
-                      const text = typeof children === "string" ? children : Array.isArray(children) ? children.map((c: any) => (typeof c === "string" ? c : "")).join("") : "";
-                      const sectionKeywords = ["Problema", "Contexto", "Estratégia", "Resultados", "Solução", "Objetivo", "Tecnologias", "Arquitetura", "Conclusão", "Próximos Passos", "Impacto", "Insights"];
-                      
-                      if (sectionKeywords.includes(text.trim()) && text.trim().length < 30) {
-                        return <p className="!text-[10px] !font-bold !tracking-[0.25em] !uppercase !text-foreground/25 !mt-16 !mb-4 !leading-none">{children}</p>;
-                      }
-                      return <p {...props}>{children}</p>;
-                    },
-                    img: ({ src, alt, ...props }: any) => (
-                      <img src={src} alt={alt || ""} loading="lazy" {...props} />
-                    ),
-                  }}
+                  components={markdownComponents}
                 >
                   {post.markdown || ""}
                 </ReactMarkdown>
@@ -411,7 +481,7 @@ const BlogPost = () => {
 
           <aside className="hidden lg:block">
             <div className="sticky top-28 space-y-0">
-              {/* Table of Contents */}
+              {/* Sumário */}
               {post.markdown && <TableOfContents markdown={post.markdown} />}
 
               <div className="py-8 border-t border-foreground/[0.06]">
@@ -463,12 +533,12 @@ const BlogPost = () => {
           </aside>
         </div>
       </div>
-      {/* RELATED ARTICLES */}
+      {/* ARTIGOS RELACIONADOS */}
       {post.category && (
         <RelatedArticles category={post.category} currentPostId={post.id} />
       )}
       
-      {/* FOOTER CTA */}
+      {/* Chamada final */}
       <footer className="border-t border-foreground/[0.05] py-20 px-8 sm:px-12 lg:px-20 max-w-[1400px] mx-auto flex flex-col sm:flex-row items-center justify-between gap-8">
         <div>
           <p className="text-[10px] font-bold tracking-[0.3em] uppercase text-foreground/20 mb-2">Continue lendo</p>

@@ -33,6 +33,7 @@ export default function ProfileForm() {
     hero_phrase_strike: "",
     hero_phrase_end: "",
     contact_form_key: "",
+    navbar_icon: "Database",
   });
 
   useEffect(() => {
@@ -57,6 +58,7 @@ export default function ProfileForm() {
         hero_phrase_strike: profile.hero_phrase_strike || "",
         hero_phrase_end: profile.hero_phrase_end || "",
         contact_form_key: profile.contact_form_key || "",
+        navbar_icon: profile.navbar_icon || "Database",
       });
     }
   }, [profile]);
@@ -69,7 +71,7 @@ export default function ProfileForm() {
         await updateProfile({ ...profile, ...formData });
       }
     } catch (error) {
-      console.error("Error saving profile:", error);
+      console.error("Erro ao salvar perfil:", error);
     }
   };
 
@@ -163,7 +165,7 @@ export default function ProfileForm() {
                 <Input
                   value={formData.contact_form_key}
                   onChange={(e) => setFormData({ ...formData, contact_form_key: e.target.value })}
-                  placeholder="Seu Access Key do Web3Forms"
+                  placeholder="Sua chave de acesso do Web3Forms"
                   className="mt-1"
                 />
                 <p className="text-[10px] text-muted-foreground mt-1">
@@ -249,17 +251,17 @@ export default function ProfileForm() {
                   <Input
                     value={formData.hero_phrase_start}
                     onChange={(e) => setFormData({ ...formData, hero_phrase_start: e.target.value })}
-                    placeholder="Ex: Data is the"
+                    placeholder="Ex: Dados são o"
                   />
                   <Input
                     value={formData.hero_phrase_strike}
                     onChange={(e) => setFormData({ ...formData, hero_phrase_strike: e.target.value })}
-                    placeholder="Ex: Future"
+                    placeholder="Ex: futuro"
                   />
                   <Input
                     value={formData.hero_phrase_end}
                     onChange={(e) => setFormData({ ...formData, hero_phrase_end: e.target.value })}
-                    placeholder="Ex: Present."
+                    placeholder="Ex: presente."
                   />
                 </div>
                 <p className="text-[10px] text-muted-foreground">

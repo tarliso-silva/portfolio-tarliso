@@ -9,11 +9,11 @@ import {
 import { useTechnologies } from "@/hooks/useTechnologies";
 
 const iconMap: Record<string, React.ElementType> = {
-  // Lucide icons
+  // Ícones Lucide
   Zap, Code, Database, Cpu, Brain, Laptop, Server, Globe, Smartphone, Shield, Search, Terminal, Code2, Cloud,
   "Db": DbIcon, "Table": Table2, "BarChart": BarChart3,
 
-  // Brand icons (react-icons/si) with friendly aliases
+  // Ícones de marca (react-icons/si) com aliases amigáveis
   SiPython, "Python": SiPython, "python": SiPython,
   SiDocker, "Docker": SiDocker, "docker": SiDocker,
   SiJavascript, "JavaScript": SiJavascript, "javascript": SiJavascript, "js": SiJavascript,
@@ -37,7 +37,7 @@ const iconMap: Record<string, React.ElementType> = {
   SiGooglecloud, "GCP": SiGooglecloud, "gcp": SiGooglecloud, "GoogleCloud": SiGooglecloud,
   SiN8N, "n8n": SiN8N, "N8N": SiN8N,
 
-  // Fallback aliases for icons NOT in react-icons/si v5.6
+  // Aliases de fallback para Ícones ausentes em react-icons/si v5.6
   "Excel": Table2, "excel": Table2, "SiMicrosoftexcel": Table2,
   "PowerBI": BarChart3, "powerbi": BarChart3, "Power BI": BarChart3, "SiPowerbi": BarChart3,
   "Azure": Cloud, "azure": Cloud, "SiMicrosoftazure": Cloud,
@@ -47,7 +47,7 @@ const iconMap: Record<string, React.ElementType> = {
 const SkillsSection = () => {
   const { data: technologies = [], isLoading } = useTechnologies();
 
-  // Filter only technologies that have a description (these are the "Skills")
+  // Filtra tecnologias com descrição para exibição como habilidades
   const skills = (technologies || [])
     .map(tech => ({
       icon: iconMap[tech.icon || "Zap"] || Zap,
@@ -68,15 +68,15 @@ const SkillsSection = () => {
 
   return (
     <section className="animate-fade-up delay-400 mt-16">
-      {/* Section Header */}
+      {/* Cabeçalho da seção */}
       <div className="section-header">
         <div className="section-icon">
           <Zap className="w-5 h-5 text-primary" />
         </div>
-        <h3 className="text-xl font-semibold text-foreground">Skills & Tecnologias</h3>
+        <h3 className="text-xl font-semibold text-foreground">Habilidades e Tecnologias</h3>
       </div>
 
-      {/* Skills Grid */}
+      {/* Grade de habilidades */}
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
         {skills.map((skill) => (
           <div key={skill.name} className="skill-card">

@@ -8,7 +8,7 @@ export function ThemeProvider() {
   useEffect(() => {
     const root = window.document.documentElement;
     
-    // Apply Light/Dark class
+    // Aplica classe de tema claro/escuro
     if (profile?.theme === "light") {
       root.classList.add("light");
       root.classList.remove("dark");
@@ -17,13 +17,13 @@ export function ThemeProvider() {
       root.classList.remove("light");
     }
 
-    // Apply Custom Color if present
+    // Aplica cor customizada quando configurada
     if (profile?.primary_color) {
       root.style.setProperty("--primary", profile.primary_color);
       root.style.setProperty("--ring", profile.primary_color);
       root.style.setProperty("--accent", profile.primary_color);
     } else {
-      // Fallback green
+      // Verde padrão
       root.style.removeProperty("--primary");
       root.style.removeProperty("--ring");
       root.style.removeProperty("--accent");

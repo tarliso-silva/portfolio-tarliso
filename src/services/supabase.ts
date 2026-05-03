@@ -1,11 +1,11 @@
 /**
  * Supabase client — single instance for the entire application.
  *
- * Import this wherever you need direct Supabase access:
+ * Importe este módulo quando precisar de acesso direto ao Supabase:
  *   import { supabase } from "@/services/supabase";
  *
- * The legacy path "@/lib/supabase" is kept as a re-export shim
- * for backward compatibility with existing hooks and components.
+ * O caminho legado "@/lib/supabase" é mantido como reexportação
+ * para compatibilidade com hooks e componentes existentes.
  */
 import { createClient } from "@supabase/supabase-js";
 

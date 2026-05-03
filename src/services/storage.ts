@@ -1,9 +1,9 @@
 /**
  * Storage service — thin wrapper around Supabase Storage.
  *
- * Pure async functions with no React dependencies.
- * Import the React hook wrapper (useStorage) for components,
- * or use these directly in non-React contexts (scripts, tests, etc).
+ * Funções assíncronas sem dependências de React.
+ * Use o hook React (useStorage) em componentes,
+ * ou estas funções diretamente em contextos sem React (scripts, testes etc.).
  */
 import { supabase } from "@/services/supabase";
 
@@ -13,11 +13,11 @@ export interface UploadResult {
 }
 
 /**
- * Uploads an image file to Supabase Storage and returns the public URL.
+ * Envia uma imagem ao Supabase Storage e retorna a URL pública.
  *
- * @param file    - The File object to upload (must be an image)
- * @param bucket  - Supabase Storage bucket name (default: "portfolio")
- * @param path    - Folder path inside the bucket (default: "uploads")
+ * @param file    - Objeto File enviado (deve ser uma imagem)
+ * @param bucket  - Nome do bucket Supabase Storage (padrão: "portfolio")
+ * @param path    - Caminho da pasta dentro do bucket (padrão: "uploads")
  */
 export async function uploadImage(
   file: File,

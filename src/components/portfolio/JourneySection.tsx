@@ -29,12 +29,12 @@ export default function JourneySection() {
             className="relative flex items-center justify-between md:justify-normal md:odd:flex-row-reverse group"
             style={{ animationDelay: `${index * 100}ms`, animation: 'fadeInUp 0.5s ease-out both' }}
           >
-            {/* Timeline Dot */}
+            {/* Ponto da linha do tempo */}
             <div className="flex items-center justify-center w-8 h-8 rounded-full border-4 border-[#0a0a0a] bg-primary/20 text-primary absolute left-0 md:left-1/2 -translate-x-2.5 sm:-translate-x-3.5 md:-translate-x-1/2 shadow-[0_0_15px_rgba(34,197,94,0.3)] transition-transform duration-300 group-hover:scale-125 z-10">
               <Circle className="w-2.5 h-2.5 fill-primary" />
             </div>
             
-            {/* Content Card */}
+            {/* Cartão de conteúdo */}
             <div className="w-[calc(100%-3rem)] md:w-[calc(50%-2.5rem)] glass-panel p-6 rounded-2xl hover:bg-foreground/[0.03] transition-all duration-300 hover:border-primary/20 hover:shadow-[0_0_30px_rgba(34,197,94,0.05)]">
               <div className="flex flex-col gap-2">
                 <span className="inline-block px-3 py-1 bg-primary/10 text-primary text-[10px] font-bold tracking-widest uppercase rounded-full w-fit">

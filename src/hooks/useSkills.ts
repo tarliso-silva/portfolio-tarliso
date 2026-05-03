@@ -101,7 +101,7 @@ export const useSkill = (id: string | undefined) => {
   });
 };
 
-/** Returns skill IDs linked to a given project */
+/** Retorna IDs de habilidades vinculadas a um projeto */
 export const useProjectSkills = (projectId: string | undefined) => {
   return useQuery({
     queryKey: ["project_skills", projectId],
@@ -118,7 +118,7 @@ export const useProjectSkills = (projectId: string | undefined) => {
   });
 };
 
-/** Replaces all skill links for a project in a single transaction-like call */
+/** Substitui vínculos de habilidades de um projeto em uma operação sequencial */
 export const useSetProjectSkills = () => {
   const queryClient = useQueryClient();
   return useMutation({
@@ -129,7 +129,7 @@ export const useSetProjectSkills = () => {
       projectId: string;
       skillIds: string[];
     }) => {
-      // Delete existing links then insert new ones
+      // Remove vínculos existentes e insere os novos
       const { error: delError } = await supabase
         .from("project_skills")
         .delete()

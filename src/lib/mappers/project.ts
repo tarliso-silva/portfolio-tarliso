@@ -1,11 +1,11 @@
 /**
- * Mappers for the `projects` table.
+ * Mapeadores da tabela `projects`.
  *
  * - mapDbToProject  : snake_case DB row  → camelCase Project view-model
  * - mapProjectToDb  : camelCase Project  → snake_case DB row (for inserts/updates)
  *
- * Keeping transformations here separates data-shaping concerns from React Query
- * logic in useProjects.ts, making each part independently readable and testable.
+ * Manter transformações aqui separa modelagem de dados do React Query
+ * em useProjects.ts, mantendo cada parte legível e testável de forma isolada.
  */
 import type { Project } from "@/types/project";
 

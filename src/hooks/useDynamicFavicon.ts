@@ -2,8 +2,8 @@ import { useEffect } from "react";
 import { useProfiles } from "@/hooks/useProfile";
 
 /**
- * Dynamically updates the favicon based on the profile's favicon_url.
- * Falls back to `/favicon.png` if no custom favicon is set.
+ * Atualiza dinamicamente o favicon com base em favicon_url do perfil.
+ * Usa `/favicon.png` quando não há favicon customizado.
  */
 const useDynamicFavicon = () => {
   const { data: profiles = [] } = useProfiles();
@@ -13,7 +13,7 @@ const useDynamicFavicon = () => {
     const faviconUrl = profile?.favicon_url;
     if (!faviconUrl) return;
 
-    // Update all favicon link elements
+    // Atualiza todos os elementos de favicon
     const linkElements = document.querySelectorAll<HTMLLinkElement>(
       'link[rel="icon"], link[rel="shortcut icon"]'
     );
@@ -21,7 +21,7 @@ const useDynamicFavicon = () => {
     if (linkElements.length > 0) {
       linkElements.forEach((link) => {
         link.href = faviconUrl;
-        // Auto-detect type from URL
+        // Detecta o tipo a partir da URL
         if (faviconUrl.endsWith(".svg")) {
           link.type = "image/svg+xml";
         } else if (faviconUrl.endsWith(".ico")) {
@@ -31,7 +31,7 @@ const useDynamicFavicon = () => {
         }
       });
     } else {
-      // Create favicon link if it doesn't exist
+      // Cria o link do favicon quando ele não existe
       const link = document.createElement("link");
       link.rel = "icon";
       link.href = faviconUrl;

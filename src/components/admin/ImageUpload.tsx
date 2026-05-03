@@ -20,17 +20,17 @@ export const ImageUpload = ({ value, onChange, label, path = "general" }: ImageU
     const file = e.target.files?.[0];
     if (!file) return;
 
-    // Show local preview immediately
+    // Exibe prévia local imediatamente
     const localUrl = URL.createObjectURL(file);
     setPreview(localUrl);
 
-    // Upload to Supabase
+    // Envia para o Supabase
     const publicUrl = await uploadImage(file, "portfolio", path);
     if (publicUrl) {
       onChange(publicUrl);
       setPreview(publicUrl);
     } else {
-      setPreview(value); // revert on error
+      setPreview(value); // restaura em caso de erro
     }
   };
 
@@ -49,7 +49,7 @@ export const ImageUpload = ({ value, onChange, label, path = "general" }: ImageU
           <div className="relative w-full h-40 group rounded-xl overflow-hidden border border-border bg-secondary/30">
             <img 
               src={preview} 
-              alt="Preview" 
+              alt="Prévia" 
               className="w-full h-full object-contain"
             />
             <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center gap-2">

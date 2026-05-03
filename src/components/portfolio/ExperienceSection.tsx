@@ -18,7 +18,7 @@ const ExperienceSection = () => {
 
   return (
     <section className="animate-fade-up delay-200 mt-16">
-      {/* Section Header */}
+      {/* Cabeçalho da seção */}
       <div className="section-header">
         <div className="section-icon">
           <Briefcase className="w-5 h-5 text-primary" />
@@ -26,7 +26,7 @@ const ExperienceSection = () => {
         <h3 className="text-xl font-semibold text-foreground">Experiências</h3>
       </div>
 
-      {/* Experience Cards */}
+      {/* Cartões de experiência */}
       <div className="space-y-4">
         {experiences.map((exp, index) => {
           const IconComponent = IconMap[exp.icon_type as keyof typeof IconMap] || Briefcase;
@@ -38,12 +38,12 @@ const ExperienceSection = () => {
               style={{ animationDelay: `${(index + 3) * 100}ms` }}
             >
               <div className="flex items-start gap-4">
-                {/* Icon */}
+                {/* Ícone */}
                 <div className="w-12 h-12 rounded-xl bg-secondary flex items-center justify-center shrink-0">
                   <IconComponent className="w-6 h-6 text-primary" />
                 </div>
                 
-                {/* Content */}
+                {/* Conteúdo */}
                 <div className="flex-1 min-w-0">
                   <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2">
                     <div>

@@ -44,6 +44,10 @@ export const ProjectSchema = z.object({
   nextSteps: z.array(z.string()).default([]),
   
   // Text Sections
+  overview: z.string().default(""),
+  role: z.string().default(""),
+  methodology: z.string().default(""),
+  tools: z.array(z.string()).default([]),
   context: z.string().default(""),
   cardProblem: z.string().default(""),
   cardSolution: z.string().default(""),

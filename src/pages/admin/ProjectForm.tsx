@@ -14,6 +14,7 @@ import { ArrowLeft, Loader2, Plus, Trash2, Layout, Image as ImageIcon, Link as L
 const FormSchema = ProjectSchema.extend({
   tags: z.string(),
   stack: z.string(),
+  tools: z.string(),
   galleryImages: z.string(),
   premises: z.string(),
   strategy: z.string(),
@@ -56,6 +57,10 @@ export default function AdminProjectForm() {
       insights: "",
       results: "",
       nextSteps: "",
+      overview: "",
+      role: "",
+      methodology: "",
+      tools: "",
       context: "",
       cardProblem: "",
       cardSolution: "",
@@ -88,6 +93,7 @@ export default function AdminProjectForm() {
         insights: (projectData.insights || []).join(", "),
         results: (projectData.results || []).join(", "),
         nextSteps: (projectData.nextSteps || []).join(", "),
+        tools: (projectData.tools || []).join(", "),
       } as any);
     }
   }, [isEditing, projectData, form]);
@@ -100,6 +106,7 @@ export default function AdminProjectForm() {
       ...values,
       tags: splitComma(values.tags),
       stack: splitComma(values.stack),
+      tools: splitComma(values.tools),
       galleryImages: splitComma(values.galleryImages),
       premises: splitComma(values.premises),
       strategy: splitComma(values.strategy),
@@ -213,6 +220,25 @@ export default function AdminProjectForm() {
               <label className="block text-sm font-medium mb-1">Descrição Curta (Cards)</label>
               <Input {...form.register("shortDescription")} placeholder="Resumo rápido para a galeria" />
             </div>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+              <div>
+                <label className="block text-sm font-medium mb-1">Papel / Função</label>
+                <Input {...form.register("role")} placeholder="Ex: Analista de Dados, Engenheiro BI..." />
+              </div>
+              <div>
+                <label className="block text-sm font-medium mb-1">Ferramentas (sep. por vírgula)</label>
+                <Input {...form.register("tools")} placeholder="Power BI, SQL Server, dbt..." />
+              </div>
+            </div>
+            <div>
+              <label className="block text-sm font-medium mb-1">Visão Geral (Overview)</label>
+              <textarea
+                {...form.register("overview")}
+                rows={3}
+                className="flex w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50"
+                placeholder="Descrição geral do projeto — o que é, por que foi feito, qual o impacto esperado..."
+              />
+            </div>
             <div>
               <label className="block text-sm font-medium mb-1">Problema de Negócio (Descrição Longa)</label>
               <textarea 
@@ -244,6 +270,15 @@ export default function AdminProjectForm() {
             <div>
               <label className="block text-sm font-medium mb-1">Contexto</label>
               <textarea {...form.register("context")} rows={2} className="flex w-full rounded-md border border-input bg-background px-3 py-2 text-sm" />
+            </div>
+            <div>
+              <label className="block text-sm font-medium mb-1">Metodologia e Abordagem</label>
+              <textarea
+                {...form.register("methodology")}
+                rows={3}
+                className="flex w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50"
+                placeholder="Descreva o processo: coleta de dados, ETL, modelagem, arquitetura de solução..."
+              />
             </div>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
               <div>

@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=DM+Serif+Display:ital@0;1&display=swap');
 
 @tailwind base;
 @tailwind components;
@@ -114,6 +114,22 @@
     border: 1px solid hsl(var(--border));
   }
 
+  /* Avatar glow */
+  .avatar-glow {
+    box-shadow:
+      0 0 0 1px hsl(var(--primary) / 0.15),
+      0 0 32px hsl(var(--primary) / 0.1),
+      0 8px 32px rgba(0, 0, 0, 0.35);
+    transition: box-shadow 0.4s ease;
+  }
+
+  .avatar-glow:hover {
+    box-shadow:
+      0 0 0 1px hsl(var(--primary) / 0.35),
+      0 0 48px hsl(var(--primary) / 0.2),
+      0 8px 32px rgba(0, 0, 0, 0.4);
+  }
+
   /* Experience/Project Cards */
   .content-card {
     @apply bg-card rounded-2xl p-5 transition-all duration-300;
@@ -141,7 +157,14 @@
   }
 
   .stat-item {
-    @apply text-center;
+    @apply text-center p-4 rounded-2xl transition-all duration-300;
+    background: hsl(var(--card));
+    border: 1px solid hsl(var(--border));
+  }
+
+  .stat-item:hover {
+    transform: scale(1.02);
+    border-color: hsl(var(--border-hover));
   }
 
   .stat-number {
@@ -339,6 +362,7 @@
   .btn-primary:hover {
     background: hsl(142 60% 40%);
     transform: translateY(-2px);
+    box-shadow: 0 8px 24px hsl(var(--primary) / 0.25);
   }
 
   /* Secondary Button */
@@ -408,6 +432,12 @@
   .education-item:hover {
     border-color: hsl(var(--border-hover));
     background: hsl(var(--card-highlight));
+  }
+}
+
+@layer utilities {
+  .font-display {
+    font-family: 'DM Serif Display', Georgia, serif;
   }
 }
 

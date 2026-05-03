@@ -1,12 +1,6 @@
-import { Github, Linkedin, MessageCircle } from "lucide-react";
+import { Github, Linkedin, MessageCircle, Instagram } from "lucide-react";
 import { useProfiles } from "@/hooks/useProfile";
 import profilePhoto from "@/assets/profile-photo.jpg";
-
-const socialLinks = [
-  { icon: Github, href: "https://github.com/tarlisodoria", label: "GitHub" },
-  { icon: Linkedin, href: "https://linkedin.com/in/tarlisodoria", label: "LinkedIn" },
-  { icon: MessageCircle, href: "#", label: "WhatsApp" },
-];
 
 const ProfileCard = () => {
   const { data: profiles = [], isLoading } = useProfiles();
@@ -14,6 +8,15 @@ const ProfileCard = () => {
   
   const avatarUrl = profile?.avatar_url || profilePhoto;
   const profileName = profile?.full_name || "";
+  const phone = profile?.phone ?? "";
+  const whatsappHref = phone ? `https://wa.me/${phone.replace(/\D/g, "")}` : "#";
+
+  const socialLinks = [
+    { icon: Github,       href: "https://github.com/tarlisodoria",        label: "GitHub" },
+    { icon: Linkedin,     href: "https://linkedin.com/in/tarlisodoria",   label: "LinkedIn" },
+    { icon: Instagram,    href: "https://instagram.com/tarlisodoria",     label: "Instagram" },
+    { icon: MessageCircle, href: whatsappHref,                             label: "WhatsApp" },
+  ];
 
   if (isLoading) {
     return (
@@ -27,7 +30,7 @@ const ProfileCard = () => {
   return (
     <div className="profile-card animate-fade-up lg:sticky lg:top-8">
       {/* Imagem de perfil */}
-      <div className="w-full aspect-square rounded-2xl overflow-hidden bg-secondary mb-2">
+      <div className="w-full aspect-square rounded-2xl overflow-hidden bg-secondary mb-2 avatar-glow">
         <img
           src={avatarUrl}
           alt={profileName}

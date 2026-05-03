@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { useParams, useNavigate, Link } from "react-router-dom";
 import { useForm, useFieldArray, Controller } from "react-hook-form";
-import { zodResolver } from "@hookform/zod";
+import { zodResolver } from "@hookform/resolvers/zod";
 import * as z from "zod";
 import { useProjects, useProject } from "@/hooks/useProjects";
 import { useSkills, useProjectSkills, useSetProjectSkills } from "@/hooks/useSkills";

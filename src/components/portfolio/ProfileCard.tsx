@@ -1,4 +1,5 @@
 import { Github, Linkedin, MessageCircle, Instagram } from "lucide-react";
+import type React from "react";
 import { useProfiles } from "@/hooks/useProfile";
 import profilePhoto from "@/assets/profile-photo.jpg";
 
@@ -9,14 +10,15 @@ const ProfileCard = () => {
   const avatarUrl = profile?.avatar_url || profilePhoto;
   const profileName = profile?.full_name || "";
   const phone = profile?.phone ?? "";
-  const whatsappHref = phone ? `https://wa.me/${phone.replace(/\D/g, "")}` : "#";
+  const whatsappNum = profile?.whatsapp_number || phone;
+  const whatsappHref = whatsappNum ? `https://wa.me/${whatsappNum.replace(/\D/g, "")}` : "";
 
   const socialLinks = [
-    { icon: Github,       href: "https://github.com/tarlisodoria",        label: "GitHub" },
-    { icon: Linkedin,     href: "https://linkedin.com/in/tarlisodoria",   label: "LinkedIn" },
-    { icon: Instagram,    href: "https://instagram.com/tarlisodoria",     label: "Instagram" },
-    { icon: MessageCircle, href: whatsappHref,                             label: "WhatsApp" },
-  ];
+    profile?.github_url    && { icon: Github,        href: profile.github_url,    label: "GitHub" },
+    profile?.linkedin_url  && { icon: Linkedin,       href: profile.linkedin_url,  label: "LinkedIn" },
+    profile?.instagram_url && { icon: Instagram,      href: profile.instagram_url, label: "Instagram" },
+    whatsappHref           && { icon: MessageCircle,  href: whatsappHref,          label: "WhatsApp" },
+  ].filter(Boolean) as { icon: React.ElementType; href: string; label: string }[];
 
   if (isLoading) {
     return (

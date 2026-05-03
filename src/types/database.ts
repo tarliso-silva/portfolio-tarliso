@@ -115,6 +115,10 @@ export const ProfileSchema = z.object({
   hero_phrase_strike: z.string().default("futuro"),
   hero_phrase_end: z.string().default("presente."),
   contact_form_key: z.string().optional(),
+  linkedin_url: z.string().optional(),
+  github_url: z.string().optional(),
+  instagram_url: z.string().optional(),
+  whatsapp_number: z.string().optional(),
 });
 
 export type Profile = z.infer<typeof ProfileSchema>;

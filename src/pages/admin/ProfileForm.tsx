@@ -34,6 +34,10 @@ export default function ProfileForm() {
     hero_phrase_end: "",
     contact_form_key: "",
     navbar_icon: "Database",
+    linkedin_url: "",
+    github_url: "",
+    instagram_url: "",
+    whatsapp_number: "",
   });
 
   useEffect(() => {
@@ -59,6 +63,10 @@ export default function ProfileForm() {
         hero_phrase_end: profile.hero_phrase_end || "",
         contact_form_key: profile.contact_form_key || "",
         navbar_icon: profile.navbar_icon || "Database",
+        linkedin_url: profile.linkedin_url || "",
+        github_url: profile.github_url || "",
+        instagram_url: profile.instagram_url || "",
+        whatsapp_number: profile.whatsapp_number || "",
       });
     }
   }, [profile]);
@@ -267,6 +275,52 @@ export default function ProfileForm() {
                 <p className="text-[10px] text-muted-foreground">
                   A frase será montada como: [Início] [Riscado] [Fim]
                 </p>
+              </div>
+            </div>
+
+            {/* REDES SOCIAIS */}
+            <div className="space-y-4">
+              <h3 className="text-lg font-medium border-b border-border pb-2">Redes Sociais</h3>
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div>
+                  <label className="text-sm font-medium text-foreground">LinkedIn</label>
+                  <Input
+                    value={formData.linkedin_url}
+                    onChange={(e) => setFormData({ ...formData, linkedin_url: e.target.value })}
+                    placeholder="https://linkedin.com/in/seu-perfil"
+                    className="mt-1"
+                  />
+                </div>
+                <div>
+                  <label className="text-sm font-medium text-foreground">GitHub</label>
+                  <Input
+                    value={formData.github_url}
+                    onChange={(e) => setFormData({ ...formData, github_url: e.target.value })}
+                    placeholder="https://github.com/seu-usuario"
+                    className="mt-1"
+                  />
+                </div>
+                <div>
+                  <label className="text-sm font-medium text-foreground">Instagram</label>
+                  <Input
+                    value={formData.instagram_url}
+                    onChange={(e) => setFormData({ ...formData, instagram_url: e.target.value })}
+                    placeholder="https://instagram.com/seu-perfil"
+                    className="mt-1"
+                  />
+                </div>
+                <div>
+                  <label className="text-sm font-medium text-foreground">WhatsApp (número)</label>
+                  <Input
+                    value={formData.whatsapp_number}
+                    onChange={(e) => setFormData({ ...formData, whatsapp_number: e.target.value })}
+                    placeholder="5511999999999 (com DDI e DDD, sem espaços)"
+                    className="mt-1"
+                  />
+                  <p className="text-[10px] text-muted-foreground mt-1">
+                    Apenas dígitos com DDI (ex: 5511987654321). O link wa.me será gerado automaticamente.
+                  </p>
+                </div>
               </div>
             </div>
 

@@ -61,15 +61,19 @@ const HeroSection = () => {
   const cvUrl        = profile?.cv_url ?? "";
   const phone        = profile?.phone ?? "";
 
-  const stat1Label  = profile?.stat_1_label  ?? "Projetos Ativos";
-  const stat2Label  = profile?.stat_2_label  ?? "Anos de Experiência";
+  const linkedinUrl   = profile?.linkedin_url || "";
+  const githubUrl     = profile?.github_url || "";
+  const instagramUrl  = profile?.instagram_url || "";
+  const whatsappNum   = profile?.whatsapp_number || phone;
+  const whatsappHref  = whatsappNum
+    ? `https://wa.me/${whatsappNum.replace(/\D/g, "")}`
+    : "";
   const phraseStart  = profile?.hero_phrase_start  ?? "Dados são o";
   const phraseStrike = profile?.hero_phrase_strike ?? "futuro";
   const phraseEnd    = profile?.hero_phrase_end    ?? "presente."
 
-  const whatsappHref = phone
-    ? `https://wa.me/${phone.replace(/\D/g, "")}`
-    : "#contact";
+  const stat1Label  = profile?.stat_1_label  ?? "Projetos Ativos";
+  const stat2Label  = profile?.stat_2_label  ?? "Anos de Experiência";
 
   return (
     <section className="animate-fade-up delay-100">
@@ -125,56 +129,30 @@ const HeroSection = () => {
 
       {/* ── Social icons + secondary nav ──────────────────── */}
       <div className="flex items-center gap-2 mb-12 flex-wrap">
-        <a
-          href="https://linkedin.com/in/tarlisodoria"
-          target="_blank"
-          rel="noopener noreferrer"
-          className="social-icon"
-          aria-label="LinkedIn"
-        >
-          <Linkedin className="w-4 h-4 text-foreground transition-colors" />
-        </a>
-        <a
-          href="https://github.com/tarlisodoria"
-          target="_blank"
-          rel="noopener noreferrer"
-          className="social-icon"
-          aria-label="GitHub"
-        >
-          <Github className="w-4 h-4 text-foreground transition-colors" />
-        </a>
-        <a
-          href="https://instagram.com/tarlisodoria"
-          target="_blank"
-          rel="noopener noreferrer"
-          className="social-icon"
-          aria-label="Instagram"
-        >
-          <Instagram className="w-4 h-4 text-foreground transition-colors" />
-        </a>
-        <a
-          href={whatsappHref}
-          target="_blank"
-          rel="noopener noreferrer"
-          className="social-icon"
-          aria-label="WhatsApp"
-        >
-          <MessageCircle className="w-4 h-4 text-foreground transition-colors" />
-        </a>
+        {linkedinUrl && (
+          <a href={linkedinUrl} target="_blank" rel="noopener noreferrer" className="social-icon" aria-label="LinkedIn">
+            <Linkedin className="w-4 h-4 text-foreground transition-colors" />
+          </a>
+        )}
+        {githubUrl && (
+          <a href={githubUrl} target="_blank" rel="noopener noreferrer" className="social-icon" aria-label="GitHub">
+            <Github className="w-4 h-4 text-foreground transition-colors" />
+          </a>
+        )}
+        {instagramUrl && (
+          <a href={instagramUrl} target="_blank" rel="noopener noreferrer" className="social-icon" aria-label="Instagram">
+            <Instagram className="w-4 h-4 text-foreground transition-colors" />
+          </a>
+        )}
+        {whatsappHref && (
+          <a href={whatsappHref} target="_blank" rel="noopener noreferrer" className="social-icon" aria-label="WhatsApp">
+            <MessageCircle className="w-4 h-4 text-foreground transition-colors" />
+          </a>
+        )}
         <span className="w-px h-5 bg-border mx-2 shrink-0" />
-        <Link
-          to="/about"
-          className="text-sm text-muted-foreground hover:text-foreground transition-colors duration-200"
-        >
-          Sobre
-        </Link>
+        <Link to="/about" className="text-sm text-muted-foreground hover:text-foreground transition-colors duration-200">Sobre</Link>
         <span className="text-border text-sm select-none">·</span>
-        <Link
-          to="/blog"
-          className="text-sm text-muted-foreground hover:text-foreground transition-colors duration-200"
-        >
-          Blog
-        </Link>
+        <Link to="/blog" className="text-sm text-muted-foreground hover:text-foreground transition-colors duration-200">Blog</Link>
       </div>
 
       {/* ── Stats ─────────────────────────────────────────── */}

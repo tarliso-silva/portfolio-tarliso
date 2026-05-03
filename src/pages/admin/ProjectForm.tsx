@@ -1,14 +1,15 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useParams, useNavigate, Link } from "react-router-dom";
 import { useForm, useFieldArray, Controller } from "react-hook-form";
-import { zodResolver } from "@hookform/resolvers/zod";
+import { zodResolver } from "@hookform/zod";
 import * as z from "zod";
 import { useProjects, useProject } from "@/hooks/useProjects";
+import { useSkills, useProjectSkills, useSetProjectSkills } from "@/hooks/useSkills";
 import { ProjectSchema, Project, projectCategories, ProjectCategory } from "@/types/project";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { ImageUpload } from "@/components/admin/ImageUpload";
-import { ArrowLeft, Loader2, Plus, Trash2, Layout, Image as ImageIcon, Link as LinkIcon, FileText, BarChart, Settings } from "lucide-react";
+import { ArrowLeft, Loader2, Plus, Trash2, Layout, Image as ImageIcon, Link as LinkIcon, FileText, BarChart, Settings, Zap } from "lucide-react";
 
 // Schema do formulário adapta arrays para strings separadas por vírgula
 const FormSchema = ProjectSchema.extend({
@@ -33,6 +34,12 @@ export default function AdminProjectForm() {
 
   const { createProject, updateProject, isCreating, isUpdating } = useProjects();
   const { data: projectData, isLoading: isLoadingProject } = useProject(id);
+
+  // Skills
+  const { data: allSkills = [] } = useSkills();
+  const { data: linkedSkillIds = [] } = useProjectSkills(isEditing ? id : undefined);
+  const setProjectSkills = useSetProjectSkills();
+  const [selectedSkillIds, setSelectedSkillIds] = useState<string[]>([]);
 
   const form = useForm<FormValues>({
     resolver: zodResolver(FormSchema),
@@ -81,6 +88,19 @@ export default function AdminProjectForm() {
     name: "stats",
   });
 
+  // Sincroniza skills vinculadas quando o projeto é carregado
+  useEffect(() => {
+    if (linkedSkillIds.length > 0) {
+      setSelectedSkillIds(linkedSkillIds);
+    }
+  }, [linkedSkillIds]);
+
+  const toggleSkill = (skillId: string) => {
+    setSelectedSkillIds((prev) =>
+      prev.includes(skillId) ? prev.filter((s) => s !== skillId) : [...prev, skillId]
+    );
+  };
+
   // Carrega dados em modo de edição
   useEffect(() => {
     if (isEditing && projectData) {
@@ -105,9 +125,10 @@ export default function AdminProjectForm() {
     const splitComma = (str: string) => str.split(",").map((s) => s.trim()).filter(Boolean);
     
     // Converte de volta para o payload real de projeto
+    const projectId = values.id || crypto.randomUUID();
     const payload: Project = {
       ...values,
-      id: values.id || crypto.randomUUID(),
+      id: projectId,
       tags: splitComma(values.tags),
       stack: splitComma(values.stack),
       tools: splitComma(values.tools),
@@ -124,6 +145,10 @@ export default function AdminProjectForm() {
     } else {
       await createProject(payload);
     }
+
+    // Salva vínculos de habilidades (CREATE e UPDATE)
+    await setProjectSkills.mutateAsync({ projectId, skillIds: selectedSkillIds });
+
     navigate("/admin");
   };
 
@@ -492,6 +517,52 @@ export default function AdminProjectForm() {
                 </div>
               ))}
             </div>
+          </div>
+        </section>
+
+        {/* Seção 6: Habilidades (Skills) */}
+        <section className="space-y-4">
+          <div className="flex items-center gap-2 text-primary font-semibold mb-2">
+            <Zap className="w-5 h-5" />
+            <h2>Habilidades Relacionadas</h2>
+            {selectedSkillIds.length > 0 && (
+              <span className="ml-auto text-xs font-medium px-2 py-0.5 rounded-full bg-primary/10 text-primary">
+                {selectedSkillIds.length} selecionada{selectedSkillIds.length !== 1 ? "s" : ""}
+              </span>
+            )}
+          </div>
+          <div className="glass-panel p-6 rounded-2xl">
+            {allSkills.length === 0 ? (
+              <p className="text-sm text-muted-foreground">
+                Nenhuma habilidade cadastrada.{" "}
+                <Link to="/admin/skills" className="text-primary hover:underline">Cadastrar habilidades →</Link>
+              </p>
+            ) : (
+              <div className="flex flex-wrap gap-2">
+                {allSkills.map((skill) => {
+                  const active = selectedSkillIds.includes(skill.id);
+                  return (
+                    <button
+                      key={skill.id}
+                      type="button"
+                      onClick={() => toggleSkill(skill.id)}
+                      className={`px-3 py-1.5 rounded-full text-sm font-medium border transition-all duration-150 ${
+                        active
+                          ? "bg-primary text-primary-foreground border-primary shadow-sm"
+                          : "bg-secondary/40 text-muted-foreground border-border hover:border-primary/40 hover:text-foreground"
+                      }`}
+                    >
+                      {skill.name}
+                    </button>
+                  );
+                })}
+              </div>
+            )}
+            {selectedSkillIds.length > 0 && (
+              <p className="text-xs text-muted-foreground mt-4">
+                Selecionadas: {allSkills.filter((s) => selectedSkillIds.includes(s.id)).map((s) => s.name).join(", ")}
+              </p>
+            )}
           </div>
         </section>
 

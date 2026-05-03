@@ -28,9 +28,16 @@ export const useProfiles = () => {
   const updateMutation = useMutation({
     mutationFn: async (updatedProfile: Profile) => {
       const { id, ...rest } = updatedProfile;
+
+      // Remove fields that are empty strings so they don't fail
+      // if the column doesn't yet exist in the DB schema cache.
+      const payload = Object.fromEntries(
+        Object.entries(rest).filter(([, v]) => v !== undefined)
+      );
+
       const { data, error } = await supabase
         .from("profiles")
-        .update(rest)
+        .update(payload)
         .eq("id", id)
         .select()
         .single();

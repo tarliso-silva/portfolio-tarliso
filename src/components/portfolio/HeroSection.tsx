@@ -29,6 +29,12 @@ const HeroSection = () => {
   const { data: profiles = [], isLoading } = useProfiles();
   const profile = profiles[0];
 
+  // Hooks must be called before any early return
+  const stat1Number = profile?.stat_1_number ?? "+15";
+  const stat2Number = profile?.stat_2_number ?? "5+";
+  const stat1Animated = useCountUp(stat1Number);
+  const stat2Animated = useCountUp(stat2Number);
+
   if (isLoading) {
     return (
       <section className="animate-pulse space-y-4">
@@ -55,16 +61,11 @@ const HeroSection = () => {
   const cvUrl        = profile?.cv_url ?? "";
   const phone        = profile?.phone ?? "";
 
-  const stat1Number = profile?.stat_1_number ?? "+15";
   const stat1Label  = profile?.stat_1_label  ?? "Projetos Ativos";
-  const stat2Number = profile?.stat_2_number ?? "5+";
   const stat2Label  = profile?.stat_2_label  ?? "Anos de Experiência";
   const phraseStart  = profile?.hero_phrase_start  ?? "Dados são o";
   const phraseStrike = profile?.hero_phrase_strike ?? "futuro";
-  const phraseEnd    = profile?.hero_phrase_end    ?? "presente.";
-
-  const stat1Animated = useCountUp(stat1Number);
-  const stat2Animated = useCountUp(stat2Number);
+  const phraseEnd    = profile?.hero_phrase_end    ?? "presente."
 
   const whatsappHref = phone
     ? `https://wa.me/${phone.replace(/\D/g, "")}`

@@ -11,7 +11,7 @@ const navItems = [
   { path: "/projects", label: "Portfólio", icon: FolderOpen },
   { path: "/about", label: "Sobre", icon: User },
   { path: "/blog", label: "Blog", icon: BookOpen },
-  { path: "/#contact", label: "Contato", icon: Mail },
+  { path: "/#contact", label: "Contato", icon: Mail, isAnchor: true },
 ];
 
 const Navbar = () => {
@@ -49,19 +49,29 @@ const Navbar = () => {
           </button>
 
           <div className="hidden md:flex items-center gap-6">
-            {navItems.map((item) => (
-              <Link
-                key={item.path}
-                to={item.path}
-                className={`text-sm font-medium transition-colors hover:text-primary ${
-                  isActive(item.path)
-                    ? "text-primary"
-                    : "text-muted-foreground"
-                }`}
-              >
-                {item.label}
-              </Link>
-            ))}
+            {navItems.map((item) =>
+              item.isAnchor ? (
+                <a
+                  key={item.path}
+                  href={item.path}
+                  className="text-sm font-medium transition-colors hover:text-primary text-muted-foreground"
+                >
+                  {item.label}
+                </a>
+              ) : (
+                <Link
+                  key={item.path}
+                  to={item.path}
+                  className={`text-sm font-medium transition-colors hover:text-primary ${
+                    isActive(item.path)
+                      ? "text-primary"
+                      : "text-muted-foreground"
+                  }`}
+                >
+                  {item.label}
+                </Link>
+              )
+            )}
             {customPages.map((page) => (
               <Link
                 key={page.id}
@@ -84,7 +94,17 @@ const Navbar = () => {
           <div className="container mx-auto px-4 py-4 flex flex-col gap-2">
             {navItems.map((item) => {
               const Icon = item.icon;
-              return (
+              return item.isAnchor ? (
+                <a
+                  key={item.path}
+                  href={item.path}
+                  onClick={() => setIsOpen(false)}
+                  className="flex items-center gap-3 px-4 py-3 rounded-xl transition-colors text-muted-foreground hover:bg-secondary hover:text-foreground"
+                >
+                  <Icon className="w-5 h-5" />
+                  {item.label}
+                </a>
+              ) : (
                 <Link
                   key={item.path}
                   to={item.path}

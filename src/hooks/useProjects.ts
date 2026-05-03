@@ -4,6 +4,32 @@ import { Project, ProjectSchema } from "@/types/project";
 import { toast } from "sonner";
 import { mapDbToProject, mapProjectToDb } from "@/lib/mappers/project";
 
+/** Fetches all published projects that have at least one linked skill */
+export const useProjectsBySkill = (skillId: string | null) => {
+  return useQuery({
+    queryKey: ["projects", "by-skill", skillId],
+    queryFn: async (): Promise<Project[]> => {
+      if (!skillId) return [];
+      const { data, error } = await supabase
+        .from("project_skills")
+        .select("project_id")
+        .eq("skill_id", skillId);
+      if (error) throw new Error(error.message);
+      const ids = (data || []).map((r: { project_id: string }) => r.project_id);
+      if (ids.length === 0) return [];
+      const { data: projects, error: pErr } = await supabase
+        .from("projects")
+        .select("*")
+        .in("id", ids)
+        .eq("is_published", true)
+        .order("display_order", { ascending: false });
+      if (pErr) throw new Error(pErr.message);
+      return (projects || []).map(mapDbToProject);
+    },
+    enabled: !!skillId,
+  });
+};
+
 export const useProjects = () => {
   const queryClient = useQueryClient();
 

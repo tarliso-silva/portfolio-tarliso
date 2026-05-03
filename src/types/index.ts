@@ -20,6 +20,9 @@ export type {
   IconType,
   Profile,
   Technology,
+  Skill,
+  ProjectSkill,
+  Certification,
 } from "./database";
 
 export {
@@ -33,6 +36,8 @@ export {
   ExperienceTypeEnum,
   IconTypeEnum,
   ProfileSchema,
+  SkillSchema,
+  CertificationSchema,
 } from "./database";
 
 // Project view-model (camelCase shape used in UI)

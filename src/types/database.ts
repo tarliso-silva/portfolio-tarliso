@@ -167,3 +167,36 @@ export const TechnologySchema = z.object({
 });
 
 export type Technology = z.infer<typeof TechnologySchema>;
+
+export const SkillSchema = z.object({
+  id: z.string().uuid(),
+  name: z.string().min(1, "Name is required"),
+  description: z.string().optional(),
+  icon: z.string().optional(),
+  color: z.string().default("text-primary"),
+  display_order: z.number().default(0),
+  created_at: z.string().datetime().optional(),
+});
+
+export type Skill = z.infer<typeof SkillSchema>;
+
+export const ProjectSkillSchema = z.object({
+  id: z.string().uuid(),
+  project_id: z.string().uuid(),
+  skill_id: z.string().uuid(),
+});
+
+export type ProjectSkill = z.infer<typeof ProjectSkillSchema>;
+
+export const CertificationSchema = z.object({
+  id: z.string().uuid(),
+  title: z.string().min(1, "Title is required"),
+  issuer: z.string().min(1, "Issuer is required"),
+  image_url: z.string().optional(),
+  credential_url: z.string().optional(),
+  issued_date: z.string().optional(),
+  display_order: z.number().default(0),
+  created_at: z.string().datetime().optional(),
+});
+
+export type Certification = z.infer<typeof CertificationSchema>;

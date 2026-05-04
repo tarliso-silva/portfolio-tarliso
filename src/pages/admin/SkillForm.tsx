@@ -9,19 +9,18 @@ import { Label } from "@/components/ui/label";
 import {
   Zap, Code, Database, Cpu, Brain, Laptop, Server, Globe, Shield,
   Smartphone, Search, Terminal, Code2, Table2, BarChart3, Cloud,
-  LineChart, PieChart, FileSpreadsheet, Workflow, Layers, GitBranch,
-  Lock, Eye, Boxes, Binary, FlaskConical, Settings2, Network, Bot, Braces,
+  LineChart, PieChart, FileSpreadsheet, FileText, HardDrive,
+  Workflow, Layers, GitBranch, Lock, Eye, Boxes, Binary,
+  FlaskConical, Settings2, Network, Bot, Braces,
 } from "lucide-react";
 import {
   SiPython, SiDocker, SiJavascript, SiTypescript, SiReact, SiHtml5,
   SiCss, SiTailwindcss, SiGit, SiGithub, SiFigma, SiSupabase,
   SiPostgresql, SiMongodb, SiMysql, SiNodedotjs, SiApacheairflow,
   SiApachespark, SiDatabricks, SiPandas, SiGooglecloud, SiN8N,
-  SiPowerbi, SiMicrosoftazure, SiAmazonwebservices, SiTableau, SiDbt,
-  SiSnowflake, SiApachekafka, SiElasticsearch, SiRedis, SiSqlite,
+  SiDbt, SiSnowflake, SiApachekafka, SiElasticsearch, SiRedis, SiSqlite,
   SiJira, SiConfluence, SiGrafana, SiLinux, SiUbuntu, SiAnsible,
-  SiTerraform, SiKubernetes, SiApache, SiMicrosoftexcel,
-  SiMicrosoftword, SiMicrosoftonedrive, SiScipy, SiNumpy,
+  SiTerraform, SiKubernetes, SiApache, SiScipy, SiNumpy,
   SiScikitlearn, SiTensorflow, SiPytorch, SiPlotly, SiLooker,
 } from "react-icons/si";
 
@@ -60,8 +59,8 @@ const ICON_CATALOG: { key: string; label: string; Icon: React.ElementType; group
   { key: "Smartphone",    label: "Smartphone",     Icon: Smartphone,    group: "Genérico" },
   { key: "Search",        label: "Search",         Icon: Search,        group: "Genérico" },
   // BI & Visualização
-  { key: "PowerBI",       label: "Power BI",       Icon: SiPowerbi,     group: "BI" },
-  { key: "Tableau",       label: "Tableau",        Icon: SiTableau,     group: "BI" },
+  { key: "PowerBI",       label: "Power BI",       Icon: BarChart3,     group: "BI" },
+  { key: "Tableau",       label: "Tableau",        Icon: PieChart,      group: "BI" },
   { key: "Looker",        label: "Looker",         Icon: SiLooker,      group: "BI" },
   { key: "Grafana",       label: "Grafana",        Icon: SiGrafana,     group: "BI" },
   { key: "Plotly",        label: "Plotly",         Icon: SiPlotly,      group: "BI" },
@@ -92,8 +91,8 @@ const ICON_CATALOG: { key: string; label: string; Icon: React.ElementType; group
   { key: "Apache",        label: "Apache",         Icon: SiApache,      group: "Engenharia" },
   // Cloud
   { key: "GCP",           label: "Google Cloud",   Icon: SiGooglecloud, group: "Cloud" },
-  { key: "Azure",         label: "Azure",          Icon: SiMicrosoftazure, group: "Cloud" },
-  { key: "AWS",           label: "AWS",            Icon: SiAmazonwebservices, group: "Cloud" },
+  { key: "Azure",         label: "Azure",          Icon: Cloud,         group: "Cloud" },
+  { key: "AWS",           label: "AWS",            Icon: Server,        group: "Cloud" },
   // DevOps
   { key: "Docker",        label: "Docker",         Icon: SiDocker,      group: "DevOps" },
   { key: "Kubernetes",    label: "Kubernetes",     Icon: SiKubernetes,  group: "DevOps" },
@@ -102,9 +101,9 @@ const ICON_CATALOG: { key: string; label: string; Icon: React.ElementType; group
   { key: "Ubuntu",        label: "Ubuntu",         Icon: SiUbuntu,      group: "DevOps" },
   { key: "Ansible",       label: "Ansible",        Icon: SiAnsible,     group: "DevOps" },
   // Microsoft
-  { key: "Excel",         label: "Excel",          Icon: SiMicrosoftexcel,    group: "Microsoft" },
-  { key: "Word",          label: "Word",           Icon: SiMicrosoftword,     group: "Microsoft" },
-  { key: "OneDrive",      label: "OneDrive",       Icon: SiMicrosoftonedrive, group: "Microsoft" },
+  { key: "Excel",         label: "Excel",          Icon: FileSpreadsheet, group: "Microsoft" },
+  { key: "Word",          label: "Word",           Icon: FileText,      group: "Microsoft" },
+  { key: "OneDrive",      label: "OneDrive",       Icon: HardDrive,     group: "Microsoft" },
   // Web
   { key: "JavaScript",    label: "JavaScript",     Icon: SiJavascript,  group: "Web" },
   { key: "TypeScript",    label: "TypeScript",     Icon: SiTypescript,  group: "Web" },

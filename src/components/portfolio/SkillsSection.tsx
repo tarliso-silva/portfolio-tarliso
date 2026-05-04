@@ -1,14 +1,14 @@
-import { Zap, Code, Database, Cpu, Brain, Laptop, Server, Globe, Smartphone, Shield, Search, Terminal, Database as DbIcon, Code2, Loader2, Table2, BarChart3, Cloud, X, LineChart, PieChart, FileSpreadsheet, Workflow, Layers, GitBranch, Lock, Eye, Boxes, Binary, FlaskConical, Settings2, Network, Bot, Braces } from "lucide-react";
+import { Zap, Code, Database, Cpu, Brain, Laptop, Server, Globe, Smartphone, Shield, Search, Terminal, Database as DbIcon, Code2, Loader2, Table2, BarChart3, Cloud, X, LineChart, PieChart, FileSpreadsheet, FileText, HardDrive, Workflow, Layers, GitBranch, Lock, Eye, Boxes, Binary, FlaskConical, Settings2, Network, Bot, Braces } from "lucide-react";
 import {
   SiPython, SiDocker, SiJavascript, SiTypescript, SiReact, SiHtml5, SiCss, SiTailwindcss,
   SiGit, SiGithub, SiFigma,
   SiSupabase, SiPostgresql, SiMongodb, SiMysql, SiNodedotjs,
   SiApacheairflow, SiApachespark, SiDatabricks, SiPandas,
   SiGooglecloud, SiN8N,
-  SiPowerbi, SiMicrosoftazure, SiAmazonwebservices, SiTableau, SiDbt, SiSnowflake,
+  SiDbt, SiSnowflake,
   SiApachekafka, SiElasticsearch, SiRedis, SiSqlite, SiJira, SiConfluence,
   SiGrafana, SiLinux, SiUbuntu, SiAnsible, SiTerraform, SiKubernetes,
-  SiApache, SiMicrosoftexcel, SiMicrosoftword, SiMicrosoftonedrive,
+  SiApache,
   SiScipy, SiNumpy, SiScikitlearn, SiTensorflow, SiPytorch, SiPlotly,
   SiLooker,
 } from "react-icons/si";
@@ -33,8 +33,8 @@ const iconMap: Record<string, React.ElementType> = {
   SiPlotly, "Plotly": SiPlotly, "plotly": SiPlotly,
 
   // ── BI & Visualização ─────────────────────────────────────────
-  SiPowerbi, "PowerBI": SiPowerbi, "powerbi": SiPowerbi, "Power BI": SiPowerbi,
-  SiTableau, "Tableau": SiTableau, "tableau": SiTableau,
+  "PowerBI": BarChart3, "powerbi": BarChart3, "Power BI": BarChart3,
+  "Tableau": PieChart, "tableau": PieChart,
   SiLooker, "Looker": SiLooker, "looker": SiLooker,
   SiGrafana, "Grafana": SiGrafana, "grafana": SiGrafana,
 
@@ -59,8 +59,8 @@ const iconMap: Record<string, React.ElementType> = {
 
   // ── Cloud ─────────────────────────────────────────────────────
   SiGooglecloud, "GCP": SiGooglecloud, "gcp": SiGooglecloud, "GoogleCloud": SiGooglecloud,
-  SiMicrosoftazure, "Azure": SiMicrosoftazure, "azure": SiMicrosoftazure,
-  SiAmazonwebservices, "AWS": SiAmazonwebservices, "aws": SiAmazonwebservices,
+  "Azure": Cloud, "azure": Cloud,
+  "AWS": Server, "aws": Server,
 
   // ── DevOps / Infra ────────────────────────────────────────────
   SiDocker, "Docker": SiDocker, "docker": SiDocker,
@@ -71,9 +71,9 @@ const iconMap: Record<string, React.ElementType> = {
   SiUbuntu, "Ubuntu": SiUbuntu, "ubuntu": SiUbuntu,
 
   // ── Microsoft Office ──────────────────────────────────────────
-  SiMicrosoftexcel, "Excel": SiMicrosoftexcel, "excel": SiMicrosoftexcel,
-  SiMicrosoftword, "Word": SiMicrosoftword, "word": SiMicrosoftword,
-  SiMicrosoftonedrive, "OneDrive": SiMicrosoftonedrive,
+  "Excel": FileSpreadsheet, "excel": FileSpreadsheet,
+  "Word": FileText, "word": FileText,
+  "OneDrive": HardDrive,
 
   // ── Web / Frontend ────────────────────────────────────────────
   SiJavascript, "JavaScript": SiJavascript, "javascript": SiJavascript, "js": SiJavascript,

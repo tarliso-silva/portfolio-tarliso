@@ -8,9 +8,9 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Label } from "@/components/ui/label";
 import {
   Zap, Code, Database, Cpu, Brain, Laptop, Server, Globe, Shield,
-  Terminal, Code2, Table2, BarChart3, Cloud, LineChart, PieChart,
-  FileSpreadsheet, Workflow, Layers, GitBranch, Lock, Eye, Boxes,
-  Binary, FlaskConical, Settings2, Network, Bot, Braces,
+  Smartphone, Search, Terminal, Code2, Table2, BarChart3, Cloud,
+  LineChart, PieChart, FileSpreadsheet, Workflow, Layers, GitBranch,
+  Lock, Eye, Boxes, Binary, FlaskConical, Settings2, Network, Bot, Braces,
 } from "lucide-react";
 import {
   SiPython, SiDocker, SiJavascript, SiTypescript, SiReact, SiHtml5,
@@ -19,8 +19,9 @@ import {
   SiApachespark, SiDatabricks, SiPandas, SiGooglecloud, SiN8N,
   SiPowerbi, SiMicrosoftazure, SiAmazonwebservices, SiTableau, SiDbt,
   SiSnowflake, SiApachekafka, SiElasticsearch, SiRedis, SiSqlite,
-  SiJira, SiConfluence, SiGrafana, SiLinux, SiUbuntu, SiTerraform,
-  SiKubernetes, SiApache, SiMicrosoftexcel, SiScipy, SiNumpy,
+  SiJira, SiConfluence, SiGrafana, SiLinux, SiUbuntu, SiAnsible,
+  SiTerraform, SiKubernetes, SiApache, SiMicrosoftexcel,
+  SiMicrosoftword, SiMicrosoftonedrive, SiScipy, SiNumpy,
   SiScikitlearn, SiTensorflow, SiPytorch, SiPlotly, SiLooker,
 } from "react-icons/si";
 
@@ -56,6 +57,8 @@ const ICON_CATALOG: { key: string; label: string; Icon: React.ElementType; group
   { key: "Network",       label: "Network",        Icon: Network,       group: "Genérico" },
   { key: "Bot",           label: "Bot",            Icon: Bot,           group: "Genérico" },
   { key: "Shield",        label: "Shield",         Icon: Shield,        group: "Genérico" },
+  { key: "Smartphone",    label: "Smartphone",     Icon: Smartphone,    group: "Genérico" },
+  { key: "Search",        label: "Search",         Icon: Search,        group: "Genérico" },
   // BI & Visualização
   { key: "PowerBI",       label: "Power BI",       Icon: SiPowerbi,     group: "BI" },
   { key: "Tableau",       label: "Tableau",        Icon: SiTableau,     group: "BI" },
@@ -86,6 +89,7 @@ const ICON_CATALOG: { key: string; label: string; Icon: React.ElementType; group
   { key: "Databricks",    label: "Databricks",     Icon: SiDatabricks,  group: "Engenharia" },
   { key: "dbt",           label: "dbt",            Icon: SiDbt,         group: "Engenharia" },
   { key: "n8n",           label: "n8n",            Icon: SiN8N,         group: "Engenharia" },
+  { key: "Apache",        label: "Apache",         Icon: SiApache,      group: "Engenharia" },
   // Cloud
   { key: "GCP",           label: "Google Cloud",   Icon: SiGooglecloud, group: "Cloud" },
   { key: "Azure",         label: "Azure",          Icon: SiMicrosoftazure, group: "Cloud" },
@@ -96,8 +100,11 @@ const ICON_CATALOG: { key: string; label: string; Icon: React.ElementType; group
   { key: "Terraform",     label: "Terraform",      Icon: SiTerraform,   group: "DevOps" },
   { key: "Linux",         label: "Linux",          Icon: SiLinux,       group: "DevOps" },
   { key: "Ubuntu",        label: "Ubuntu",         Icon: SiUbuntu,      group: "DevOps" },
+  { key: "Ansible",       label: "Ansible",        Icon: SiAnsible,     group: "DevOps" },
   // Microsoft
-  { key: "Excel",         label: "Excel",          Icon: SiMicrosoftexcel, group: "Microsoft" },
+  { key: "Excel",         label: "Excel",          Icon: SiMicrosoftexcel,    group: "Microsoft" },
+  { key: "Word",          label: "Word",           Icon: SiMicrosoftword,     group: "Microsoft" },
+  { key: "OneDrive",      label: "OneDrive",       Icon: SiMicrosoftonedrive, group: "Microsoft" },
   // Web
   { key: "JavaScript",    label: "JavaScript",     Icon: SiJavascript,  group: "Web" },
   { key: "TypeScript",    label: "TypeScript",     Icon: SiTypescript,  group: "Web" },

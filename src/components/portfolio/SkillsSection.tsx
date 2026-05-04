@@ -1,47 +1,95 @@
-import { Zap, Code, Database, Cpu, Brain, Laptop, Server, Globe, Smartphone, Shield, Search, Terminal, Database as DbIcon, Code2, Loader2, Table2, BarChart3, Cloud, X } from "lucide-react";
+import { Zap, Code, Database, Cpu, Brain, Laptop, Server, Globe, Smartphone, Shield, Search, Terminal, Database as DbIcon, Code2, Loader2, Table2, BarChart3, Cloud, X, LineChart, PieChart, FileSpreadsheet, Workflow, Layers, GitBranch, Lock, Eye, Boxes, Binary, FlaskConical, Settings2, Network, Bot, Braces } from "lucide-react";
 import {
   SiPython, SiDocker, SiJavascript, SiTypescript, SiReact, SiHtml5, SiCss, SiTailwindcss,
   SiGit, SiGithub, SiFigma,
   SiSupabase, SiPostgresql, SiMongodb, SiMysql, SiNodedotjs,
   SiApacheairflow, SiApachespark, SiDatabricks, SiPandas,
   SiGooglecloud, SiN8N,
+  SiPowerbi, SiMicrosoftazure, SiAmazonwebservices, SiTableau, SiDbt, SiSnowflake,
+  SiApachekafka, SiElasticsearch, SiRedis, SiSqlite, SiJira, SiConfluence,
+  SiGrafana, SiLinux, SiUbuntu, SiAnsible, SiTerraform, SiKubernetes,
+  SiApache, SiMicrosoftexcel, SiMicrosoftword, SiMicrosoftonedrive,
+  SiScipy, SiNumpy, SiScikitlearn, SiTensorflow, SiPytorch, SiPlotly,
+  SiLooker,
 } from "react-icons/si";
 import { useSkills } from "@/hooks/useSkills";
 
 const iconMap: Record<string, React.ElementType> = {
-  // Ícones Lucide
-  Zap, Code, Database, Cpu, Brain, Laptop, Server, Globe, Smartphone, Shield, Search, Terminal, Code2, Cloud,
-  "Db": DbIcon, "Table": Table2, "BarChart": BarChart3,
+  // ── Lucide ───────────────────────────────────────────────────
+  Zap, Code, Database, Cpu, Brain, Laptop, Server, Globe, Smartphone, Shield,
+  Search, Terminal, Code2, Cloud, LineChart, PieChart, FileSpreadsheet,
+  Workflow, Layers, GitBranch, Lock, Eye, Boxes, Binary, FlaskConical,
+  Settings2, Network, Bot, Braces, BarChart3, Table2,
+  "Db": DbIcon,
 
-  // Ícones de marca (react-icons/si) com aliases amigáveis
+  // ── Python ecosystem ─────────────────────────────────────────
   SiPython, "Python": SiPython, "python": SiPython,
+  SiPandas, "Pandas": SiPandas, "pandas": SiPandas,
+  SiNumpy, "NumPy": SiNumpy, "numpy": SiNumpy,
+  SiScipy, "SciPy": SiScipy, "scipy": SiScipy,
+  SiScikitlearn, "Scikit-learn": SiScikitlearn, "sklearn": SiScikitlearn,
+  SiTensorflow, "TensorFlow": SiTensorflow, "tensorflow": SiTensorflow,
+  SiPytorch, "PyTorch": SiPytorch, "pytorch": SiPytorch,
+  SiPlotly, "Plotly": SiPlotly, "plotly": SiPlotly,
+
+  // ── BI & Visualização ─────────────────────────────────────────
+  SiPowerbi, "PowerBI": SiPowerbi, "powerbi": SiPowerbi, "Power BI": SiPowerbi,
+  SiTableau, "Tableau": SiTableau, "tableau": SiTableau,
+  SiLooker, "Looker": SiLooker, "looker": SiLooker,
+  SiGrafana, "Grafana": SiGrafana, "grafana": SiGrafana,
+
+  // ── Bancos de dados ───────────────────────────────────────────
+  SiPostgresql, "PostgreSQL": SiPostgresql, "postgresql": SiPostgresql, "postgres": SiPostgresql,
+  SiMysql, "MySQL": SiMysql, "mysql": SiMysql,
+  SiMongodb, "MongoDB": SiMongodb, "mongodb": SiMongodb, "mongo": SiMongodb,
+  SiSqlite, "SQLite": SiSqlite, "sqlite": SiSqlite,
+  SiRedis, "Redis": SiRedis, "redis": SiRedis,
+  SiSnowflake, "Snowflake": SiSnowflake, "snowflake": SiSnowflake,
+  SiElasticsearch, "Elasticsearch": SiElasticsearch, "elastic": SiElasticsearch,
+  SiSupabase, "Supabase": SiSupabase, "supabase": SiSupabase,
+
+  // ── Engenharia de dados / ETL ─────────────────────────────────
+  SiApacheairflow, "Airflow": SiApacheairflow, "airflow": SiApacheairflow,
+  SiApachespark, "Spark": SiApachespark, "spark": SiApachespark,
+  SiApachekafka, "Kafka": SiApachekafka, "kafka": SiApachekafka,
+  SiApache, "Apache": SiApache,
+  SiDatabricks, "Databricks": SiDatabricks, "databricks": SiDatabricks,
+  SiDbt, "dbt": SiDbt, "DBT": SiDbt,
+  SiN8N, "n8n": SiN8N, "N8N": SiN8N,
+
+  // ── Cloud ─────────────────────────────────────────────────────
+  SiGooglecloud, "GCP": SiGooglecloud, "gcp": SiGooglecloud, "GoogleCloud": SiGooglecloud,
+  SiMicrosoftazure, "Azure": SiMicrosoftazure, "azure": SiMicrosoftazure,
+  SiAmazonwebservices, "AWS": SiAmazonwebservices, "aws": SiAmazonwebservices,
+
+  // ── DevOps / Infra ────────────────────────────────────────────
   SiDocker, "Docker": SiDocker, "docker": SiDocker,
+  SiKubernetes, "Kubernetes": SiKubernetes, "k8s": SiKubernetes,
+  SiTerraform, "Terraform": SiTerraform, "terraform": SiTerraform,
+  SiAnsible, "Ansible": SiAnsible, "ansible": SiAnsible,
+  SiLinux, "Linux": SiLinux, "linux": SiLinux,
+  SiUbuntu, "Ubuntu": SiUbuntu, "ubuntu": SiUbuntu,
+
+  // ── Microsoft Office ──────────────────────────────────────────
+  SiMicrosoftexcel, "Excel": SiMicrosoftexcel, "excel": SiMicrosoftexcel,
+  SiMicrosoftword, "Word": SiMicrosoftword, "word": SiMicrosoftword,
+  SiMicrosoftonedrive, "OneDrive": SiMicrosoftonedrive,
+
+  // ── Web / Frontend ────────────────────────────────────────────
   SiJavascript, "JavaScript": SiJavascript, "javascript": SiJavascript, "js": SiJavascript,
   SiTypescript, "TypeScript": SiTypescript, "typescript": SiTypescript, "ts": SiTypescript,
   SiReact, "React": SiReact, "react": SiReact,
-  SiNodedotjs, "Node.js": SiNodedotjs, "Node": SiNodedotjs, "node": SiNodedotjs, "nodejs": SiNodedotjs,
-  SiHtml5, "HTML": SiHtml5, "html": SiHtml5, "html5": SiHtml5, "HTML5": SiHtml5,
-  SiCss, "CSS": SiCss, "css": SiCss, "css3": SiCss, "CSS3": SiCss,
-  SiTailwindcss, "Tailwind": SiTailwindcss, "tailwind": SiTailwindcss, "tailwindcss": SiTailwindcss,
+  SiNodedotjs, "Node.js": SiNodedotjs, "Node": SiNodedotjs, "nodejs": SiNodedotjs,
+  SiHtml5, "HTML": SiHtml5, "html": SiHtml5, "HTML5": SiHtml5,
+  SiCss, "CSS": SiCss, "css": SiCss, "CSS3": SiCss,
+  SiTailwindcss, "Tailwind": SiTailwindcss, "tailwind": SiTailwindcss,
+
+  // ── Ferramentas ───────────────────────────────────────────────
   SiGit, "Git": SiGit, "git": SiGit,
   SiGithub, "GitHub": SiGithub, "github": SiGithub,
   SiFigma, "Figma": SiFigma, "figma": SiFigma,
-  SiSupabase, "Supabase": SiSupabase, "supabase": SiSupabase,
-  SiPostgresql, "PostgreSQL": SiPostgresql, "postgresql": SiPostgresql, "postgres": SiPostgresql,
-  SiMongodb, "MongoDB": SiMongodb, "mongodb": SiMongodb, "mongo": SiMongodb,
-  SiMysql, "MySQL": SiMysql, "mysql": SiMysql,
-  SiApacheairflow, "Airflow": SiApacheairflow, "airflow": SiApacheairflow, "ApacheAirflow": SiApacheairflow,
-  SiApachespark, "Spark": SiApachespark, "spark": SiApachespark, "ApacheSpark": SiApachespark,
-  SiDatabricks, "Databricks": SiDatabricks, "databricks": SiDatabricks,
-  SiPandas, "Pandas": SiPandas, "pandas": SiPandas,
-  SiGooglecloud, "GCP": SiGooglecloud, "gcp": SiGooglecloud, "GoogleCloud": SiGooglecloud,
-  SiN8N, "n8n": SiN8N, "N8N": SiN8N,
-
-  // Aliases de fallback para Ícones ausentes em react-icons/si v5.6
-  "Excel": Table2, "excel": Table2, "SiMicrosoftexcel": Table2,
-  "PowerBI": BarChart3, "powerbi": BarChart3, "Power BI": BarChart3, "SiPowerbi": BarChart3,
-  "Azure": Cloud, "azure": Cloud, "SiMicrosoftazure": Cloud,
-  "AWS": Cloud, "aws": Cloud, "SiAmazonwebservices": Cloud,
+  SiJira, "Jira": SiJira, "jira": SiJira,
+  SiConfluence, "Confluence": SiConfluence, "confluence": SiConfluence,
 };
 
 interface SkillsSectionProps {

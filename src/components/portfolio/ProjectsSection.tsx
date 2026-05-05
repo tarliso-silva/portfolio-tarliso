@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { FolderOpen, ArrowUpRight } from "lucide-react";
+import { FolderOpen, ArrowUpRight, Search } from "lucide-react";
 import { Link } from "react-router-dom";
 import { useProjects, useProjectsBySkill } from "@/hooks/useProjects";
 import { useSkills } from "@/hooks/useSkills";
@@ -90,9 +90,9 @@ const ProjectsSection = ({ selectedSkillId, onSkillChange }: ProjectsSectionProp
       ) : (
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
           {projects.map((project) => (
-            <Link key={project.id} to={`/projects/${project.id}`} className="project-card group">
-              {/* Imagem do projeto */}
-              <div className="aspect-[4/3] overflow-hidden">
+            <Link key={project.id} to={`/projects/${project.id}`} className="project-card group block">
+              {/* Imagem 16:9 */}
+              <div className="aspect-video overflow-hidden">
                 <img
                   src={project.coverImage}
                   alt={project.title}
@@ -100,42 +100,41 @@ const ProjectsSection = ({ selectedSkillId, onSkillChange }: ProjectsSectionProp
                 />
               </div>
 
-              {/* Sobreposição */}
-              <div className="project-overlay">
-                <div className="flex items-start justify-between gap-4">
-                  <div>
-                    <h4 className="text-lg font-semibold text-foreground">{project.title}</h4>
-                    <p className="text-sm text-muted-foreground mt-1">{project.shortDescription}</p>
-                    <div className="flex gap-2 mt-3">
-                      {project.tags.slice(0, 2).map((tag) => (
-                        <span key={tag} className="badge-time text-xs">
-                          {tag}
-                        </span>
-                      ))}
-                    </div>
-                    {project.cardResult && (
-                      <p className="flex items-center gap-1.5 text-xs font-semibold text-primary mt-3">
-                        <span className="w-1.5 h-1.5 rounded-full bg-primary shrink-0" />
-                        {project.cardResult}
-                      </p>
-                    )}
+              {/* Conteúdo abaixo da imagem */}
+              <div className="p-5 flex flex-col gap-2">
+                {/* Tags */}
+                {project.tags.length > 0 && (
+                  <div className="flex flex-wrap gap-1.5">
+                    {project.tags.slice(0, 3).map((tag) => (
+                      <span key={tag} className="badge-time text-xs">{tag}</span>
+                    ))}
                   </div>
-                  <div className="w-10 h-10 rounded-full bg-primary flex items-center justify-center shrink-0 transition-transform group-hover:rotate-45">
-                    <ArrowUpRight className="w-5 h-5 text-primary-foreground" />
-                  </div>
-                </div>
-              </div>
+                )}
 
-              {/* Informações sempre visíveis no mobile */}
-              <div className="p-4 md:hidden">
-                <h4 className="text-lg font-semibold text-foreground">{project.title}</h4>
-                <p className="text-sm text-muted-foreground mt-1">{project.shortDescription}</p>
-                <div className="flex gap-2 mt-3">
-                  {project.tags.slice(0, 2).map((tag) => (
-                    <span key={tag} className="badge-time text-xs">
-                      {tag}
-                    </span>
-                  ))}
+                {/* Título */}
+                <h4 className="text-base font-bold text-foreground leading-snug mt-1">
+                  {project.title}
+                </h4>
+
+                {/* Descrição */}
+                <p className="text-sm text-muted-foreground line-clamp-3 leading-relaxed">
+                  {project.shortDescription}
+                </p>
+
+                {/* Métrica de resultado */}
+                {project.cardResult && (
+                  <p className="flex items-center gap-1.5 text-xs font-semibold text-primary">
+                    <span className="w-1.5 h-1.5 rounded-full bg-primary shrink-0" />
+                    {project.cardResult}
+                  </p>
+                )}
+
+                {/* CTA */}
+                <div className="pt-3 mt-1 border-t border-border/40">
+                  <span className="inline-flex items-center gap-2 px-4 py-2 rounded-xl text-sm font-semibold bg-primary text-primary-foreground transition-all duration-300 group-hover:shadow-[0_0_20px_hsl(var(--neon-glow)/0.45)]">
+                    <Search className="w-4 h-4" />
+                    Ver detalhes
+                  </span>
                 </div>
               </div>
             </Link>

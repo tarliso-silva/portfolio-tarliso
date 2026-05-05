@@ -151,7 +151,7 @@ const SkillsSection = ({ selectedSkill, onSkillSelect }: SkillsSectionProps) => 
               key={skill.id}
               onClick={() => handleClick(skill.id)}
               disabled={!onSkillSelect}
-              className={`skill-card text-left transition-all duration-200 ${
+              className={`skill-card w-full text-left transition-all duration-200 ${
                 onSkillSelect ? "cursor-pointer" : "cursor-default"
               } ${
                 isActive
@@ -161,14 +161,14 @@ const SkillsSection = ({ selectedSkill, onSkillSelect }: SkillsSectionProps) => 
                   : ""
               }`}
             >
-              <div className="skill-icon">
-                <skill.icon className={`w-6 h-6 ${skill.color}`} />
+              <div className="skill-icon shrink-0">
+                <skill.icon className={`w-5 h-5 ${skill.color}`} />
               </div>
               <div>
-                <h4 className={`font-semibold ${isActive ? "text-primary" : "text-foreground"}`}>
+                <h4 className={`text-sm font-bold uppercase tracking-wide ${isActive ? "text-primary" : "text-foreground"}`}>
                   {skill.name}
                 </h4>
-                <p className="text-sm text-muted-foreground">{skill.description}</p>
+                <p className="text-xs text-muted-foreground mt-1 line-clamp-3 leading-relaxed">{skill.description}</p>
               </div>
             </button>
           );

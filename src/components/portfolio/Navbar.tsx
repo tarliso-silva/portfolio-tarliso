@@ -28,7 +28,7 @@ const Navbar = () => {
     { path: "/projects", label: "Portfólio", icon: FolderOpen },
     { path: "/about", label: "Sobre", icon: User },
     ...(hasBlogPosts ? [{ path: "/blog", label: "Blog", icon: BookOpen }] : []),
-    { path: "/#contact", label: "Contato", icon: Mail, isAnchor: true },
+    { path: "/contact", label: "Contato", icon: Mail },
   ] as { path: string; label: string; icon: React.ElementType; isAnchor?: boolean }[];
 
   const navbarValue = profile?.navbar_icon || "";

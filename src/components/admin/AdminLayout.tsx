@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { Outlet, useNavigate, Link } from "react-router-dom";
 import { supabase } from "@/lib/supabase";
-import { LogOut, LayoutDashboard, FolderOpen, BookOpen, FileText, GraduationCap, Briefcase, User, Cpu, Loader2, Settings as SettingsIcon, Milestone, Award, Zap } from "lucide-react";
+import { LogOut, LayoutDashboard, FolderOpen, BookOpen, FileText, GraduationCap, Briefcase, User, Loader2, Settings as SettingsIcon, Milestone, Award, Zap } from "lucide-react";
 import { Button } from "@/components/ui/button";
 
 const navItems = [
@@ -14,7 +14,6 @@ const navItems = [
   { to: "/admin/experiences", icon: Briefcase, label: "Experiências" },
   { to: "/admin/custom-pages", icon: FileText, label: "Páginas Custom." },
   { to: "/admin/profiles", icon: User, label: "Perfil" },
-  { to: "/admin/technologies", icon: Cpu, label: "Tecnologias" },
   { to: "/admin/skills", icon: Zap, label: "Habilidades" },
   { to: "/admin/certifications", icon: Award, label: "Certificações" },
   { to: "/admin/settings", icon: SettingsIcon, label: "Configurações" },

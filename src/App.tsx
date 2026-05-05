@@ -9,7 +9,9 @@ import ProjectDetail from "./pages/ProjectDetail";
 import About from "./pages/About";
 import Blog from "./pages/Blog";
 import BlogPost from "./pages/BlogPost";
+import Contact from "./pages/Contact";
 import Navbar from "./components/portfolio/Navbar";
+import { useLocation } from "react-router-dom";
 
 // Admin
 import AdminLogin from "./pages/admin/Login";
@@ -49,6 +51,12 @@ const FaviconUpdater = () => {
   return null;
 };
 
+const PublicNavbar = () => {
+  const location = useLocation();
+  if (location.pathname.startsWith("/admin")) return null;
+  return <Navbar />;
+};
+
 import { ThemeProvider } from "./components/ThemeProvider";
 
 const App = () => (
@@ -58,7 +66,7 @@ const App = () => (
       <BrowserRouter>
         <FaviconUpdater />
         <ThemeProvider />
-        <Navbar />
+        <PublicNavbar />
         <Routes>
           <Route path="/" element={<Index />} />
           <Route path="/projects" element={<ProjectsGallery />} />
@@ -66,6 +74,7 @@ const App = () => (
           <Route path="/about" element={<About />} />
           <Route path="/blog" element={<Blog />} />
           <Route path="/blog/:idOrSlug" element={<BlogPost />} />
+          <Route path="/contact" element={<Contact />} />
           <Route path="/p/:slug" element={<CustomPageView />} />
           
           {/* Admin Routes */}

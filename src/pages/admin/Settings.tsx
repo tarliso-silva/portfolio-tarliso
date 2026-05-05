@@ -79,7 +79,8 @@ export default function Settings() {
 }
 
 const THEME_COLORS = [
-  { name: "Verde (Padrão)", value: "142 71% 45%", hex: "#22c55e" },
+  { name: "Ciano Neon (Padrão)", value: "189 100% 50%", hex: "#00d4ff" },
+  { name: "Verde", value: "142 71% 45%", hex: "#22c55e" },
   { name: "Azul", value: "221 83% 53%", hex: "#3b82f6" },
   { name: "Roxo", value: "262 83% 58%", hex: "#8b5cf6" },
   { name: "Laranja", value: "24 98% 50%", hex: "#f97316" },
@@ -87,17 +88,19 @@ const THEME_COLORS = [
   { name: "Amarelo", value: "45 93% 47%", hex: "#eab308" },
 ];
 
+const DEFAULT_COLOR = "189 100% 50%";
+
 function ThemeSettings() {
   const { data: profiles = [], updateProfile, isUpdating } = useProfiles();
   const profile = profiles[0];
   
   const [theme, setTheme] = useState<"dark" | "light">("dark");
-  const [color, setColor] = useState("142 71% 45%");
+  const [color, setColor] = useState(DEFAULT_COLOR);
 
   useEffect(() => {
     if (profile) {
       setTheme(profile.theme as "dark" | "light" || "dark");
-      setColor(profile.primary_color || "142 71% 45%");
+      setColor(profile.primary_color || DEFAULT_COLOR);
     }
   }, [profile]);
 
@@ -174,6 +177,14 @@ function ThemeSettings() {
         <Button onClick={handleSave} disabled={isUpdating} className="w-full sm:w-auto">
           {isUpdating && <Loader2 className="w-4 h-4 mr-2 animate-spin" />}
           Salvar Aparência
+        </Button>
+        <Button
+          type="button"
+          variant="outline"
+          onClick={() => setColor(DEFAULT_COLOR)}
+          className="w-full sm:w-auto"
+        >
+          Restaurar padrão (Ciano Neon)
         </Button>
       </CardContent>
     </Card>

@@ -47,8 +47,8 @@ const Index = () => {
           <main className="lg:col-span-8 xl:col-span-9">
             <HeroSection />
 
-            <SkillsSection selectedSkill={selectedSkill} onSkillSelect={setSelectedSkill} />
             <ProjectsSection selectedSkillId={selectedSkill} onSkillChange={setSelectedSkill} />
+            <SkillsSection selectedSkill={selectedSkill} onSkillSelect={setSelectedSkill} />
             <CertificationsSection />
             <ContactSection />
             <FooterSection />

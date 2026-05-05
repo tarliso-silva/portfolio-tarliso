@@ -119,6 +119,7 @@ export const ProfileSchema = z.object({
   github_url: z.string().optional(),
   instagram_url: z.string().optional(),
   whatsapp_number: z.string().optional(),
+  is_available: z.boolean().default(false),
 });
 
 export type Profile = z.infer<typeof ProfileSchema>;

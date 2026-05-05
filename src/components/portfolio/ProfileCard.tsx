@@ -43,8 +43,23 @@ const ProfileCard = () => {
       {/* Nome */}
       <h2 className="text-2xl font-bold text-foreground mt-2">{profileName}</h2>
 
+      {/* Especialidade */}
+      {profile?.current_focus && (
+        <p className="text-xs text-muted-foreground mt-1 tracking-wide">
+          {profile.current_focus}
+        </p>
+      )}
+
+      {/* Badge de disponibilidade */}
+      {profile?.is_available && (
+        <span className="inline-flex items-center gap-1.5 text-xs font-medium text-emerald-400 border border-emerald-500/30 rounded-full px-2.5 py-0.5 mt-2">
+          <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" />
+          Disponível
+        </span>
+      )}
+
       {/* Links sociais */}
-      <div className="flex items-center gap-3 mt-2">
+      <div className="flex items-center gap-3 mt-3">
         {socialLinks.map((social) => (
           <a
             key={social.label}

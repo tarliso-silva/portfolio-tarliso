@@ -96,7 +96,7 @@ const ProjectsSection = ({ selectedSkillId, onSkillChange }: ProjectsSectionProp
                 <img
                   src={project.coverImage}
                   alt={project.title}
-                  className="w-full h-full object-contain transition-transform duration-700"
+                  className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
                 />
               </div>
 
@@ -113,6 +113,12 @@ const ProjectsSection = ({ selectedSkillId, onSkillChange }: ProjectsSectionProp
                         </span>
                       ))}
                     </div>
+                    {project.cardResult && (
+                      <p className="flex items-center gap-1.5 text-xs font-semibold text-primary mt-3">
+                        <span className="w-1.5 h-1.5 rounded-full bg-primary shrink-0" />
+                        {project.cardResult}
+                      </p>
+                    )}
                   </div>
                   <div className="w-10 h-10 rounded-full bg-primary flex items-center justify-center shrink-0 transition-transform group-hover:rotate-45">
                     <ArrowUpRight className="w-5 h-5 text-primary-foreground" />

@@ -6,6 +6,7 @@ import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { ImageUpload } from "@/components/admin/ImageUpload";
+import { Switch } from "@/components/ui/switch";
 
 export default function ProfileForm() {
   const navigate = useNavigate();
@@ -38,6 +39,7 @@ export default function ProfileForm() {
     github_url: "",
     instagram_url: "",
     whatsapp_number: "",
+    is_available: false,
   });
 
   useEffect(() => {
@@ -67,6 +69,7 @@ export default function ProfileForm() {
         github_url: profile.github_url || "",
         instagram_url: profile.instagram_url || "",
         whatsapp_number: profile.whatsapp_number || "",
+        is_available: profile.is_available ?? false,
       });
     }
   }, [profile]);
@@ -83,6 +86,7 @@ export default function ProfileForm() {
           github_url:      formData.github_url      || null,
           instagram_url:   formData.instagram_url   || null,
           whatsapp_number: formData.whatsapp_number || null,
+          is_available:    formData.is_available,
         });
       }
     } catch (error) {
@@ -134,6 +138,16 @@ export default function ProfileForm() {
                     className="mt-1"
                   />
                 </div>
+              </div>
+              <div className="flex items-center justify-between p-4 rounded-xl border border-border bg-secondary/30">
+                <div>
+                  <p className="text-sm font-medium text-foreground">Disponível para oportunidades</p>
+                  <p className="text-xs text-muted-foreground mt-0.5">Exibe um badge verde pulsante no card de perfil</p>
+                </div>
+                <Switch
+                  checked={formData.is_available}
+                  onCheckedChange={(checked) => setFormData({ ...formData, is_available: checked })}
+                />
               </div>
             </div>
 

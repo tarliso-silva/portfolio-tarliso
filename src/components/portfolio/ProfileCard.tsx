@@ -1,4 +1,4 @@
-import { Github, Linkedin, MessageCircle, Instagram } from "lucide-react";
+import { Github, Linkedin, MessageCircle, Instagram, MapPin } from "lucide-react";
 import type React from "react";
 import { useProfiles } from "@/hooks/useProfile";
 import profilePhoto from "@/assets/profile-photo.jpg";
@@ -47,6 +47,14 @@ const ProfileCard = () => {
       {profile?.current_focus && (
         <p className="text-xs text-muted-foreground mt-1 tracking-wide">
           {profile.current_focus}
+        </p>
+      )}
+
+      {/* Localização */}
+      {profile?.location && (
+        <p className="flex items-center gap-1 text-xs text-muted-foreground/70 mt-1">
+          <MapPin className="w-3 h-3" />
+          {profile.location}
         </p>
       )}
 

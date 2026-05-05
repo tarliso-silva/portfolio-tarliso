@@ -1,6 +1,6 @@
 import { useEffect } from "react";
 import { Link } from "react-router-dom";
-import { User, Book as BookIcon, GraduationCap, ExternalLink, Calendar, Loader2, Mail, Phone, ArrowRight } from "lucide-react";
+import { User, Book as BookIcon, GraduationCap, ExternalLink, Calendar, Loader2, Mail, Phone, ArrowRight, Lightbulb, Target, Layers } from "lucide-react";
 import { useProfiles } from "@/hooks/useProfile";
 import { useBooks } from "@/hooks/useBooks";
 import { useCourses } from "@/hooks/useCourses";
@@ -61,7 +61,7 @@ const About = () => {
             <User className="w-6 h-6 text-primary" />
           </div>
           <p className="text-[10px] font-bold tracking-[0.25em] uppercase text-foreground/30">
-            Minha História
+            Por que faço o que faço
           </p>
         </div>
         <h1 className="text-4xl sm:text-5xl lg:text-7xl font-light tracking-tight text-foreground leading-[1.05] max-w-4xl">
@@ -96,6 +96,50 @@ const About = () => {
             )}
           </div>
         )}
+
+        {/* MANIFESTO — bio_detailed */}
+        {profile?.bio_detailed && (
+          <div className="mt-12 max-w-3xl">
+            <p className="text-[10px] font-bold tracking-[0.25em] uppercase text-foreground/30 mb-4">Manifesto</p>
+            <p className="text-lg sm:text-xl text-foreground/70 leading-relaxed font-light">
+              {profile.bio_detailed}
+            </p>
+          </div>
+        )}
+
+        {/* COMO TRABALHO */}
+        <div className="mt-16 max-w-3xl">
+          <p className="text-[10px] font-bold tracking-[0.25em] uppercase text-foreground/30 mb-8">Como trabalho</p>
+          <div className="grid grid-cols-1 sm:grid-cols-3 gap-6">
+            <div className="flex flex-col gap-3">
+              <div className="w-10 h-10 rounded-xl bg-primary/10 flex items-center justify-center">
+                <Target className="w-5 h-5 text-primary" />
+              </div>
+              <h3 className="text-sm font-semibold text-foreground">Problema primeiro</h3>
+              <p className="text-xs text-foreground/50 leading-relaxed">
+                Começo pelo problema de negócio, não pela tecnologia. A stack é consequência da pergunta certa.
+              </p>
+            </div>
+            <div className="flex flex-col gap-3">
+              <div className="w-10 h-10 rounded-xl bg-primary/10 flex items-center justify-center">
+                <Layers className="w-5 h-5 text-primary" />
+              </div>
+              <h3 className="text-sm font-semibold text-foreground">Arquitetura escalável</h3>
+              <p className="text-xs text-foreground/50 leading-relaxed">
+                Projeto pipelines e modelos que crescem com o volume de dados, sem reescrever tudo em 6 meses.
+              </p>
+            </div>
+            <div className="flex flex-col gap-3">
+              <div className="w-10 h-10 rounded-xl bg-primary/10 flex items-center justify-center">
+                <Lightbulb className="w-5 h-5 text-primary" />
+              </div>
+              <h3 className="text-sm font-semibold text-foreground">Impacto mensurável</h3>
+              <p className="text-xs text-foreground/50 leading-relaxed">
+                Cada entrega tem métrica de sucesso definida antes de começar. Dado sem resultado não é dado.
+              </p>
+            </div>
+          </div>
+        </div>
       </section>
 
       {/* JOURNEY, EXPERIENCE & EDUCATION */}

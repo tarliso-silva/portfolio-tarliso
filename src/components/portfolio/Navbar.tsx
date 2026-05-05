@@ -5,14 +5,7 @@ import { Menu, X, Home, FolderOpen, User, BookOpen, Mail } from "lucide-react";
 import * as LucideIcons from "lucide-react";
 import { useProfiles } from "@/hooks/useProfile";
 import { useCustomPages } from "@/hooks/useCustomPages";
-
-const navItems = [
-  { path: "/", label: "Início", icon: Home },
-  { path: "/projects", label: "Portfólio", icon: FolderOpen },
-  { path: "/about", label: "Sobre", icon: User },
-  { path: "/blog", label: "Blog", icon: BookOpen },
-  { path: "/#contact", label: "Contato", icon: Mail, isAnchor: true },
-];
+import { useContents } from "@/hooks/useContents";
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -26,6 +19,17 @@ const Navbar = () => {
   const { data: profiles = [] } = useProfiles();
   const profile = profiles[0];
   const { data: customPages = [] } = useCustomPages();
+  const { data: contents = [] } = useContents();
+
+  const hasBlogPosts = contents.length > 0;
+
+  const navItems = [
+    { path: "/", label: "Início", icon: Home },
+    { path: "/projects", label: "Portfólio", icon: FolderOpen },
+    { path: "/about", label: "Sobre", icon: User },
+    ...(hasBlogPosts ? [{ path: "/blog", label: "Blog", icon: BookOpen }] : []),
+    { path: "/#contact", label: "Contato", icon: Mail, isAnchor: true },
+  ] as { path: string; label: string; icon: React.ElementType; isAnchor?: boolean }[];
 
   const iconName = profile?.navbar_icon || "Database";
   const DynamicIcon = (iconName in LucideIcons ? LucideIcons[iconName as keyof typeof LucideIcons] : null) as React.ElementType | null ?? LucideIcons.Database;

@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { useNavigate } from "react-router-dom";
 import { useProfiles } from "@/hooks/useProfile";
 import { Button } from "@/components/ui/button";
@@ -7,11 +7,15 @@ import { Textarea } from "@/components/ui/textarea";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { ImageUpload } from "@/components/admin/ImageUpload";
 import { Switch } from "@/components/ui/switch";
+import { useStorage } from "@/hooks/useStorage";
+import { FileText, Upload, X, Loader2, ExternalLink } from "lucide-react";
 
 export default function ProfileForm() {
   const navigate = useNavigate();
   const { data: profiles = [], isLoading, updateProfile, isUpdating } = useProfiles();
-  
+  const { uploadFile, isUploading: isUploadingCV } = useStorage();
+  const cvInputRef = useRef<HTMLInputElement>(null);
+
   const profile = profiles[0];
   
   const [formData, setFormData] = useState({
@@ -177,15 +181,66 @@ export default function ProfileForm() {
               </div>
               
               <div>
-                <label className="text-sm font-medium text-foreground">Link do CV (PDF para Download)</label>
-                <Input
-                  value={formData.cv_url}
-                  onChange={(e) => setFormData({ ...formData, cv_url: e.target.value })}
-                  placeholder="https://exemplo.com/meu-cv.pdf"
-                  className="mt-1"
-                />
+                <label className="text-sm font-medium text-foreground">CV (PDF para Download)</label>
+                <div className="mt-1 space-y-2">
+                  {formData.cv_url ? (
+                    <div className="flex items-center gap-3 p-3 rounded-xl border border-border bg-secondary/20">
+                      <div className="w-9 h-9 rounded-lg bg-primary/10 border border-primary/20 flex items-center justify-center shrink-0">
+                        <FileText className="w-4 h-4 text-primary" />
+                      </div>
+                      <div className="flex-1 min-w-0">
+                        <p className="text-sm font-medium truncate">CV enviado</p>
+                        <a
+                          href={formData.cv_url}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="text-xs text-primary hover:underline flex items-center gap-1"
+                        >
+                          Visualizar PDF <ExternalLink className="w-3 h-3" />
+                        </a>
+                      </div>
+                      <Button
+                        type="button"
+                        variant="ghost"
+                        size="icon"
+                        className="shrink-0 h-8 w-8 text-muted-foreground hover:text-destructive"
+                        onClick={() => setFormData({ ...formData, cv_url: "" })}
+                      >
+                        <X className="w-4 h-4" />
+                      </Button>
+                    </div>
+                  ) : (
+                    <div
+                      onClick={() => cvInputRef.current?.click()}
+                      className="w-full h-28 border-2 border-dashed border-border rounded-xl flex flex-col items-center justify-center gap-2 cursor-pointer hover:bg-secondary/30 transition-colors bg-secondary/10"
+                    >
+                      {isUploadingCV ? (
+                        <Loader2 className="w-6 h-6 text-primary animate-spin" />
+                      ) : (
+                        <>
+                          <Upload className="w-5 h-5 text-muted-foreground" />
+                          <p className="text-sm font-medium">Clique para enviar seu CV</p>
+                          <p className="text-xs text-muted-foreground">PDF até 5MB</p>
+                        </>
+                      )}
+                    </div>
+                  )}
+                  <input
+                    ref={cvInputRef}
+                    type="file"
+                    accept="application/pdf"
+                    className="hidden"
+                    onChange={async (e) => {
+                      const file = e.target.files?.[0];
+                      if (!file) return;
+                      const url = await uploadFile(file, "portfolio", "cv");
+                      if (url) setFormData({ ...formData, cv_url: url });
+                      e.target.value = "";
+                    }}
+                  />
+                </div>
                 <p className="text-[10px] text-muted-foreground mt-1">
-                  Cole aqui o link do PDF do seu currículo. Este link será usado no botão CV da página inicial.
+                  O PDF ficará armazenado no Supabase e será usado no botão "Baixar CV" da página inicial.
                 </p>
               </div>
 

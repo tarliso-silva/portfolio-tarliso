@@ -106,7 +106,7 @@ export const ProfileSchema = z.object({
   hero_title: z.string().optional(),
   navbar_icon: z.string().optional(),
   theme: z.enum(["dark", "light"]).default("dark"),
-  primary_color: z.string().default("142 71% 45%"),
+  primary_color: z.string().default("189 100% 50%"),
   stat_1_number: z.string().default("+15"),
   stat_1_label: z.string().default("Projetos Ativos"),
   stat_2_number: z.string().default("5+"),

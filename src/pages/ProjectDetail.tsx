@@ -593,7 +593,7 @@ const ProjectDetail = () => {
               )}
 
             {/* Reações e Comentários */}
-            <CommentsSection projectId={project.id} />
+            <CommentsSection projectId={project.id} projectTitle={project.title} />
           </main>
 
           {/* Coluna lateral */}

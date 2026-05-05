@@ -1,11 +1,12 @@
 import { useEffect, useState } from "react";
 import { Outlet, useNavigate, Link } from "react-router-dom";
 import { supabase } from "@/lib/supabase";
-import { LogOut, LayoutDashboard, FolderOpen, BookOpen, FileText, GraduationCap, Briefcase, User, Loader2, Settings as SettingsIcon, Milestone, Award, Zap } from "lucide-react";
+import { LogOut, LayoutDashboard, FolderOpen, BookOpen, FileText, GraduationCap, Briefcase, User, Loader2, Settings as SettingsIcon, Milestone, Award, Zap, MessageSquare } from "lucide-react";
 import { Button } from "@/components/ui/button";
 
 const navItems = [
   { to: "/admin", icon: FolderOpen, label: "Projetos" },
+  { to: "/admin/comments", icon: MessageSquare, label: "Comentários" },
   { to: "/admin/journey", icon: Milestone, label: "Jornada" },
   { to: "/admin/books", icon: BookOpen, label: "Livros" },
   { to: "/admin/contents", icon: FileText, label: "Conteúdos" },

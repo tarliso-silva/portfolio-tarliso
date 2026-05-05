@@ -12,6 +12,14 @@ export interface ProjectComment {
   user_avatar?: string;
   body: string;
   created_at: string;
+  reply_to_id?: string | null;
+  reply_to_name?: string | null;
+}
+
+export interface CommentLike {
+  id: string;
+  comment_id: string;
+  user_id: string;
 }
 
 export interface ProjectReaction {
@@ -21,7 +29,7 @@ export interface ProjectReaction {
   reaction: "like" | "dislike";
 }
 
-// ── Auth hook ───────────────────────────────────────────────────
+// ── Auth hook ────────────────────────────────────────────────────
 export const usePublicAuth = () => {
   const [session, setSession] = useState<Session | null>(null);
   const [loading, setLoading] = useState(true);
@@ -52,8 +60,10 @@ export const usePublicAuth = () => {
   const signOut = () => supabase.auth.signOut();
 
   const user: User | null = session?.user ?? null;
+  // Admin = authenticated via email/password (only portfolio owner)
+  const isAdmin = session?.user?.app_metadata?.provider === 'email';
 
-  return { user, session, loading, signInWithGoogle, signInWithGithub, signOut };
+  return { user, session, loading, isAdmin, signInWithGoogle, signInWithGithub, signOut };
 };
 
 // ── Comments hook ───────────────────────────────────────────────
@@ -76,7 +86,17 @@ export const useProjectComments = (projectId: string) => {
   });
 
   const addComment = useMutation({
-    mutationFn: async ({ body, user }: { body: string; user: User }) => {
+    mutationFn: async ({
+      body,
+      user,
+      reply_to_id,
+      reply_to_name,
+    }: {
+      body: string;
+      user: User;
+      reply_to_id?: string;
+      reply_to_name?: string;
+    }) => {
       const { error } = await supabase.from("project_comments").insert({
         project_id: projectId,
         user_id: user.id,
@@ -90,6 +110,8 @@ export const useProjectComments = (projectId: string) => {
           user.user_metadata?.picture ||
           null,
         body: body.trim(),
+        reply_to_id: reply_to_id ?? null,
+        reply_to_name: reply_to_name ?? null,
       });
       if (error) throw error;
     },
@@ -167,4 +189,55 @@ export const useProjectReactions = (projectId: string, userId?: string) => {
   });
 
   return { likes, dislikes, myReaction, react };
+};
+
+// ── Comment Likes hook ──────────────────────────────────────────
+export const useCommentLikes = (commentIds: string[], userId?: string) => {
+  const qc = useQueryClient();
+  const sortedKey = [...commentIds].sort().join(",");
+  const key = ["comment_likes", sortedKey];
+
+  const { data: likes = [] } = useQuery<CommentLike[]>({
+    queryKey: key,
+    queryFn: async () => {
+      if (!commentIds.length) return [];
+      const { data, error } = await supabase
+        .from("comment_likes")
+        .select("*")
+        .in("comment_id", commentIds);
+      if (error) throw error;
+      return data ?? [];
+    },
+    enabled: commentIds.length > 0,
+  });
+
+  const likeCountMap: Record<string, number> = {};
+  for (const id of commentIds) {
+    likeCountMap[id] = likes.filter((l) => l.comment_id === id).length;
+  }
+
+  const likedByMe = new Set<string>(
+    userId ? likes.filter((l) => l.user_id === userId).map((l) => l.comment_id) : []
+  );
+
+  const toggleLike = useMutation({
+    mutationFn: async (commentId: string) => {
+      if (!userId) return;
+      if (likedByMe.has(commentId)) {
+        const like = likes.find(
+          (l) => l.comment_id === commentId && l.user_id === userId
+        );
+        if (like) {
+          await supabase.from("comment_likes").delete().eq("id", like.id);
+        }
+      } else {
+        await supabase
+          .from("comment_likes")
+          .insert({ comment_id: commentId, user_id: userId });
+      }
+    },
+    onSuccess: () => qc.invalidateQueries({ queryKey: key }),
+  });
+
+  return { likeCountMap, likedByMe, toggleLike };
 };

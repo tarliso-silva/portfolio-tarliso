@@ -42,6 +42,7 @@ import SkillForm from "./pages/admin/SkillForm";
 import ProjectSkillsForm from "./pages/admin/ProjectSkillsForm";
 import CertificationsDashboard from "./pages/admin/CertificationsDashboard";
 import CertificationForm from "./pages/admin/CertificationForm";
+import AdminComments from "./pages/admin/AdminComments";
 import useDynamicFavicon from "./hooks/useDynamicFavicon";
 
 const queryClient = new QueryClient();
@@ -81,6 +82,7 @@ const App = () => (
           <Route path="/admin/login" element={<AdminLogin />} />
           <Route path="/admin" element={<AdminLayout />}>
             <Route index element={<AdminDashboard />} />
+            <Route path="comments" element={<AdminComments />} />
             <Route path="projects/new" element={<AdminProjectForm />} />
             <Route path="projects/:id" element={<AdminProjectForm />} />
             

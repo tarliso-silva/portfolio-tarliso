@@ -7,7 +7,6 @@ import {
   Github,
   Copy,
   Check,
-  ChevronRight,
 } from "lucide-react";
 import { projectCategories } from "@/types/project";
 import { useProject } from "@/hooks/useProjects";
@@ -180,9 +179,7 @@ const ProjectDetail = () => {
   const hasContext =
     !!project.context?.trim() || !!project.businessProblem?.trim();
   const hasInsights = project.insights && project.insights.length > 0;
-  const hasResults =
-    (project.results && project.results.length > 0) ||
-    (project.stats && project.stats.length > 0);
+  const hasResults = project.results && project.results.length > 0;
   const hasMethodology =
     !!project.methodology?.trim() ||
     (project.premises && project.premises.length > 0) ||
@@ -389,34 +386,22 @@ const ProjectDetail = () => {
               <section className="py-12 border-t border-foreground/[0.06]">
                 <SectionLabel label="Resultados e Impacto" />
 
-                {/* Stats grid */}
-                {project.stats && project.stats.length > 0 && (
-                  <div className="grid grid-cols-2 sm:grid-cols-4 gap-px bg-foreground/[0.05] rounded-xl overflow-hidden mb-8 border border-foreground/[0.05]">
-                    {project.stats.slice(0, 4).map((s, i) => (
-                      <div key={i} className="bg-background px-6 py-5">
-                        <p className="text-3xl font-light text-foreground tracking-tight">
-                          {s.value}
-                        </p>
-                        <p className="text-[11px] tracking-widest uppercase text-foreground/30 mt-1">
-                          {s.label}
+                {project.results && project.results.length > 0 && (
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                    {project.results.map((item, i) => (
+                      <div
+                        key={i}
+                        className="group flex items-start gap-4 bg-foreground/[0.03] hover:bg-foreground/[0.06] border border-foreground/[0.06] hover:border-emerald-500/30 rounded-xl px-5 py-4 transition-all duration-200"
+                      >
+                        <span className="text-[11px] font-mono text-emerald-500/50 group-hover:text-emerald-500/80 transition-colors pt-0.5 shrink-0 select-none">
+                          {String(i + 1).padStart(2, "0")}
+                        </span>
+                        <p className="text-[14px] text-foreground/65 group-hover:text-foreground/85 leading-[1.7] transition-colors">
+                          {item}
                         </p>
                       </div>
                     ))}
                   </div>
-                )}
-
-                {/* Lista de resultados */}
-                {project.results && project.results.length > 0 && (
-                  <ul className="space-y-3">
-                    {project.results.map((item, i) => (
-                      <li key={i} className="flex items-start gap-3 group">
-                        <ChevronRight className="w-4 h-4 text-emerald-500/40 mt-0.5 shrink-0 group-hover:text-emerald-500/70 transition-colors" />
-                        <span className="text-[14px] text-foreground/55 leading-[1.8] group-hover:text-foreground/75 transition-colors">
-                          {item}
-                        </span>
-                      </li>
-                    ))}
-                  </ul>
                 )}
 
                 {project.resultsImage && (

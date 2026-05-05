@@ -370,15 +370,14 @@ export default function ProfileForm() {
               </div>
 
               <div>
-                <label className="text-sm font-medium text-foreground">Ícone da Navbar (Logo)</label>
-                <Input
+                <ImageUpload
+                  label="Logo da Navbar"
                   value={formData.navbar_icon}
-                  onChange={(e) => setFormData({ ...formData, navbar_icon: e.target.value })}
-                  placeholder="Ex: Database, Code, Terminal (nome do ícone Lucide)"
-                  className="mt-1"
+                  onChange={(url) => setFormData({ ...formData, navbar_icon: url })}
+                  path="navbar-logo"
                 />
-                <p className="text-xs text-muted-foreground mt-1">
-                  Nome do ícone da biblioteca Lucide React (em PascalCase). Ex: Database, Code, Terminal.
+                <p className="text-[10px] text-muted-foreground mt-1">
+                  Envie sua logo (PNG transparente recomendado). Aparecerá no canto superior esquerdo da navegação.
                 </p>
               </div>
             </div>

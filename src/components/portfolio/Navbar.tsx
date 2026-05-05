@@ -31,17 +31,28 @@ const Navbar = () => {
     { path: "/#contact", label: "Contato", icon: Mail, isAnchor: true },
   ] as { path: string; label: string; icon: React.ElementType; isAnchor?: boolean }[];
 
-  const iconName = profile?.navbar_icon || "Database";
-  const DynamicIcon = (iconName in LucideIcons ? LucideIcons[iconName as keyof typeof LucideIcons] : null) as React.ElementType | null ?? LucideIcons.Database;
+  const navbarValue = profile?.navbar_icon || "";
+  const isLogoUrl = navbarValue.startsWith("http");
+  const DynamicIcon = !isLogoUrl
+    ? ((navbarValue in LucideIcons ? LucideIcons[navbarValue as keyof typeof LucideIcons] : null) as React.ElementType | null ?? LucideIcons.Database)
+    : null;
 
   return (
     <nav className="fixed top-0 left-0 right-0 z-50 bg-background/95 backdrop-blur-sm border-b border-border">
       <div className="container mx-auto px-4">
         <div className="flex items-center justify-between h-16">
           <Link to="/" className="flex items-center gap-2 font-bold text-xl text-foreground group">
-            <div className="w-8 h-8 rounded-lg bg-primary/15 border border-primary/30 flex items-center justify-center group-hover:bg-primary/25 transition-colors">
-              <DynamicIcon className="w-4 h-4 text-primary" />
-            </div>
+            {isLogoUrl ? (
+              <img
+                src={navbarValue}
+                alt="Logo"
+                className="h-8 w-auto max-w-[120px] object-contain"
+              />
+            ) : (
+              <div className="w-8 h-8 rounded-lg bg-primary/15 border border-primary/30 flex items-center justify-center group-hover:bg-primary/25 transition-colors">
+                <DynamicIcon className="w-4 h-4 text-primary" />
+              </div>
+            )}
           </Link>
 
           <button

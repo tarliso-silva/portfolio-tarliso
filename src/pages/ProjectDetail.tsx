@@ -13,6 +13,7 @@ import { projectCategories } from "@/types/project";
 import { useProject } from "@/hooks/useProjects";
 import SEOHead from "@/components/SEOHead";
 import remarkGfm from "remark-gfm";
+import { CommentsSection } from "@/components/portfolio/CommentsSection";
 
 /* ---------------------------------------------
    BARRA DE PROGRESSO DA ROLAGEM
@@ -605,6 +606,9 @@ const ProjectDetail = () => {
                   </Link>
                 </div>
               )}
+
+            {/* Reações e Comentários */}
+            <CommentsSection projectId={project.id} />
           </main>
 
           {/* Coluna lateral */}

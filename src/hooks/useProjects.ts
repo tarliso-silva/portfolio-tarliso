@@ -122,27 +122,40 @@ export const useProjects = () => {
   };
 };
 
-export const useProject = (id: string | undefined) => {
+export const useProject = (idOrSlug: string | undefined) => {
   const fetchProject = async (): Promise<Project | null> => {
-    if (!id) return null;
-    
+    if (!idOrSlug) return null;
+
+    // Try slug first if it doesn't look like a UUID
+    const isUuid = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i.test(idOrSlug);
+
+    if (!isUuid) {
+      const { data, error } = await supabase
+        .from("projects")
+        .select("*")
+        .eq("slug", idOrSlug)
+        .single();
+      if (!error && data) return mapDbToProject(data);
+    }
+
+    // Fall back to UUID lookup
     const { data, error } = await supabase
       .from("projects")
       .select("*")
-      .eq("id", id)
+      .eq("id", idOrSlug)
       .single();
-      
+
     if (error) {
       if (error.code === 'PGRST116') return null;
       throw new Error(error.message);
     }
-    
+
     return mapDbToProject(data);
   };
 
   return useQuery({
-    queryKey: ["project", id],
+    queryKey: ["project", idOrSlug],
     queryFn: fetchProject,
-    enabled: !!id,
+    enabled: !!idOrSlug,
   });
 };

@@ -66,6 +66,7 @@ export const ProjectSchema = z.object({
   featured: z.boolean().default(false), // Maps to is_published
   isPublished: z.boolean().default(true),
   displayOrder: z.number().default(0),
+  slug: z.string().default(""),
   
   // UI legacy support (will be computed from 'results')
   stats: z.array(StatSchema).optional(),

@@ -90,7 +90,7 @@ const ProjectsSection = ({ selectedSkillId, onSkillChange }: ProjectsSectionProp
       ) : (
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
           {projects.map((project) => (
-            <Link key={project.id} to={`/projects/${project.id}`} className="project-card group block">
+            <Link key={project.id} to={`/projects/${project.slug || project.id}`} className="project-card group block">
               {/* Imagem 16:9 */}
               <div className="aspect-video overflow-hidden">
                 <img

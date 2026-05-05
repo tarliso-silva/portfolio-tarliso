@@ -104,7 +104,7 @@ const ProjectsGallery = () => {
           {filteredProjects.map((project, index) => (
             <Link
               key={project.id}
-              to={`/projects/${project.id}`}
+              to={`/projects/${project.slug || project.id}`}
               className="project-gallery-card group"
               style={{ animationDelay: `${(index + 2) * 100}ms` }}
             >

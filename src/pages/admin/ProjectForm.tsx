@@ -9,11 +9,21 @@ import { ProjectSchema, Project, projectCategories, ProjectCategory } from "@/ty
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { ImageUpload } from "@/components/admin/ImageUpload";
-import { ArrowLeft, Loader2, Plus, Trash2, Layout, Image as ImageIcon, Link as LinkIcon, FileText, BarChart, Settings, Zap } from "lucide-react";
+import { ArrowLeft, Loader2, Plus, Trash2, Layout, Image as ImageIcon, Link as LinkIcon, FileText, BarChart, Settings, Zap, RefreshCw } from "lucide-react";
+
+const slugify = (text: string) =>
+  text
+    .toLowerCase()
+    .normalize("NFD")
+    .replace(/[\u0300-\u036f]/g, "")
+    .replace(/[^a-z0-9\s-]/g, "")
+    .trim()
+    .replace(/[\s]+/g, "-");
 
 // Schema do formulário adapta arrays para strings separadas por vírgula
 const FormSchema = ProjectSchema.extend({
   id: z.string().optional().default(""),
+  slug: z.string().default(""),
   tags: z.string(),
   stack: z.string(),
   tools: z.string(),
@@ -46,6 +56,7 @@ export default function AdminProjectForm() {
     defaultValues: {
       id: "",
       title: "",
+      slug: "",
       category: "",
       description: "",
       shortDescription: "",
@@ -106,6 +117,7 @@ export default function AdminProjectForm() {
     if (isEditing && projectData) {
       const formValues: FormValues = {
         ...projectData,
+        slug: projectData.slug || "",
         tags: (projectData.tags || []).join(", "),
         stack: (projectData.stack || []).join(", "),
         galleryImages: (projectData.galleryImages || []).join(", "),
@@ -129,6 +141,7 @@ export default function AdminProjectForm() {
     const payload: Project = {
       ...values,
       id: projectId,
+      slug: values.slug || slugify(values.title),
       tags: splitComma(values.tags),
       stack: splitComma(values.stack),
       tools: splitComma(values.tools),
@@ -204,7 +217,43 @@ export default function AdminProjectForm() {
             </div>
             <div className="md:col-span-1">
               <label className="block text-sm font-medium mb-1">Título*</label>
-              <Input {...form.register("title")} placeholder="Ex: NoCode Match" />
+              <Input
+                {...form.register("title")}
+                placeholder="Ex: Dashboard Financeiro"
+                onChange={(e) => {
+                  form.setValue("title", e.target.value);
+                  // Auto-fill slug only if user hasn't customized it
+                  const currentSlug = form.getValues("slug");
+                  const prevSlug = slugify(form.getValues("title") || "");
+                  if (!currentSlug || currentSlug === prevSlug) {
+                    form.setValue("slug", slugify(e.target.value));
+                  }
+                }}
+              />
+            </div>
+            <div className="md:col-span-1">
+              <label className="block text-sm font-medium mb-1">
+                Slug (URL amigável)
+              </label>
+              <div className="flex gap-2">
+                <Input
+                  {...form.register("slug")}
+                  placeholder="ex: dashboard-financeiro"
+                  className="flex-1 font-mono text-sm"
+                />
+                <Button
+                  type="button"
+                  variant="outline"
+                  size="icon"
+                  title="Gerar do título"
+                  onClick={() => form.setValue("slug", slugify(form.getValues("title")))}
+                >
+                  <RefreshCw className="w-4 h-4" />
+                </Button>
+              </div>
+              <p className="text-[10px] text-muted-foreground mt-1">
+                URL: /projects/<span className="text-primary">{form.watch("slug") || "slug-do-projeto"}</span>
+              </p>
             </div>
             <div className="md:col-span-1">
               <label className="block text-sm font-medium mb-1">Categoria*</label>

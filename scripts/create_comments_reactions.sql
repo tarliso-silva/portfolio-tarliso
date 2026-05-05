@@ -40,30 +40,37 @@ alter table public.project_comments enable row level security;
 alter table public.project_reactions enable row level security;
 
 -- Comentários: qualquer um pode ler
+drop policy if exists "comments_select" on public.project_comments;
 create policy "comments_select" on public.project_comments
   for select using (true);
 
 -- Comentários: usuário autenticado pode inserir o próprio
+drop policy if exists "comments_insert" on public.project_comments;
 create policy "comments_insert" on public.project_comments
   for insert with check (auth.uid() = user_id);
 
 -- Comentários: usuário pode deletar o próprio
+drop policy if exists "comments_delete" on public.project_comments;
 create policy "comments_delete" on public.project_comments
   for delete using (auth.uid() = user_id);
 
 -- Reações: qualquer um pode ler
+drop policy if exists "reactions_select" on public.project_reactions;
 create policy "reactions_select" on public.project_reactions
   for select using (true);
 
 -- Reações: usuário autenticado pode inserir a própria
+drop policy if exists "reactions_insert" on public.project_reactions;
 create policy "reactions_insert" on public.project_reactions
   for insert with check (auth.uid() = user_id);
 
 -- Reações: usuário pode atualizar a própria (mudar like/dislike)
+drop policy if exists "reactions_update" on public.project_reactions;
 create policy "reactions_update" on public.project_reactions
   for update using (auth.uid() = user_id);
 
 -- Reações: usuário pode deletar a própria (remover reação)
+drop policy if exists "reactions_delete" on public.project_reactions;
 create policy "reactions_delete" on public.project_reactions
   for delete using (auth.uid() = user_id);
 

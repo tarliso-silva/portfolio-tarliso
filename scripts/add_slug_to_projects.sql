@@ -11,7 +11,11 @@ UPDATE public.projects
 SET slug = lower(
   regexp_replace(
     regexp_replace(
-      unaccent(title),
+      translate(
+        title,
+        'àáâãäåæçèéêëìíîïðñòóôõöùúûüýÿÀÁÂÃÄÅÆÇÈÉÊËÌÍÎÏÐÑÒÓÔÕÖÙÚÛÜÝ',
+        'aaaaaaeceeeeiiiidnoooooouuuuyyAAAAAEACEEEEIIIIDNOOOOOUUUUY'
+      ),
       '[^a-zA-Z0-9\s-]', '', 'g'
     ),
     '\s+', '-', 'g'

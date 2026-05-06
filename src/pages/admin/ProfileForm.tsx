@@ -59,6 +59,7 @@ export default function ProfileForm() {
         about_title: profile.about_title || "",
         cv_url: profile.cv_url || "",
         favicon_url: profile.favicon_url || "",
+        og_image_url: profile.og_image_url || "",
         hero_title: profile.hero_title || "",
         stat_1_number: profile.stat_1_number || "",
         stat_1_label: profile.stat_1_label || "",
@@ -432,7 +433,33 @@ export default function ProfileForm() {
                   path="navbar-logo"
                 />
                 <p className="text-[10px] text-muted-foreground mt-1">
-                  Envie sua logo (PNG transparente recomendado). Aparecerá no canto superior esquerdo da navegação.
+                  Envie sua logo (PNG transparente recomendado). Aparece no canto superior esquerdo da navegação.
+                </p>
+              </div>
+
+              <div>
+                <label className="text-sm font-medium text-foreground">Imagem de Compartilhamento (OG Image)</label>
+                <div className="mt-1 flex gap-2 items-start">
+                  <input
+                    type="url"
+                    value={formData.og_image_url}
+                    onChange={(e) => setFormData({ ...formData, og_image_url: e.target.value })}
+                    placeholder="https://... (URL da imagem para WhatsApp, LinkedIn, Twitter)"
+                    className="flex-1 h-10 px-3 rounded-md border border-input bg-background text-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
+                  />
+                  {formData.navbar_icon?.startsWith("http") && (
+                    <button
+                      type="button"
+                      className="h-10 px-3 rounded-md border border-primary/40 bg-primary/5 text-xs text-primary hover:bg-primary/10 transition-colors whitespace-nowrap"
+                      onClick={() => setFormData({ ...formData, og_image_url: formData.navbar_icon })}
+                    >
+                      Usar logo da navbar
+                    </button>
+                  )}
+                </div>
+                <p className="text-[10px] text-muted-foreground mt-1">
+                  Cole aqui o URL público da sua imagem (mín. 1200×630px recomendado). Será exibida no preview ao compartilhar no WhatsApp, LinkedIn e Twitter.
+                  Após salvar, vá em <strong>Vercel &rsaquo; Settings &rsaquo; Environment Variables</strong> e adicione <code className="text-primary">VITE_OG_IMAGE_URL</code> com este mesmo valor para garantir que bots vejam a imagem correta.
                 </p>
               </div>
             </div>

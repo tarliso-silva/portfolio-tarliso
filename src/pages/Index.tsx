@@ -18,13 +18,17 @@ const Index = () => {
   
   const siteTitle = profile?.full_name ? `${profile.full_name} | ${profile.current_focus || "Especialista"}` : "Tarliso Dória | Especialista em Dados, BI e Governança de Dados";
   const siteDescription = profile?.bio_summary || "Portfólio de Tarliso Dória, Especialista em Dados, BI e Governança de Dados.";
+  const ogImage = profile?.og_image_url ||
+    (profile?.navbar_icon?.startsWith("http") ? profile.navbar_icon : undefined) ||
+    profile?.avatar_url;
 
   return (
     <div className="min-h-screen bg-background pt-16">
       <SEOHead
         title={siteTitle}
         description={siteDescription}
-        canonical="https://tarlisodoria.com/"
+        canonical="https://portfolio-tarliso.vercel.app/"
+        ogImage={ogImage}
         ogType="website"
         jsonLd={{
           "@context": "https://schema.org",

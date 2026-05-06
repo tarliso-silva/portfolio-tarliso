@@ -105,6 +105,7 @@ export const ProfileSchema = z.object({
   favicon_url: z.string().optional(),
   hero_title: z.string().optional(),
   navbar_icon: z.string().optional(),
+  og_image_url: z.string().optional(),
   theme: z.enum(["dark", "light"]).default("dark"),
   primary_color: z.string().default("189 100% 50%"),
   stat_1_number: z.string().default("+15"),

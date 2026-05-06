@@ -1,4 +1,4 @@
-import { isValidElement, useEffect, useState, type ReactNode } from "react";
+import { isValidElement, useEffect, useRef, useState, type ReactNode } from "react";
 import { useParams, Link } from "react-router-dom";
 import ReactMarkdown, { type Components } from "react-markdown";
 import {
@@ -7,6 +7,8 @@ import {
   Github,
   Copy,
   Check,
+  Maximize2,
+  RefreshCw,
 } from "lucide-react";
 import { projectCategories } from "@/types/project";
 import { useProject } from "@/hooks/useProjects";
@@ -143,6 +145,87 @@ const Chip = ({
     {label}
   </span>
 );
+
+/* ---------------------------------------------
+   DEMO EMBUTIDA (IFRAME)
+--------------------------------------------- */
+const DemoEmbed = ({ url, title }: { url: string; title: string }) => {
+  const iframeRef = useRef<HTMLIFrameElement>(null);
+  const [loaded, setLoaded] = useState(false);
+  const [error, setError] = useState(false);
+  const [key, setKey] = useState(0);
+
+  const reload = () => {
+    setLoaded(false);
+    setError(false);
+    setKey((k) => k + 1);
+  };
+
+  return (
+    <div className="relative w-full rounded-2xl overflow-hidden border border-foreground/[0.08] bg-foreground/[0.02] shadow-2xl">
+      {/* Barra de endereço decorativa */}
+      <div className="flex items-center gap-2 px-4 py-2.5 border-b border-foreground/[0.06] bg-foreground/[0.03]">
+        <div className="flex gap-1.5">
+          <div className="w-2.5 h-2.5 rounded-full bg-foreground/10" />
+          <div className="w-2.5 h-2.5 rounded-full bg-foreground/10" />
+          <div className="w-2.5 h-2.5 rounded-full bg-foreground/10" />
+        </div>
+        <div className="flex-1 mx-2 h-5 rounded bg-foreground/[0.04] border border-foreground/[0.06] flex items-center px-3">
+          <span className="text-[10px] text-foreground/25 truncate">{url}</span>
+        </div>
+        <button
+          onClick={reload}
+          className="text-foreground/25 hover:text-foreground/60 transition-colors"
+          title="Recarregar"
+        >
+          <RefreshCw className="w-3.5 h-3.5" />
+        </button>
+      </div>
+
+      {/* Loading spinner */}
+      {!loaded && !error && (
+        <div className="absolute inset-0 top-10 flex items-center justify-center bg-background/60 z-10">
+          <div className="flex flex-col items-center gap-3">
+            <div className="w-6 h-6 border border-foreground/10 rounded-full border-t-foreground/40 animate-spin" />
+            <p className="text-[11px] tracking-widest uppercase text-foreground/25">Carregando</p>
+          </div>
+        </div>
+      )}
+
+      {/* Erro de embed (X-Frame-Options bloqueado) */}
+      {error && (
+        <div className="flex flex-col items-center justify-center py-20 px-6 text-center">
+          <p className="text-sm text-foreground/40 mb-1">Este site não permite ser incorporado.</p>
+          <p className="text-[12px] text-foreground/25 mb-5">Abra a demo diretamente no navegador.</p>
+          <a
+            href={url}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="flex items-center gap-2 px-5 py-2.5 rounded-full border border-emerald-500/30 text-emerald-400 text-sm hover:bg-emerald-500/10 transition-colors"
+          >
+            Abrir demo <ExternalLink className="w-3.5 h-3.5" />
+          </a>
+        </div>
+      )}
+
+      {/* iFrame */}
+      {!error && (
+        <iframe
+          key={key}
+          ref={iframeRef}
+          src={url}
+          title={`Demo: ${title}`}
+          className="w-full border-0"
+          style={{ height: "600px", display: loaded ? "block" : "block" }}
+          onLoad={() => setLoaded(true)}
+          onError={() => setError(true)}
+          sandbox="allow-scripts allow-same-origin allow-forms allow-popups allow-popups-to-escape-sandbox"
+          loading="lazy"
+        />
+      )}
+    </div>
+  );
+};
 
 /* ---------------------------------------------
    PÁGINA PRINCIPAL
@@ -517,7 +600,26 @@ const ProjectDetail = () => {
               </section>
             )}
 
-            {/* 8. DOCUMENTAÇÃO TÉCNICA (Markdown) */}
+            {/* 8. DEMO AO VIVO (iframe embutido) */}
+            {project.demoUrl && (
+              <section className="py-12 border-t border-foreground/[0.06]">
+                <div className="flex items-center justify-between mb-6">
+                  <SectionLabel label="Demo ao Vivo" />
+                  <a
+                    href={project.demoUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="flex items-center gap-1.5 text-[11px] font-medium tracking-wide text-foreground/40 hover:text-foreground/70 transition-colors border border-foreground/10 hover:border-foreground/25 px-3 py-1.5 rounded-lg"
+                  >
+                    <Maximize2 className="w-3.5 h-3.5" />
+                    Abrir em nova aba
+                  </a>
+                </div>
+                <DemoEmbed url={project.demoUrl} title={project.title} />
+              </section>
+            )}
+
+            {/* 9. DOCUMENTAÇÃO TÉCNICA (Markdown) */}
             {hasContent && (
               <section className="py-12 border-t border-foreground/[0.06]">
                 <SectionLabel label="Documentação Técnica" />
